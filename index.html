@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Statistics Tutorial Dashboard — Part I–IV (Chs 1–14)</title>
+<style>
+  :root{
+    --bg:#0b1020; --panel:#0f1733; --ink:#e8ecff; --muted:#a9b3d1; --accent:#8bb2ff; --accent2:#6ee7b7;
+    --ring: rgba(139,178,255,.25); --hover: rgba(139,178,255,.08); --copied: rgba(110,231,183,.18);
+    --danger:#ff6b6b; --warn:#ffd166; --ok:#06d6a0; --code:#10172a; --chip:#1a2244;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 ui-sans-serif, system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans"}
+  a{color:var(--accent)}
+  .wrap{max-width:1100px;margin:0 auto;padding:28px}
+  header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .title{font-size:clamp(20px,3.2vw,34px);font-weight:700}
+  .sub{color:var(--muted)}
+  .search{display:flex;gap:10px;align-items:center;background:var(--panel);border:1px solid var(--ring);border-radius:14px;padding:8px 12px;flex:1}
+  .search input{flex:1;background:transparent;color:var(--ink);border:0;outline:none;font-size:16px}
+  .chip{background:var(--chip);color:var(--accent2);border:1px solid var(--ring);padding:2px 8px;border-radius:999px;font-size:12px}
+  .grid{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+  details.card{background:var(--panel);border:1px solid var(--ring);border-radius:16px;overflow:hidden}
+  details[open]{outline:1px solid var(--accent);outline-offset:0}
+  summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:16px}
+  summary::-webkit-details-marker{display:none}
+  .badge{width:28px;height:28px;border-radius:8px;background:var(--chip);display:grid;place-items:center;color:var(--accent)}
+  .heading{font-weight:700}
+  .content{padding:0 16px 16px 16px}
+  .kps{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+  .kps .chip{background:#111a36}
+  .box{background:#0c152e;border:1px solid var(--ring);border-radius:14px;padding:12px;margin:10px 0}
+  .formula{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;background:var(--code);padding:10px;border-radius:10px;border:1px dashed var(--ring)}
+  .muted{color:var(--muted)}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  button.btn{background:transparent;color:var(--ink);border:1px solid var(--ring);border-radius:10px;padding:6px 10px;cursor:pointer}
+  button.btn:hover{background:var(--hover)}
+  .quiz{margin-top:8px}
+  .q{background:#0b1733;border:1px solid var(--ring);border-radius:14px;padding:12px;margin:10px 0}
+  .q h4{margin:0 0 6px 0}
+  .opt{display:flex;gap:8px;align-items:center;margin:6px 0}
+  .opt input{accent-color:var(--accent)}
+  .feedback{margin-top:6px;font-weight:600}
+  .good{color:var(--ok)}
+  .bad{color:var(--danger)}
+  .toast{position:fixed;inset:auto 16px 16px auto;background:#0c1a33;border:1px solid var(--ring);color:var(--ink);padding:8px 12px;border-radius:10px;opacity:0;transform:translateY(10px);transition:all .25s}
+  .toast.show{opacity:1;transform:translateY(0)}
+  .toc{background:var(--panel);border:1px solid var(--ring);border-radius:16px;padding:12px;margin:16px 0}
+  .toc a{display:inline-block;margin:4px 6px 0 0;background:#0b1733;border:1px solid var(--ring);border-radius:10px;padding:4px 8px;text-decoration:none}
+  .note{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="title">Statistics Tutorial Dashboard — Part I–IV</div>
+      <div class="sub">Chs 1–14 + Reviews • Copy-on-Double-Click • Inline Quizzes</div>
+    </div>
+    <div class="chip" title="Tip: Double‑click text blocks to copy">⌘ Copy Tips</div>
+  </header>
+
+  <div class="search" role="search">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21l-4.2-4.2" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="var(--muted)" stroke-width="2" fill="none"/></svg>
+    <input id="filter" placeholder="Filter chapters, e.g. Normal, Bayes, CLT, regression…"/>
+  </div>
+
+  <div class="toc" id="toc"></div>
+
+  <section class="grid" id="cards"></section>
+
+  <p class="note">Tip: Double‑click any <strong>box</strong> or <strong>formula</strong> to copy it. Use the filter to quickly find topics (e.g., “Binomial”, “Blocking”, “Sampling error”).</p>
+</div>
+
+<div class="toast" id="toast">Copied ✓</div>
+
+<script>
+const chapters = [
+  { id:"ch1", badge:"1", title:"Stats Starts Here", tags:["data","context","cases","variables","categorical","quantitative"],
+    bullets:[
+      "Statistics = tools + reasoning for variation & uncertainty.",
+      "Data need context: Who, What (units), When, Where, Why, How.",
+      "Row = case; column = variable (categorical vs quantitative).",
+      "Match summaries/graphs to variable type before analyzing."
+    ],
+    formulas:[
+      "None — focus on vocabulary and data workflow."
+    ],
+    quiz:[
+      {q:"Which step should always come first?", opts:["Compute mean/SD","Draw a boxplot","Define context (5W+H)","Standardize to z-scores"], answer:2}
+    ]},
+
+  { id:"ch2", badge:"2", title:"Categorical Data: Display & Describe", tags:["bar chart","pie","contingency","conditional %","association"],
+    bullets:[
+      "Summarize with frequency or relative‑frequency tables.",
+      "Bar charts compare counts; pie charts show part-of-whole (use sparingly).",
+      "Two variables → contingency table; compare conditional percentages.",
+      "Check area principle; beware stacked bars that hide differences."
+    ],
+    formulas:["P(category) = count / total"],
+    quiz:[{q:"Best display to compare 5 categories?", opts:["Pie","Bar chart","Histogram","Timeplot"], answer:1}]},
+
+  { id:"ch3", badge:"3", title:"Quantitative Data: Display & Summarize", tags:["histogram","boxplot","center","spread","shape","outliers"],
+    bullets:[
+      "Describe Shape–Center–Spread + unusual features.",
+      "Mean/SD for symmetric; Median/IQR for skewed or with outliers.",
+      "Five‑number summary builds a boxplot.",
+      "Always look for gaps and outliers — they tell the story."
+    ],
+    formulas:["IQR = Q3 − Q1","z = (y − \u0305y)/s"],
+    quiz:[{q:"Skewed right: which center/spread?", opts:["Mean & SD","Median & IQR","Mode & Range","Mean & IQR"], answer:1}]},
+
+  { id:"ch4", badge:"4", title:"Understanding & Comparing Distributions", tags:["side-by-side boxplots","timeplots","re-expression"],
+    bullets:[
+      "Compare groups: center, spread, shape, outliers.",
+      "Timeplots reveal trends/seasonality.",
+      "Use log/\u221a/reciprocal re‑expressions to tame skew & unequal spreads."
+    ],
+    formulas:["None — visual comparison principles"],
+    quiz:[{q:"Multiple groups of a quantitative variable: best first view?", opts:["Contingency table","Side‑by‑side boxplots","Pie chart","Mosaic plot"], answer:1}]},
+
+  { id:"ch5", badge:"5", title:"SD as a Ruler & The Normal Model", tags:["standardize","z","Normal","68-95-99.7"],
+    bullets:[
+      "Standardizing enables comparisons across scales (z-scores).",
+      "Shift affects center; rescale affects center & spread.",
+      "Normal model for unimodal, symmetric data; verify with Normal probability plot.",
+      "68–95–99.7 rule for quick probability checks."
+    ],
+    formulas:["z = (y − \u03bc)/\u03c3","68–95–99.7% within 1–2–3 SD"],
+    quiz:[{q:"z = −2 means:", opts:["2 SD above mean","2 SD below mean","At mean","Unitless but undefined"], answer:1}]},
+
+  { id:"ch6", badge:"6", title:"Part I Review — Exploring & Understanding Data", tags:["workflow","choose graph","summarize","interpret"],
+    bullets:[
+      "Workflow: identify type → choose display → summarize → interpret.",
+      "Check conditions before Normal approximations.",
+      "Context always frames conclusions."
+    ],
+    formulas:["Quick check: unimodal+symmetry → Normal ok"],
+    quiz:[{q:"Which is NOT part of S‑C‑S?", opts:["Shape","Center","Skew direction","Standard error"], answer:3}]},
+
+  { id:"ch7", badge:"7", title:"Scatterplots, Association, Correlation", tags:["scatterplot","form","direction","strength","r"],
+    bullets:[
+      "Use scatterplots for two quantitative variables.",
+      "Describe form (linear?), direction (+/−), strength.",
+      "Correlation r measures linear strength; sensitive to outliers; unitless.",
+      "Plot first, compute r second; correlation ≠ causation."
+    ],
+    formulas:["-1 \u2264 r \u2264 1"],
+    quiz:[{q:"r close to 0 implies:", opts:["No association at all","No linear association","Variables independent","Perfect curve"], answer:1}]},
+
+  { id:"ch8", badge:"8", title:"Linear Regression", tags:["least squares","slope","intercept","r2","residuals"],
+    bullets:[
+      "Fit \u0177 = a + bx by minimizing squared residuals.",
+      "b = r (s_y/s_x); a = \u0305y − b\u0305x.",
+      "Interpret slope as rate; r^2 = variance explained.",
+      "Check residual plots; beware extrapolation & influential points."
+    ],
+    formulas:["b = r\, s_y/s_x","r^2 = 1 − SS_res/SS_tot"],
+    quiz:[{q:"Residual =", opts:["y − \u0177","\u0177 − y","(y − \u0305y)/s","x − \u0305x"], answer:0}]},
+
+  { id:"rv2", badge:"II", title:"Part II Review — Exploring Relationships", tags:["review","correlation","regression","re-expression"],
+    bullets:[
+      "Use scatterplots → check linearity → compute r and fit line if appropriate.",
+      "r^2 quantifies explanatory power; residual SD quantifies typical error.",
+      "Re‑express to straighten or stabilize variance; never claim causation from association."
+    ], formulas:["None"], quiz:[{q:"If residual plot is curved, you should:", opts:["Keep line","Try transformation or new model","Force intercept 0","Delete points"], answer:1}]},
+
+  { id:"ch9", badge:"9", title:"Sample Surveys", tags:["SRS","stratified","cluster","bias","sampling error"],
+    bullets:[
+      "Three big ideas: sample part, randomize, size matters (not fraction).",
+      "Avoid bias: convenience, voluntary response, undercoverage, response bias.",
+      "Designs: SRS, stratified, cluster, multistage, systematic.",
+      "Statistic estimates parameter (p̂ ↔ p, ȳ ↔ μ)."
+    ], formulas:["None"], quiz:[{q:"Best cure for bias is:", opts:["Bigger sample","Randomization in design","More questions","Post‑hoc weighting only"], answer:1}]},
+
+  { id:"ch10", badge:"10", title:"Experiments & Observational Studies", tags:["causation","random assignment","control","replicate","block","blinding"],
+    bullets:[
+      "Only experiments with random assignment support causal claims.",
+      "Fisher’s 4: Control, Randomize, Replicate, Block.",
+      "Use blinding; watch for confounding.",
+      "Diagram: random allocate → treat → compare (use boxplots)."
+    ], formulas:["None"], quiz:[{q:"Which design can show causation?", opts:["Retrospective study","Prospective study","Randomized experiment","Census"], answer:2}]},
+
+  { id:"rv3", badge:"III", title:"Part III Review — Gathering Data", tags:["review","sampling","experiments"],
+    bullets:[
+      "Good data before good analysis; bad collection ruins inference.",
+      "Random sampling for generalization; random assignment for causation.",
+      "Block/stratify to reduce variance where appropriate."
+    ], formulas:["None"], quiz:[{q:"Blocking is most like:", opts:["Convenience sampling","Stratification","Census","Replication"], answer:1}]},
+
+  { id:"ch11", badge:"11", title:"From Randomness to Probability", tags:["LLN","empirical probability","addition rule","complement"],
+    bullets:[
+      "Randomness: unpredictable single trial; predictable long run.",
+      "LLN: relative frequencies converge to probabilities under identical independent trials.",
+      "Complement: P(A^c)=1−P(A); disjoint addition rule.",
+      "Beware mythical 'Law of Averages' in short runs."
+    ], formulas:["P(A)=#A/#S","P(A\u222aB)=P(A)+P(B) for disjoint"],
+    quiz:[{q:"LLN guarantees:", opts:["Next flip balances prior outcomes","Long‑run stabilization","Immediate convergence","Independence of all events"], answer:1}]},
+
+  { id:"ch12", badge:"12", title:"Probability Rules!", tags:["conditional","independence","multiplication","Bayes","trees","Venn"],
+    bullets:[
+      "Conditional: P(B|A)=P(A\u2229B)/P(A).",
+      "Independence: P(B|A)=P(B) → P(A\u2229B)=P(A)P(B).",
+      "General multiplication & addition (with overlap).",
+      "Bayes' Rule to reverse conditioning; visualize with trees and tables."
+    ], formulas:["P(A\u2229B)=P(A)P(B|A)","P(A|B)=P(B|A)P(A)/P(B)"],
+    quiz:[{q:"Disjoint events can be independent.", opts:["True","False"], answer:1}]},
+
+  { id:"ch13", badge:"13", title:"Random Variables", tags:["discrete","continuous","E(X)","Var(X)","sum/diff","binomial","Normal"],
+    bullets:[
+      "Probability model lists values and probabilities (discrete) or density (continuous).",
+      "E(X)=\u2211 xP(x); Var(X)=\u2211(x−\u03bc)^2P(x); SD=\u221aVar.",
+      "Linear rules: E(a+bX)=a+bE(X); Var(a+bX)=b^2Var(X).",
+      "Independent sums: Var(X\u00b1Y)=Var(X)+Var(Y). Binomial & Normal models appear."
+    ], formulas:["E(X)=\u2211 xP(x)","Var(X)=\u2211(x-\u03bc)^2P(x)","Var(X\u00b1Y)=Var(X)+Var(Y) (indep.)"],
+    quiz:[{q:"Var(X−Y) for independent X,Y equals:", opts:["Var(X)−Var(Y)","Var(X)+Var(Y)","0","2Var(X)"], answer:1}]},
+
+  { id:"ch14", badge:"14", title:"Sampling Distribution Models", tags:["sampling distribution","SE","CLT","Normal approx"],
+    bullets:[
+      "A statistic varies by sample → its sampling distribution has center & spread.",
+      "SE of mean: \u03c3/\u221an; by CLT, \u0305y \u2248 Normal for large n.",
+      "Binomial counts/proportions have modelled variability; Normal approx when n large & p not extreme.",
+      "Sets stage for confidence intervals & hypothesis tests."
+    ], formulas:["SE(\u0305y)=\u03c3/\u221an","\u0305y \u2248 N(\u03bc, \u03c3/\u221an) (large n)"],
+    quiz:[{q:"As n increases, SE of \u0305y:", opts:["Increases","Unchanged","Decreases like 1/\u221an","Decreases like 1/n"], answer:2}]},
+
+  { id:"rv4", badge:"IV", title:"Part IV Review — Randomness & Probability", tags:["review","LLN","rules","models"],
+    bullets:[
+      "LLN → long‑run stability; no short‑run 'due' events.",
+      "Combine events with addition/multiplication; update with conditionals.",
+      "Choose appropriate RV model (Normal, Binomial, Poisson)."
+    ], formulas:["Quick: if events independent ⇒ P(\n  at least one) = 1 − \u220f(1−p_i)"],
+    quiz:[{q:"'At least one' is often easiest via:", opts:["Addition rule repeatedly","Complement rule","Bayes' rule","Z‑table"], answer:1}]}
+];
+
+const container = document.getElementById('cards');
+const toc = document.getElementById('toc');
+
+function makeCard(ch){
+  const el = document.createElement('details');
+  el.className = 'card';
+  el.id = ch.id;
+  const sum = document.createElement('summary');
+  sum.innerHTML = `<div class="badge">${ch.badge}</div><div class="heading">${ch.title}</div>`;
+  const content = document.createElement('div');
+  content.className = 'content';
+
+  // key points chips
+  const kps = document.createElement('div');
+  kps.className = 'kps';
+  ch.tags.slice(0,6).forEach(t=>{const c=document.createElement('span');c.className='chip';c.textContent=t;kps.appendChild(c)});
+  content.appendChild(kps);
+
+  // bullets
+  const ul = document.createElement('ul');
+  ch.bullets.forEach(b=>{const li=document.createElement('li');li.textContent=b;ul.appendChild(li)});
+  content.appendChild(ul);
+
+  // formulas block
+  if(ch.formulas && ch.formulas.length){
+    const box = document.createElement('div');
+    box.className='box';
+    box.innerHTML = `<div class="muted">Formulas & Rules</div>` + ch.formulas.map(f=>`<div class="formula" data-copy>${f}</div>`).join('');
+    content.appendChild(box);
+  }
+
+  // actions
+  const actions = document.createElement('div');
+  actions.className='actions';
+  const copyBtn = document.createElement('button');
+  copyBtn.className='btn';
+  copyBtn.textContent='Copy Key Points';
+  copyBtn.addEventListener('click',()=>copyText([ch.title, ...ch.bullets].join('\n')));
+  const expandBtn = document.createElement('button');
+  expandBtn.className='btn'; expandBtn.textContent='Expand All';
+  expandBtn.addEventListener('click',()=>document.querySelectorAll('details.card').forEach(d=>d.open=true));
+  const collapseBtn = document.createElement('button');
+  collapseBtn.className='btn'; collapseBtn.textContent='Collapse All';
+  collapseBtn.addEventListener('click',()=>document.querySelectorAll('details.card').forEach(d=>d.open=false));
+  actions.append(copyBtn, expandBtn, collapseBtn);
+  content.appendChild(actions);
+
+  // quiz
+  if(ch.quiz){
+    const qwrap = document.createElement('div');
+    qwrap.className='quiz';
+    ch.quiz.forEach((q,i)=>{
+      const qel = document.createElement('div');
+      qel.className='q';
+      qel.innerHTML = `<h4>Quick Check</h4><div>${q.q}</div>`;
+      q.opts.forEach((o,idx)=>{
+        const opt = document.createElement('label');
+        opt.className='opt';
+        opt.innerHTML = `<input type="radio" name="${ch.id}-q${i}" value="${idx}"> <span>${o}</span>`;
+        qel.appendChild(opt);
+      });
+      const fb = document.createElement('div');
+      fb.className='feedback muted';
+      qel.appendChild(fb);
+      qel.addEventListener('change', (e)=>{
+        const sel = +qel.querySelector('input:checked')?.value;
+        fb.classList.remove('good','bad');
+        if(sel===q.answer){ fb.textContent='Correct!'; fb.classList.add('good'); }
+        else { fb.textContent='Try again.'; fb.classList.add('bad'); }
+      });
+      qwrap.appendChild(qel);
+    });
+    content.appendChild(qwrap);
+  }
+
+  el.append(sum, content);
+  return el;
+}
+
+chapters.forEach(ch=>container.appendChild(makeCard(ch)));
+
+// TOC
+chapters.forEach(ch=>{
+  const a = document.createElement('a');
+  a.href = `#${ch.id}`; a.textContent = ch.title; toc.appendChild(a);
+});
+
+// Filter
+const filter = document.getElementById('filter');
+filter.addEventListener('input',()=>{
+  const q = filter.value.toLowerCase().trim();
+  document.querySelectorAll('details.card').forEach(d=>{
+    const hay = d.textContent.toLowerCase();
+    d.style.display = hay.includes(q) ? '' : 'none';
+  });
+});
+
+// Copy utilities
+const toast = document.getElementById('toast');
+function copyText(txt){
+  navigator.clipboard.writeText(txt).then(()=>{
+    toast.textContent='Copied ✓'; toast.classList.add('show');
+    setTimeout(()=>toast.classList.remove('show'),1200);
+  });
+}
+
+// Double‑click copy for formula & box
+addEventListener('dblclick', (e)=>{
+  const t = e.target;
+  if(t.matches('[data-copy], .box, .formula')){
+    copyText(t.innerText.trim());
+    t.style.background = 'var(--copied)';
+    setTimeout(()=>t.style.background='',600);
+  }
+});
+</script>
+</body>
+</html>
+
