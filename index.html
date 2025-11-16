@@ -3,478 +3,991 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Statistics Tutorial Dashboard — Part I–VII (Chs 1–29)</title>
+<title>Statistics – Global → Part → Chapter (Multi-Grain Tree)</title>
 <style>
-  :root{
-    --bg:#0b1020; --panel:#0f1733; --ink:#e8ecff; --muted:#a9b3d1; --accent:#8bb2ff; --accent2:#6ee7b7;
-    --ring: rgba(139,178,255,.25); --hover: rgba(139,178,255,.08); --copied: rgba(110,231,183,.18);
-    --danger:#ff6b6b; --warn:#ffd166; --ok:#06d6a0; --code:#10172a; --chip:#1a2244;
+  :root {
+    --bg:#020617;--card:#020617;--card2:#0b1120;--ink:#e5e7eb;--soft:#9ca3af;
+    --accent:#38bdf8;--accent2:#a855f7;--border:#1f2937;--ring:rgba(56,189,248,.5);
+    --flash:rgba(56,189,248,.16);--mono:ui-monospace,Menlo,Consolas,monospace;
   }
   *{box-sizing:border-box}
-  html,body{height:100%}
-  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 ui-sans-serif, system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans"}
-  a{color:var(--accent)}
-  .wrap{max-width:1100px;margin:0 auto;padding:28px}
-  header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:18px}
-  .title{font-size:clamp(20px,3.2vw,34px);font-weight:700}
-  .sub{color:var(--muted)}
-  .search{display:flex;gap:10px;align-items:center;background:var(--panel);border:1px solid var(--ring);border-radius:14px;padding:8px 12px;flex:1}
-  .search input{flex:1;background:transparent;color:var(--ink);border:0;outline:none;font-size:16px}
-  .chip{background:var(--chip);color:var(--accent2);border:1px solid var(--ring);padding:2px 8px;border-radius:999px;font-size:12px}
-  .grid{display:grid;grid-template-columns:1fr;gap:12px}
-  @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
-  details.card{background:var(--panel);border:1px solid var(--ring);border-radius:16px;overflow:hidden}
-  details[open]{outline:1px solid var(--accent);outline-offset:0}
-  summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:16px}
-  summary::-webkit-details-marker{display:none}
-  .badge{width:28px;height:28px;border-radius:8px;background:var(--chip);display:grid;place-items:center;color:var(--accent)}
-  .heading{font-weight:700}
-  .content{padding:0 16px 16px 16px}
-  .kps{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
-  .kps .chip{background:#111a36}
-  .box{background:#0c152e;border:1px solid var(--ring);border-radius:14px;padding:12px;margin:10px 0}
-  .formula{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;background:var(--code);padding:10px;border-radius:10px;border:1px dashed var(--ring)}
-  .muted{color:var(--muted)}
-  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-  button.btn{background:transparent;color:var(--ink);border:1px solid var(--ring);border-radius:10px;padding:6px 10px;cursor:pointer}
-  button.btn:hover{background:var(--hover)}
-  .quiz{margin-top:8px}
-  .q{background:#0b1733;border:1px solid var(--ring);border-radius:14px;padding:12px;margin:10px 0}
-  .q h4{margin:0 0 6px 0}
-  .opt{display:flex;gap:8px;align-items:center;margin:6px 0}
-  .opt input{accent-color:var(--accent)}
-  .feedback{margin-top:6px;font-weight:600}
-  .good{color:var(--ok)}
-  .bad{color:var(--danger)}
-  .toast{position:fixed;inset:auto 16px 16px auto;background:#0c1a33;border:1px solid var(--ring);color:var(--ink);padding:8px 12px;border-radius:10px;opacity:0;transform:translateY(10px);transition:all .25s}
+  html,body{margin:0;padding:0;height:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(circle at top,#020617 0,#020617 50%,#020617 100%);color:var(--ink)}
+  .page{max-width:1200px;margin:0 auto;padding:20px 16px 32px;display:grid;grid-template-columns:minmax(240px,260px) minmax(0,1fr);gap:16px}
+  @media(max-width:900px){.page{grid-template-columns:1fr}}
+
+  .sidebar{background:radial-gradient(circle at top left,#1e293b 0,#020617 60%);border-radius:18px;border:1px solid var(--border);padding:14px 14px 16px;position:sticky;top:10px;align-self:flex-start}
+  .logo{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+  .orb{width:26px;height:26px;border-radius:999px;background:radial-gradient(circle at 30% 20%,#38bdf8,#4f46e5);box-shadow:0 0 0 1px rgba(248,250,252,.06),0 0 18px rgba(56,189,248,.8)}
+  .logo-main{font-size:.96rem;font-weight:700}
+  .logo-sub{font-size:.75rem;color:var(--soft)}
+  .side-sec{margin-top:6px}
+  .side-title{font-size:.78rem;text-transform:uppercase;letter-spacing:.09em;color:var(--soft);margin:6px 0 4px}
+  .side-list{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:.8rem}
+  .side-list a{text-decoration:none;color:var(--soft);display:flex;justify-content:space-between;align-items:center;padding:4px 7px;border-radius:9px;border:1px solid transparent}
+  .side-list a:hover{border-color:var(--border);background:#020617;color:var(--accent)}
+  .badge{font-size:.7rem;padding:1px 6px;border-radius:999px;border:1px solid #1f2937;background:#020617}
+  .side-note{font-size:.72rem;color:var(--soft);margin-top:8px}
+  .side-note strong{color:var(--accent)}
+
+  .main{display:flex;flex-direction:column;gap:14px}
+  .hero{background:linear-gradient(135deg,#020617,#020617 50%,#020617 100%);border-radius:18px;border:1px solid var(--border);padding:14px 14px 12px;box-shadow:0 18px 48px rgba(15,23,42,.9)}
+  .hero-title{font-size:1.04rem;font-weight:650;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+  .hero-pill{font-size:.75rem;padding:2px 8px;border-radius:999px;border:1px solid rgba(148,163,184,.6);color:var(--accent2)}
+  .hero-body{margin-top:5px;font-size:.82rem;color:var(--soft)}
+
+  .card{background:var(--card2);border-radius:18px;border:1px solid var(--border);padding:10px 12px 12px;box-shadow:0 16px 42px rgba(15,23,42,.9)}
+  .card-header{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:4px}
+  .card-title{font-size:.96rem;font-weight:620}
+  .card-tag{font-size:.74rem;padding:2px 8px;border-radius:999px;border:1px solid #1f2937;background:#020617;color:var(--accent)}
+  .card-sub{font-size:.78rem;color:var(--soft);margin-bottom:4px}
+
+  .grain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;margin-top:4px}
+  .grain{background:#020617;border-radius:11px;border:1px solid #111827;padding:5px 6px;cursor:pointer}
+  .grain::before{content:attr(data-label);display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;padding:1px 6px;border-radius:999px;border:1px solid #1f2937;background:#020617;color:var(--soft);margin-bottom:2px}
+  .grain-body{margin-top:2px}
+  .grain-body ul{margin:2px 0 0 13px;padding:0}
+  .grain-body li{margin-bottom:1px}
+  .grain[data-copy="true"]:hover{border-color:var(--ring)}
+  .micro{font-family:var(--mono);font-size:.72rem;margin-top:3px;color:var(--soft)}
+
+  details.part-block{margin-top:8px;border-radius:14px;background:#020617;border:1px solid #111827}
+  details.part-block[open]{border-color:var(--ring);box-shadow:0 0 0 1px rgba(56,189,248,.35)}
+  details.part-block>summary{cursor:pointer;list-style:none;padding:6px 9px;font-size:.8rem;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+  details.part-block>summary::-webkit-details-marker{display:none}
+  .p-label{display:flex;align-items:center;gap:6px}
+  .p-code{font-size:.7rem;padding:1px 6px;border-radius:8px;border:1px solid #1f2937;background:#020617;color:var(--accent)}
+  .p-name{font-weight:520}
+  .p-topic{font-size:.73rem;color:var(--soft)}
+  .p-arrow{font-size:.7rem;color:var(--soft)}
+  details[open] .p-arrow{transform:rotate(180deg)}
+  .part-body{padding:4px 9px 8px;font-size:.79rem;border-top:1px solid #111827}
+
+  details.chapter{margin-top:6px;border-radius:11px;background:#020617;border:1px solid #111827}
+  details.chapter>summary{cursor:pointer;list-style:none;padding:5px 7px;font-size:.78rem;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+  details.chapter>summary::-webkit-details-marker{display:none}
+  .c-label{display:flex;align-items:center;gap:6px}
+  .c-code{font-size:.68rem;padding:1px 6px;border-radius:7px;border:1px solid #1f2937;background:#020617;color:var(--accent)}
+  .c-name{font-weight:510}
+  .c-topic{font-size:.72rem;color:var(--soft)}
+  .toast{position:fixed;right:14px;bottom:14px;padding:5px 10px;border-radius:999px;background:#020617;border:1px solid var(--ring);font-size:.74rem;opacity:0;transform:translateY(6px);pointer-events:none;transition:opacity .2s ease-out,transform .2s ease-out}
   .toast.show{opacity:1;transform:translateY(0)}
-  .toc{background:var(--panel);border:1px solid var(--ring);border-radius:16px;padding:12px;margin:16px 0}
-  .toc a{display:inline-block;margin:4px 6px 0 0;background:#0b1733;border:1px solid var(--ring);border-radius:10px;padding:4px 8px;text-decoration:none}
-  .note{font-size:13px;color:var(--muted)}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div>
-      <div class="title">Statistics Tutorial Dashboard — Part I–IV</div>
-      <div class="sub">Chs 1–14 + Reviews • Copy-on-Double-Click • Inline Quizzes</div>
+<div class="page">
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="orb"></div>
+      <div>
+        <div class="logo-main">Statistics – Global Tree</div>
+        <div class="logo-sub">Global → Part → Chapter (each multi-grain)</div>
+      </div>
     </div>
-    <div class="chip" title="Tip: Double‑click text blocks to copy">⌘ Copy Tips</div>
-  </header>
+    <div class="side-sec">
+      <div class="side-title">Jump to</div>
+      <ul class="side-list">
+        <li><a href="#global"><span>Global Course Tree</span><span class="badge">All</span></a></li>
+        <li><a href="#partI"><span>Part I/II – Describe</span><span class="badge">Ch 1–8</span></a></li>
+        <li><a href="#partIII"><span>Part III – Gather</span><span class="badge">Ch 9–10</span></a></li>
+        <li><a href="#partIV"><span>Part IV – Randomness</span><span class="badge">Ch 11–14</span></a></li>
+        <li><a href="#partV"><span>Part V – From Data to World</span><span class="badge">Ch 15–23</span></a></li>
+        <li><a href="#partVI"><span>Part VI – Associations</span><span class="badge">Ch 24–27</span></a></li>
+        <li><a href="#partVII"><span>Part VII – Modelling World</span><span class="badge">Ch 28–29</span></a></li>
+      </ul>
+    </div>
+    <p class="side-note">
+      <strong>Rule:</strong> Every level has its own multi-grain tree.<br>
+      Double-click any <strong>grain box</strong> to copy that layer.
+    </p>
+  </aside>
 
-  <div class="search" role="search">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21l-4.2-4.2" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="var(--muted)" stroke-width="2" fill="none"/></svg>
-    <input id="filter" placeholder="Filter chapters, e.g. Normal, Bayes, CLT, regression…"/>
-  </div>
+  <main class="main">
+    <section class="hero" id="global">
+      <div class="hero-title">
+        Global Course Tree
+        <span class="hero-pill">Whole course = one Roots → Fruit story</span>
+      </div>
+      <div class="hero-body">
+        Start here when you want the <strong>entire course</strong> as a single tree. Then dive into
+        Part trees, then Chapter trees. Same multi-grain logic at each level.
+      </div>
+      <div class="grain-grid" style="margin-top:8px;">
+        <div class="grain" data-label="Roots" data-copy="true">
+          <div class="grain-body"><ul>
+            <li>Statistics turns <strong>data + randomness</strong> into <strong>structured stories & decisions</strong>.</li>
+            <li>Course arc: Describe → Gather → Model random → Infer → Build models → Handle non-ideal data.</li>
+          </ul></div>
+        </div>
+        <div class="grain" data-label="Trunk" data-copy="true">
+          <div class="grain-body"><ul>
+            <li><strong>Part I/II:</strong> describing data & relationships.</li>
+            <li><strong>Part III:</strong> gathering good data (surveys & experiments).</li>
+            <li><strong>Part IV:</strong> randomness, probability, and sampling distributions.</li>
+            <li><strong>Part V:</strong> inference for proportions, means, differences, counts, regression.</li>
+            <li><strong>Part VI:</strong> ANOVA & multiple regression (general linear models).</li>
+            <li><strong>Part VII:</strong> nonparametric & bootstrap (robust tools).</li>
+          </ul></div>
+        </div>
+        <div class="grain" data-label="Branches" data-copy="true">
+          <div class="grain-body"><ul>
+            <li>Data structures, graphs, summaries, Normal model, correlation, regression.</li>
+            <li>Sampling designs, bias, experiments, blocking, blinding, confounding.</li>
+            <li>Probability rules, random variables, CLT, sampling distributions.</li>
+            <li>CI & tests for p and μ, two-sample procedures, chi-square, regression inference.</li>
+            <li>ANOVA, multifactor designs, multiple regression diagnostics.</li>
+            <li>Rank-based tests and bootstrap CIs for messy data.</li>
+          </ul></div>
+        </div>
+        <div class="grain" data-label="Leaves" data-copy="true">
+          <div class="grain-body"><ul>
+            <li>Standard workflow: Ask → Design → Collect → Explore → Model → Infer → Communicate.</li>
+            <li>Always tie back to <strong>context, conditions, and limitations</strong>.</li>
+            <li>Use SE + sampling models as the engine behind every CI and test.</li>
+          </ul></div>
+        </div>
+        <div class="grain" data-label="Fruit" data-copy="true">
+          <div class="grain-body"><ul>
+            <li>Exam: “Explain the big picture of the course”; “How do the parts connect?”.</li>
+            <li>Real-world: designing & critiquing studies, interpreting results with uncertainty.</li>
+          </ul></div>
+        </div>
+      </div>
+    </section>
 
-  <div class="toc" id="toc"></div>
+    <!-- PART I/II: DESCRIBE DATA & RELATIONSHIPS -->
+    <section class="card" id="partI">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Part I/II – Describing Data & Relationships (Ch 1–8)</div>
+          <div class="card-sub">From raw data tables to Normal curves and simple regression.</div>
+        </div>
+        <div class="card-tag">Part Tree</div>
+      </div>
+      <div class="grain-grid">
+        <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+          <li>Goal of this Part: <strong>see</strong> what’s going on before doing any probability or inference.</li>
+          <li>Turn messy numbers into clean pictures + short paragraphs.</li>
+        </ul></div></div>
+        <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+          <li>Categorical displays (bar/stacked bar, contingency tables).</li>
+          <li>Quantitative displays (histograms, boxplots, timeplots).</li>
+          <li>Shape–center–spread; Normal model; correlation & regression.</li>
+        </ul></div></div>
+        <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+          <li>Ch 1–2: data + categorical stories.</li>
+          <li>Ch 3–5: quantitative stories & z-scores.</li>
+          <li>Ch 6–8: tying together and adding relationships (scatterplots, regression).</li>
+        </ul></div></div>
+        <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+          <li>Always draw a picture first; choose summaries that match shape.</li>
+          <li>Use units and context in every written description.</li>
+        </ul></div></div>
+        <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+          <li>Exam: describe/compare distributions; interpret r, r², slope, intercept.</li>
+        </ul></div></div>
+      </div>
 
-  <section class="grid" id="cards"></section>
+      <!-- CHILD LEVEL: chapter trees for Part I/II -->
+      <details class="part-block" open>
+        <summary>
+          <div class="p-label"><span class="p-code">Ch 1–8</span><span class="p-name">Chapter Trees</span></div>
+          <span class="p-topic">Each chapter = its own mini multi-grain tree</span><span class="p-arrow">▾</span>
+        </summary>
+        <div class="part-body">
+          <!-- Ch 1 -->
+          <details class="chapter" open>
+            <summary>
+              <div class="c-label"><span class="c-code">Ch 1</span><span class="c-name">Stats Starts Here</span></div>
+              <span class="c-topic">Data, context, cases, variables</span>
+            </summary>
+            <div class="chap-body">
+              <div class="grain-grid">
+                <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                  <li>Statistics = using data in context to answer questions under uncertainty.</li>
+                </ul></div></div>
+                <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                  <li>Cases vs variables; 5W+H; categorical vs quantitative; units.</li>
+                </ul></div></div>
+                <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                  <li>Identify variables and their types from a short scenario.</li>
+                </ul></div></div>
+                <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                  <li>Write a clean 2–3 sentence “data description” paragraph.</li>
+                </ul></div></div>
+                <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                  <li>Exam: name cases/variables, classify variable types, give units.</li>
+                </ul></div></div>
+              </div>
+            </div>
+          </details>
 
-  <p class="note">Tip: Double‑click any <strong>box</strong> or <strong>formula</strong> to copy it. Use the filter to quickly find topics (e.g., “Binomial”, “Blocking”, “Sampling error”).</p>
+          <!-- Ch 2 -->
+          <details class="chapter">
+            <summary>
+              <div class="c-label"><span class="c-code">Ch 2</span><span class="c-name">Categorical Data</span></div>
+              <span class="c-topic">Tables, bar charts, association</span>
+            </summary>
+            <div class="chap-body">
+              <div class="grain-grid">
+                <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                  <li>Tell the story of how often categories occur and how two categorical variables relate.</li>
+                </ul></div></div>
+                <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                  <li>Frequency/relative tables; bar & pie charts; contingency tables; conditional percents.</li>
+                </ul></div></div>
+                <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                  <li>Compare groups by row/column percents; watch for misleading bar charts.</li>
+                </ul></div></div>
+                <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                  <li>Compute and interpret conditional percentages in words.</li>
+                </ul></div></div>
+                <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                  <li>Exam: “Is there an association between A and B? Justify with percents.”</li>
+                </ul></div></div>
+              </div>
+            </div>
+          </details>
+
+          <!-- Ch 3 -->
+          <details class="chapter">
+            <summary>
+              <div class="c-label"><span class="c-code">Ch 3</span><span class="c-name">Quantitative Data</span></div>
+              <span class="c-topic">Histograms, boxplots, S-C-S</span>
+            </summary>
+            <div class="chap-body">
+              <div class="grain-grid">
+                <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                  <li>Summarize how a single quantitative variable behaves.</li>
+                </ul></div></div>
+                <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                  <li>Histograms, dotplots, boxplots; mean, median, IQR, SD; S-C-S + outliers.</li>
+                </ul></div></div>
+                <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                  <li>Choose median/IQR vs mean/SD based on shape & outliers.</li>
+                </ul></div></div>
+                <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                  <li>Practice writing a short paragraph describing a distribution in context.</li>
+                </ul></div></div>
+                <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                  <li>Exam: “Describe this distribution” or “Which summary is more appropriate? Why?”</li>
+                </ul></div></div>
+              </div>
+            </div>
+          </details>
+
+          <!-- Ch 4–8 compressed but still multi-grain -->
+          <details class="chapter">
+            <summary>
+              <div class="c-label"><span class="c-code">Ch 4</span><span class="c-name">Understanding & Comparing Distributions</span></div>
+              <span class="c-topic">Groups & time</span>
+            </summary>
+            <div class="chap-body">
+              <div class="grain-grid">
+                <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul><li>See how a quantitative variable differs across groups or over time.</li></ul></div></div>
+                <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul><li>Side-by-side boxplots, timeplots, re-expressions (log, √).</li></ul></div></div>
+                <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul><li>Compare center & spread between groups; spot trends/seasonality.</li></ul></div></div>
+                <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul><li>Decide when a transformation makes spreads more comparable.</li></ul></div></div>
+                <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul><li>Exam: “Compare these groups” / “Why is a log-scale helpful here?”.</li></ul></div></div>
+              </div>
+            </div>
+          </details>
+
+          <details class="chapter">
+            <summary>
+              <div class="c-label"><span class="c-code">Ch 5</span><span class="c-name">Standard Deviation & the Normal Model</span></div>
+              <span class="c-topic">z-scores & 68–95–99.7</span>
+            </summary>
+            <div class="chap-body">
+              <div class="grain-grid">
+                <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul><li>Use SD as a ruler; Normal curve as an ideal reference shape.</li></ul></div></div>
+                <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul><li>Standardizing to z; shifting/rescaling; Normal approximation.</li></ul><div class="micro">z = (value − mean)/SD</div></div></div>
+                <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul><li>Estimate probabilities with 68–95–99.7 or z-table.</li></ul></div></div>
+                <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul><li>Check conditions (unimodal, roughly symmetric) before using Normal model.</li></ul></div></div>
+                <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul><li>Exam: convert scores to z; compare performances across different scales.</li></ul></div></div>
+              </div>
+            </div>
+          </details>
+
+          <details class="chapter">
+            <summary>
+              <div class="c-label"><span class="c-code">Ch 6–8</span><span class="c-name">Scatterplots, Association, Regression</span></div>
+              <span class="c-topic">Scatterplots, r, regression</span>
+            </summary>
+            <div class="chap-body">
+              <div class="grain-grid">
+                <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul><li>Move from one-variable stories to two-variable relationships.</li></ul></div></div>
+                <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul><li>Scatterplots, correlation r, least-squares line, residuals, r².</li></ul></div></div>
+                <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul><li>Check form/direction/strength; detect outliers and leverage points.</li></ul></div></div>
+                <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul><li>Interpret slope & intercept in context; avoid extrapolation; remember r ≠ causation.</li></ul></div></div>
+                <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul><li>Exam: “Write the regression equation and interpret coefficients & r².”</li></ul></div></div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+    </section>
+
+    <!-- PART III: GATHER -->
+    <section class="card" id="partIII">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Part III – Gathering Data (Ch 9–10)</div>
+          <div class="card-sub">Designing surveys & experiments so results actually mean something.</div>
+        </div>
+        <div class="card-tag">Part Tree</div>
+      </div>
+      <div class="grain-grid">
+        <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul><li>If data collection is bad, no analysis can rescue it.</li></ul></div></div>
+        <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul><li>Sampling designs; bias vs sampling error; experiments vs observational studies; causation.</li></ul></div></div>
+        <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul><li>Ch 9: how we sample; Ch 10: how we assign treatments.</li></ul></div></div>
+        <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul><li>Draw simple diagrams of designs; clearly separate “who we sampled” and “what we can conclude”.</li></ul></div></div>
+        <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul><li>Exam: “Is this an experiment? What kind? What biases might appear?”</li></ul></div></div>
+      </div>
+      <details class="part-block" open>
+        <summary>
+          <div class="p-label"><span class="p-code">Ch 9–10</span><span class="p-name">Chapter Trees</span></div>
+          <span class="p-topic">Sampling & experiments</span><span class="p-arrow">▾</span>
+        </summary>
+        <div class="part-body">
+          <details class="chapter" open>
+            <summary>
+              <div class="c-label"><span class="c-code">Ch 9</span><span class="c-name">Sample Surveys</span></div>
+              <span class="c-topic">Random sampling & bias</span>
+            </summary>
+            <div class="chap-body">
+              <div class="grain-grid">
+                <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul><li>Goal: get a representative slice of the population.</li></ul></div></div>
+                <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul><li>Simple random, stratified, cluster, multistage; sampling error vs bias.</li></ul></div></div>
+                <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul><li>Spot convenience/voluntary response/coverage/nonresponse/response bias.</li></ul></div></div>
+                <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul><li>Explain how randomization reduces unknown systematic effects.</li></ul></div></div>
+                <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul><li>Exam: classify sampling design; identify and describe bias in context.</li></ul></div></div>
+              </div>
+            </div>
+          </details>
+          <details class="chapter">
+            <summary>
+              <div class="c-label"><span class="c-code">Ch 10</span><span class="c-name">Experiments</span></div>
+              <span class="c-topic">Causation & blocking</span>
+            </summary>
+            <div class="chap-body">
+              <div class="grain-grid">
+                <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul><li>Only well-designed experiments can establish causation.</li></ul></div></div>
+                <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul><li>Control, randomize, replicate, block; blinding, confounding.</li></ul></div></div>
+                <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul><li>Depict randomized designs with diagrams; understand blocking vs explanatory factors.</li></ul></div></div>
+                <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul><li>Give a precise statement: “Because of random assignment, we can/cannot infer causation …”.</li></ul></div></div>
+                <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul><li>Exam: decide whether a study shows causation; identify experimental units, factors, treatments.</li></ul></div></div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+    </section>
+
+    <!-- PART IV -->
+    <section class="card" id="partIV">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Part IV – Randomness & Probability (Ch 11–14)</div>
+          <div class="card-sub">From long-run chance behaviour to sampling distributions (CLT).</div>
+        </div>
+        <div class="card-tag">Part Tree</div>
+      </div>
+      <div class="grain-grid">
+        <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul><li>Randomness looks noisy short-run but stable long-run; we model that stability.</li></ul></div></div>
+        <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul><li>Probability rules; conditional probability & independence; random variables; CLT & sampling distributions.</li></ul></div></div>
+        <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul><li>Ch 11–12: event rules & conditional prob; Ch 13: random variables; Ch 14: sampling distributions & SE.</li></ul></div></div>
+        <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul><li>Translate words → events; set up formulas first; then plug numbers.</li></ul></div></div>
+        <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul><li>Exam: compute P(A or B), P(A and B), P(A|B), Binomial/Normal probabilities, SEs.</li></ul></div></div>
+      </div>
+
+      <!-- Chapter Trees for Part IV (Ch 11–14) -->
+      <details class="part-block" open>
+        <summary>
+          <div class="p-label"><span class="p-code">Ch 11–14</span><span class="p-name">Chapter Trees</span></div>
+          <span class="p-topic">Probability → Random Variables → Sampling Models</span><span class="p-arrow">▾</span>
+        </summary>
+        <div class="part-body">
+          <!-- Ch 11 -->
+          <details class="chapter" open>
+            <summary><div class="c-label"><span class="c-code">Ch 11</span><span class="c-name">Randomness → Probability</span></div><span class="c-topic">LLN, events, basic rules</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul><li>Randomness is unpredictable short-run but stable long-run.</li></ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul><li>Trials, outcomes, events; Law of Large Numbers.</li></ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul><li>Set, union, intersection; complements.</li></ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul><li>Write probability statements clearly before plugging numbers.</li></ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul><li>Exam: compute simple probabilities; LLN conceptual questions.</li></ul></div></div>
+            </div></div>
+          </details>
+          <!-- Ch 12 -->
+          <details class="chapter">
+            <summary><div class="c-label"><span class="c-code">Ch 12</span><span class="c-name">Probability Rules!</span></div><span class="c-topic">conditional, independence, Bayes</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul><li>Conditional thinking is key to modern probability.</li></ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul><li>Addition rule, multiplication rule, independence, Bayes.</li></ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul><li>Tree diagrams; two-way tables; P(B|A) vs P(A|B).</li></ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul><li>Translate wording → conditional structure before calculation.</li></ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul><li>Exam: conditional tables, Bayes theorem, independence checks.</li></ul></div></div>
+            </div></div>
+          </details>
+          <!-- Ch 13 -->
+          <details class="chapter">
+            <summary><div class="c-label"><span class="c-code">Ch 13</span><span class="c-name">Random Variables</span></div><span class="c-topic">EV, variance, models</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul><li>A random variable assigns numbers to uncertain outcomes.</li></ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul><li>Expected value, variance; combining independent RVs.</li></ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul><li>Binomial, Normal, geometric as common probability models.</li></ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul><li>Check conditions for Binomial; convert raw → z for Normal.</li></ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul><li>Exam: EV/Var calculations; Normal/Binomial probability.</li></ul></div></div>
+            </div></div>
+          </details>
+          <!-- Ch 14 -->
+          <details class="chapter">
+            <summary><div class="c-label"><span class="c-code">Ch 14</span><span class="c-name">Sampling Distributions</span></div><span class="c-topic">SE, CLT</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul><li>Statistics vary from sample to sample; SE measures this wiggle.</li></ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul><li>SE for p̂ and x̄; CLT: mean approx Normal for large n.</li></ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul><li>Conditions: independence; success/failure; Nearly Normal for means.</li></ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul><li>Always compute/check SE before any CI/test.</li></ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul><li>Exam: SE, z-stat, Normal approx for sampling distributions.</li></ul></div></div>
+            </div></div>
+          </details>
+        </div>
+      </details>
+    </section>
+
+    <!-- PART V -->
+    <section class="card" id="partV">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Part V – From the Data at Hand to the World at Large (Ch 15–23)</div>
+          <div class="card-sub">Inference for one sample, comparisons, counts, and regression.</div>
+        </div>
+        <div class="card-tag">Part Tree</div>
+      </div>
+
+      <!-- PART V multi-grain -->
+      <div class="grain-grid">
+        <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+          <li>Use sample data to say something about unseen population parameters.</li>
+          <li>Two big tasks: estimate (CI) and test claims (hypothesis tests).</li>
+        </ul></div></div>
+
+        <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+          <li>One-sample inference for p and μ (Ch 15–18).</li>
+          <li>Two-sample + multi-category inference: means, proportions, counts, regression (Ch 19–23).</li>
+        </ul></div></div>
+
+        <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+          <li>CI vs test; P-values; Type I/II errors; power.</li>
+          <li>Two-sample t, paired t, two-proportion z, chi-square, regression slope inference.</li>
+        </ul></div></div>
+
+        <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+          <li>Always: state parameter, set up hypotheses/CI, check conditions, do mechanics, interpret in context.</li>
+          <li>Match design (paired/independent, counts/measures) to the correct procedure.</li>
+        </ul></div></div>
+
+        <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+          <li>Exam: given a scenario, choose an appropriate procedure and carry it out end-to-end.</li>
+          <li>Real-world: interpret studies about differences, associations, risk, and trends.</li>
+        </ul></div></div>
+      </div>
+
+      <!-- PART V chapter trees: Ch 15–18 (one-sample) + 19–23 (comparisons & counts) -->
+      <details class="part-block" open>
+        <summary>
+          <div class="p-label"><span class="p-code">Ch 15–18</span><span class="p-name">One-Sample Inference</span></div>
+          <span class="p-topic">CI and tests for one proportion or one mean</span><span class="p-arrow">▾</span>
+        </summary>
+        <div class="part-body">
+          <!-- Ch 15 -->
+          <details class="chapter" open>
+            <summary>
+              <div class="c-label"><span class="c-code">Ch 15</span><span class="c-name">Confidence Intervals for Proportions</span></div>
+              <span class="c-topic">p̂ ± z*SE(p̂)</span>
+            </summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Estimate a population proportion p using a confidence interval from a sample.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>CI: p̂ ± z*·SE(p̂)</li>
+                <li>SE(p̂) = √[p̂(1−p̂)/n]</li>
+                <li>Confidence level determines z* (e.g., 95% → 1.96).</li>
+              </ul><div class="micro">p̂ = x/n</div></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>Conditions: random/independent sample, success/failure (np̂, n(1−p̂) ≥ about 10).</li>
+                <li>Margin of error = z*·SE.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>State p clearly (“true proportion of …”).</li>
+                <li>Interpret CI as a range of plausible values for p, not as a probability statement about p.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: compute CI, interpret it, and compare widths when n or confidence level changes.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+
+          <!-- Ch 16 -->
+          <details class="chapter">
+            <summary>
+              <div class="c-label"><span class="c-code">Ch 16</span><span class="c-name">Testing Hypotheses About Proportions</span></div>
+              <span class="c-topic">One-sample z test</span>
+            </summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Test a claim about p using P-values rather than just a point estimate.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>H₀: p = p₀ vs Hₐ: p &gt; p₀, p &lt; p₀, or p ≠ p₀.</li>
+                <li>z = (p̂ − p₀) / SE₀ with SE₀ = √[p₀(1−p₀)/n].</li>
+                <li>P-value from standard Normal.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>Conditions: same as CI but using p₀ in SE and success/failure.</li>
+                <li>Connection: 2-sided test ↔ whether p₀ is inside CI.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>Four steps: State (H₀, Hₐ), Plan (conditions), Do (z, P), Conclude (in context).</li>
+                <li>Explain P-value as “probability of a result this extreme if H₀ were true”.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: run full test; interpret both statistical and practical significance.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+
+          <!-- Ch 17 -->
+          <details class="chapter">
+            <summary>
+              <div class="c-label"><span class="c-code">Ch 17</span><span class="c-name">More About Tests</span></div>
+              <span class="c-topic">Type I/II errors & power</span>
+            </summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Recognize that hypothesis tests can be wrong and quantify that risk.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>Type I error: rejecting true H₀ (probability α).</li>
+                <li>Type II error: failing to reject a false H₀.</li>
+                <li>Power = 1 − β = chance to detect a real effect.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>Power increases with n, larger α, larger true effect, smaller variability.</li>
+                <li>One-sided vs two-sided tests trade-off power vs flexibility.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>Describe Type I/II in the real scenario (“We wrongly conclude …”).</li>
+                <li>Reason qualitatively about how to increase power.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: label error types correctly and suggest design changes that increase power.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+
+          <!-- Ch 18 -->
+          <details class="chapter">
+            <summary>
+              <div class="c-label"><span class="c-code">Ch 18</span><span class="c-name">Inferences About Means</span></div>
+              <span class="c-topic">t-models for μ</span>
+            </summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Estimate or test a population mean μ when σ is unknown.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>t-distribution with df = n−1.</li>
+                <li>CI: x̄ ± t*·SE(x̄), SE(x̄) = s/√n.</li>
+                <li>Test: t = (x̄ − μ₀)/SE(x̄).</li>
+              </ul><div class="micro">Use t instead of z when σ is unknown.</div></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>Conditions: independence and Nearly Normal population or large n.</li>
+                <li>Use plots to justify Normality, not just “n ≥ 30”.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>Follow the same four-step structure; always include units.</li>
+                <li>Compare t-based result conceptually to z-approximation.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: compute and interpret 1-sample t CI/test; comment on whether conditions are reasonable.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+        </div>
+      </details>
+
+      <details class="part-block" open>
+        <summary>
+          <div class="p-label"><span class="p-code">Ch 19–23</span><span class="p-name">Comparisons & Associations</span></div>
+          <span class="p-topic">Two samples, counts, regression inference</span><span class="p-arrow">▾</span>
+        </summary>
+        <div class="part-body">
+
+          <!-- Ch 19 -->
+          <details class="chapter" open>
+            <summary><div class="c-label"><span class="c-code">Ch 19</span><span class="c-name">Comparing Means</span></div><span class="c-topic">Two-sample t</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Compare average outcomes of two independent groups (μ₁ vs μ₂).</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>Statistic: x̄₁ − x̄₂; parameter: μ₁ − μ₂.</li>
+                <li>SE(x̄₁ − x̄₂) = √(s₁²/n₁ + s₂²/n₂).</li>
+                <li>Two-sample t CI/test.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>Conditions: independence within and between groups; Nearly Normal within each group or large n.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>Check design first: are groups independent or paired?</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: interpret CI/test for μ₁−μ₂ including sign, size, and units.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+
+          <!-- Ch 20 -->
+          <details class="chapter">
+            <summary><div class="c-label"><span class="c-code">Ch 20</span><span class="c-name">Paired Samples and Blocks</span></div><span class="c-topic">Matched pairs</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Use differences when measurements are naturally paired or blocked.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>Create d = (after − before) or similar.</li>
+                <li>Use one-sample t on d̄.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>Designs: before/after, matched pairs, blocking to reduce variation.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>Plot differences, not raw scores, to check Nearly Normal for d.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: correctly identify paired design and set up d-based analysis.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+
+          <!-- Ch 21 -->
+          <details class="chapter">
+            <summary><div class="c-label"><span class="c-code">Ch 21</span><span class="c-name">Comparing Two Proportions</span></div><span class="c-topic">Two-proportion z</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Compare two population proportions p₁ and p₂.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>Statistic: p̂₁ − p̂₂; parameter: p₁ − p₂.</li>
+                <li>Test SE uses pooled p̂ when H₀: p₁ = p₂.</li>
+              </ul><div class="micro">p̂_pool = (x₁+x₂)/(n₁+n₂)</div></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>Conditions: independence & success/failure in each group.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>Use unpooled SE for CI; pooled SE only for the test under H₀.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: carry out test/CI and interpret the difference p₁−p₂ in plain language.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+
+          <!-- Ch 22 -->
+          <details class="chapter">
+            <summary><div class="c-label"><span class="c-code">Ch 22</span><span class="c-name">Comparing Counts</span></div><span class="c-topic">Chi-square</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Use χ² tests to compare observed counts to expectations from a model.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>χ² = Σ (O−E)²/E.</li>
+                <li>Goodness-of-fit, independence, and homogeneity versions.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>Compute expected counts from model or margins.</li>
+                <li>Interpret large cell contributions to χ² as “where the model fails”.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>Check expected counts ≥ about 5.</li>
+                <li>Use standardized residuals to see which cells drive the result.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: choose right χ² test; interpret conclusion and key residuals in context.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+
+          <!-- Ch 23 -->
+          <details class="chapter">
+            <summary><div class="c-label"><span class="c-code">Ch 23</span><span class="c-name">Inferences for Regression</span></div><span class="c-topic">Slope tests & CI</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Decide whether there is a real linear relationship between x and y in the population.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>Parameter: β₁ (true slope), estimate: b₁.</li>
+                <li>Test H₀: β₁ = 0 using t = b₁/SE(b₁).</li>
+                <li>CI: b₁ ± t*·SE(b₁).</li>
+              </ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>Conditions: linearity, independent errors, Normal residuals, equal spread.</li>
+                <li>Check residual plot and histogram/Normal plot of residuals.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>Always read the residual plot before trusting tests/CI for slope.</li>
+                <li>Interpret slope and CI in context (change in y per 1 unit of x).</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: read regression output; test whether there is evidence of association; explain in words.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+        </div>
+      </details>
+    </section>
+
+    <!-- PART VI -->
+    <section class="card" id="partVI">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Part VI – Assessing Associations Between Variables (Ch 24–27)</div>
+          <div class="card-sub">ANOVA and multiple regression as one “general linear model” family.</div>
+        </div>
+        <div class="card-tag">Part Tree</div>
+      </div>
+
+      <div class="grain-grid">
+        <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+          <li>Move beyond simple two-group or simple linear comparisons to richer association models.</li>
+          <li>ANOVA and regression share the form: response = model + random error.</li>
+        </ul></div></div>
+        <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+          <li>One-way ANOVA; multifactor ANOVA with interactions.</li>
+          <li>Multiple regression with several predictors; diagnostics and model-building.</li>
+        </ul></div></div>
+        <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+          <li>Decomposing variation (SS, MS, F); partial slopes; collinearity; leverage and influence.</li>
+        </ul></div></div>
+        <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+          <li>Always check residuals and assumptions, not just p-values and R².</li>
+        </ul></div></div>
+        <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+          <li>Exam: interpret ANOVA and regression tables; explain what they say about associations.</li>
+        </ul></div></div>
+      </div>
+
+      <details class="part-block" open>
+        <summary>
+          <div class="p-label"><span class="p-code">Ch 24–27</span><span class="p-name">Chapter Trees</span></div>
+          <span class="p-topic">ANOVA & multiple regression</span><span class="p-arrow">▾</span>
+        </summary>
+        <div class="part-body">
+
+          <!-- Ch 24 -->
+          <details class="chapter" open>
+            <summary><div class="c-label"><span class="c-code">Ch 24</span><span class="c-name">Analysis of Variance</span></div><span class="c-topic">Comparing many means</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Test whether several group means are all equal.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>Decompose variation: between vs within groups.</li>
+                <li>F = MS_between / MS_within.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>One-way layout; equal-variance assumption; Normal within groups.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>Read ANOVA table; if significant, consider follow-up comparisons.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: interpret F, df, and P-value and say what “at least one mean differs” means.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+
+          <!-- Ch 25 -->
+          <details class="chapter">
+            <summary><div class="c-label"><span class="c-code">Ch 25</span><span class="c-name">Multifactor ANOVA</span></div><span class="c-topic">Interactions</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Study how two or more factors and their interaction affect a response.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>Main effects for each factor; interaction term for combined effect.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>Interaction: effect of one factor depends on the level of another.</li>
+                <li>Interaction plots show non-parallel lines when interaction is present.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>When interaction is strong, interpret effects at specific levels of the other factor.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: recognize and describe interactions from graphs or tables.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+
+          <!-- Ch 26 -->
+          <details class="chapter">
+            <summary><div class="c-label"><span class="c-code">Ch 26</span><span class="c-name">Multiple Regression</span></div><span class="c-topic">Many predictors</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Model a response using several predictors at once.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>Each slope is a partial effect, controlling for other predictors.</li>
+                <li>Adjusted R² for model comparison.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>Collinearity; redundant predictors; indicator (dummy) variables.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>Interpret coefficients carefully when predictors are correlated.</li>
+                <li>Use residual plots to check model form and assumptions.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: interpret regression output with multiple predictors; decide if a predictor is significant.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+
+          <!-- Ch 27 -->
+          <details class="chapter">
+            <summary><div class="c-label"><span class="c-code">Ch 27</span><span class="c-name">Multiple Regression Wisdom</span></div><span class="c-topic">Diagnostics & model building</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Good regression practice = skepticism + diagnostics, not just pretty output.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>Residual analysis; leverage vs influence; overfitting; variable selection.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>Outliers vs high leverage vs influential observations.</li>
+                <li>Comparing models with and without certain predictors.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>Never rely on R² alone; always inspect residuals and influential cases.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: explain why a model is or is not appropriate and suggest basic improvements.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+        </div>
+      </details>
+    </section>
+
+    <!-- PART VII -->
+    <section class="card" id="partVII">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Part VII – Modelling the World at Large (Ch 28–29)</div>
+          <div class="card-sub">Nonparametric tests and bootstrap when parametric assumptions fail.</div>
+        </div>
+        <div class="card-tag">Part Tree</div>
+      </div>
+
+      <div class="grain-grid">
+        <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+          <li>Provide flexible tools for messy, non-Normal data.</li>
+          <li>Trade a bit of power for safer assumptions.</li>
+        </ul></div></div>
+        <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+          <li>Rank-based nonparametric tests.</li>
+          <li>Bootstrap resampling for confidence intervals.</li>
+        </ul></div></div>
+        <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+          <li>When classic t/ANOVA assumptions break badly, use these robust options.</li>
+        </ul></div></div>
+        <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+          <li>Check for severe skew/outliers and small to moderate n before deciding.</li>
+        </ul></div></div>
+        <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+          <li>Exam: pick robust methods and justify why they’re safer than Normal-based tools.</li>
+        </ul></div></div>
+      </div>
+
+      <details class="part-block" open>
+        <summary>
+          <div class="p-label"><span class="p-code">Ch 28–29</span><span class="p-name">Chapter Trees</span></div>
+          <span class="p-topic">Nonparametric tests & bootstrap</span><span class="p-arrow">▾</span>
+        </summary>
+        <div class="part-body">
+
+          <!-- Ch 28 -->
+          <details class="chapter" open>
+            <summary><div class="c-label"><span class="c-code">Ch 28</span><span class="c-name">Nonparametric Tests</span></div><span class="c-topic">Rank-based & sign tests</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Provide inference tools that don’t rely heavily on Normality.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>Use ranks or signs instead of raw values.</li>
+                <li>Less sensitive to extreme outliers or heavy skew.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>Examples: sign test, Wilcoxon tests (depending on course emphasis).</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>Decide to switch when distribution is very skewed or heavily outlier-contaminated.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: explain when and why you’d choose a rank-based method instead of a t-test/ANOVA.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+
+          <!-- Ch 29 -->
+          <details class="chapter">
+            <summary><div class="c-label"><span class="c-code">Ch 29</span><span class="c-name">The Bootstrap</span></div><span class="c-topic">Resampling for CIs</span></summary>
+            <div class="chap-body"><div class="grain-grid">
+              <div class="grain" data-label="Roots" data-copy="true"><div class="grain-body"><ul>
+                <li>Use the sample as a stand-in for the population by resampling with replacement.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Trunk" data-copy="true"><div class="grain-body"><ul>
+                <li>Build a bootstrap distribution of the statistic (mean, median, difference, etc.).</li>
+                <li>Take percentiles (or similar) of that distribution to form a CI.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Branches" data-copy="true"><div class="grain-body"><ul>
+                <li>Algorithm: resample many times, compute statistic each time, then summarize.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Leaves" data-copy="true"><div class="grain-body"><ul>
+                <li>Sketch bootstrap distributions; note skew and spread; explain what the CI means.</li>
+              </ul></div></div>
+              <div class="grain" data-label="Fruit" data-copy="true"><div class="grain-body"><ul>
+                <li>Exam: outline bootstrap steps from scratch; interpret the resulting CI and compare to t-based CI.</li>
+              </ul></div></div>
+            </div></div>
+          </details>
+        </div>
+      </details>
+    </section>
+  </main>
 </div>
 
-<div class="toast" id="toast">Copied ✓</div>
-
+<div id="toast" class="toast">Copied ✓</div>
 <script>
-const chapters = [
-  { id:"ch1", badge:"1", title:"Stats Starts Here", tags:["data","context","cases","variables","categorical","quantitative"],
-    bullets:[
-      "Statistics = tools and reasoning for variation and uncertainty.",
-      "Data need context: Who, What (units), When, Where, Why, How.",
-      "Row = case; column = variable (categorical vs quantitative).",
-      "Match summaries and graphs to variable type before analyzing."
-    ],
-    formulas:["(No formulas — vocabulary and data workflow.)"],
-    quiz:[{q:"Which step should come first?", opts:["Compute mean and SD","Draw a boxplot","Define context (5W+H)","Standardize to z-scores"], answer:2}]},
-
-  { id:"ch2", badge:"2", title:"Categorical Data: Display and Describe", tags:["bar chart","pie","contingency","conditional percent","association"],
-    bullets:[
-      "Summarize with frequency or relative‑frequency tables.",
-      "Bar charts compare counts; pie charts show part-of-whole.",
-      "Two variables → contingency table; compare conditional percents.",
-      "Check area principle; avoid misleading stacked bars."
-    ],
-    formulas:["P(category) = count / total"],
-    quiz:[{q:"Best display to compare 5 categories?", opts:["Pie chart","Bar chart","Histogram","Timeplot"], answer:1}]},
-
-  { id:"ch3", badge:"3", title:"Quantitative Data: Display and Summarize", tags:["histogram","boxplot","center","spread","shape","outliers"],
-    bullets:[
-      "Describe shape, center, spread, and unusual features.",
-      "Mean and SD for roughly symmetric; median and IQR for skewed.",
-      "Five‑number summary builds a boxplot.",
-      "Look for gaps and outliers — they tell the story."
-    ],
-    formulas:["IQR = Q3 − Q1","z = (y − ybar) / s"],
-    quiz:[{q:"Skewed right: which center/spread?", opts:["Mean and SD","Median and IQR","Mode and range","Mean and IQR"], answer:1}]},
-
-  { id:"ch4", badge:"4", title:"Understanding and Comparing Distributions", tags:["side-by-side boxplots","timeplots","re-expression"],
-    bullets:[
-      "Compare groups with center, spread, shape, and outliers.",
-      "Timeplots reveal trends and seasonality.",
-      "Log, square‑root, or reciprocal re‑expressions can tame skew."],
-    formulas:["(Visual comparison principles, no main formula.)"],
-    quiz:[{q:"Many groups of a quantitative variable: best first view?", opts:["Contingency table","Side‑by‑side boxplots","Pie chart","Mosaic plot"], answer:1}]},
-
-  { id:"ch5", badge:"5", title:"SD as a Ruler and the Normal Model", tags:["standardize","z","Normal","68-95-99.7"],
-    bullets:[
-      "Standardizing to z-scores lets you compare across scales.",
-      "Shifting adds a constant; rescaling multiplies both center and spread.",
-      "Normal model works for unimodal, symmetric data.",
-      "Use the 68–95–99.7 rule for quick probability checks."],
-    formulas:["z = (y − mu) / sigma","About 68%, 95%, 99.7% within 1, 2, 3 SD of the mean."],
-    quiz:[{q:"z = −2 means:", opts:["2 SD above mean","2 SD below mean","At mean","Undefined"], answer:1}]},
-
-  { id:"ch6", badge:"6", title:"Part I Review — Exploring and Understanding Data", tags:["workflow","choose graph","summarize","interpret"],
-    bullets:[
-      "Workflow: identify type → choose display → summarize → interpret.",
-      "Check conditions before using Normal approximations.",
-      "Always interpret in context, not just in symbols."
-    ],
-    formulas:["Unimodal and roughly symmetric → Normal model is often reasonable."],
-    quiz:[{q:"Which is NOT part of shape–center–spread?", opts:["Shape","Center","Skew direction","Standard error"], answer:3}]},
-
-  { id:"ch7", badge:"7", title:"Scatterplots, Association, and Correlation", tags:["scatterplot","form","direction","strength","r"],
-    bullets:[
-      "Use scatterplots for two quantitative variables.",
-      "Describe form (linear or not), direction (positive or negative), strength.",
-      "Correlation r measures linear strength and direction; it is unitless.",
-      "Plot first, compute r second; correlation does not imply causation."],
-    formulas:["−1 <= r <= 1"],
-    quiz:[{q:"r close to 0 implies:", opts:["No association at all","No linear association","Variables independent","Perfect curve"], answer:1}]},
-
-  { id:"ch8", badge:"8", title:"Linear Regression", tags:["least squares","slope","intercept","r2","residuals"],
-    bullets:[
-      "Fit y-hat = a + b x by minimizing squared residuals.",
-      "Slope b is the predicted change in y for 1 unit change in x.",
-      "r-squared is the fraction of variation in y explained by x.",
-      "Check residual plots; beware extrapolation and influential points."],
-    formulas:["Residual = y − y-hat","r-squared = 1 − (SS_res / SS_tot)"],
-    quiz:[{q:"Residual equals:", opts:["y − y-hat","y-hat − y","(y − ybar)/s","x − xbar"], answer:0}]},
-
-  { id:"rv2", badge:"II", title:"Part II Review — Exploring Relationships", tags:["review","correlation","regression","re-expression"],
-    bullets:[
-      "Use scatterplots → check linearity → compute r and fit a line if appropriate.",
-      "r-squared measures explanatory power; residual SD measures typical error.",
-      "Re‑express variables if needed; still avoid causal language unless from experiments."],
-    formulas:["(No new formulas beyond correlation and regression.)"],
-    quiz:[{q:"If residual plot is clearly curved, you should:", opts:["Keep the same line","Try a transformation or new model","Force intercept 0","Delete points"], answer:1}]},
-
-  { id:"ch9", badge:"9", title:"Sample Surveys", tags:["SRS","stratified","cluster","bias","sampling error"],
-    bullets:[
-      "Three big ideas: sample part of the whole, randomize, sample size matters.",
-      "Avoid bias: convenience, voluntary response, undercoverage, response bias.",
-      "Designs: simple random, stratified, cluster, multistage, systematic.",
-      "Sample statistics estimate population parameters."],
-    formulas:["(No main formula — focus on design vocabulary.)"],
-    quiz:[{q:"Best cure for bias is:", opts:["Bigger sample","Randomization in design","More questions","Post‑hoc weighting only"], answer:1}]},
-
-  { id:"ch10", badge:"10", title:"Experiments and Observational Studies", tags:["causation","random assignment","control","replicate","block","blinding"],
-    bullets:[
-      "Only randomized experiments support cause-and-effect claims.",
-      "Four principles: control, randomize, replicate, block.",
-      "Use blinding; watch for confounding variables.",
-      "Diagrams: random allocate → treat → compare."],
-    formulas:["(Conceptual, not formula-based.)"],
-    quiz:[{q:"Which design can show causation?", opts:["Retrospective study","Prospective study","Randomized experiment","Census"], answer:2}]},
-
-  { id:"rv3", badge:"III", title:"Part III Review — Gathering Data", tags:["review","sampling","experiments"],
-    bullets:[
-      "Good data are more important than fancy models.",
-      "Random sampling supports generalization; random assignment supports causation.",
-      "Blocks and strata reduce variability by grouping similar units."],
-    formulas:["(No new formulas.)"],
-    quiz:[{q:"Blocking in experiments is most like what in sampling?", opts:["Convenience sampling","Stratification","Census","Replication"], answer:1}]},
-
-  { id:"ch11", badge:"11", title:"From Randomness to Probability", tags:["LLN","empirical probability","addition rule","complement"],
-    bullets:[
-      "Randomness: unpredictable in short run, predictable in long run.",
-      "Law of Large Numbers: relative frequency approaches probability.",
-      "Complement: P(not A) = 1 − P(A).",
-      "Addition rule for disjoint events: P(A or B) = P(A) + P(B)."],
-    formulas:["P(A) = number of outcomes in A / number of outcomes in sample space"],
-    quiz:[{q:"LLN guarantees:", opts:["Next flip balances prior outcomes","Long‑run stabilization of relative frequency","Immediate convergence","Independence of events"], answer:1}]},
-
-  { id:"ch12", badge:"12", title:"Probability Rules!", tags:["conditional","independence","multiplication","Bayes","trees","Venn"],
-    bullets:[
-      "Conditional probability: P(B|A) = P(A and B) / P(A).",
-      "Independence: P(B|A) = P(B); then P(A and B) = P(A)P(B).",
-      "General addition rule: P(A or B) = P(A) + P(B) − P(A and B).",
-      "Use Bayes’ Rule to reverse conditioning; visualize with trees and tables."],
-    formulas:["P(A and B) = P(A) P(B|A)","P(A|B) = P(B|A) P(A) / P(B)"],
-    quiz:[{q:"Disjoint events can be independent.", opts:["True","False"], answer:1}]},
-
-  { id:"ch13", badge:"13", title:"Random Variables", tags:["discrete","continuous","expected value","variance","binomial","Normal"],
-    bullets:[
-      "Random variable assigns numeric values to outcomes.",
-      "Expected value is long‑run average: E(X) = sum of x times P(x).",
-      "Variance measures spread around the mean; SD is the square root.",
-      "For independent variables, variances add when you sum or subtract."],
-    formulas:["E(X) = sum x P(x)","Var(X) = sum (x − mu)^2 P(x)","Var(X ± Y) = Var(X) + Var(Y) for independent X,Y"],
-    quiz:[{q:"Var(X − Y) for independent X and Y equals:", opts:["Var(X) − Var(Y)","Var(X) + Var(Y)","0","2 Var(X)"], answer:1}]},
-
-  { id:"ch14", badge:"14", title:"Sampling Distribution Models", tags:["sampling distribution","standard error","CLT","Normal approximation"],
-    bullets:[
-      "A sampling distribution is the model of a statistic over many samples.",
-      "Standard error describes typical sampling variability.",
-      "Central Limit Theorem: sample mean is approximately Normal for large n.",
-      "Normal approximation can be used for proportions and means when conditions hold."],
-    formulas:["SE(mean) = sigma / sqrt(n)","Sample mean is approximately Normal with mean mu and SD sigma/sqrt(n) when n is large."],
-    quiz:[{q:"As n increases, SE of the sample mean:", opts:["Increases","Stays the same","Decreases like 1/sqrt(n)","Decreases like 1/n"], answer:2}]},
-
-  { id:"rv4", badge:"IV", title:"Part IV Review — Randomness and Probability", tags:["review","LLN","rules","models"],
-    bullets:[
-      "Law of Large Numbers gives long‑run stability.",
-      "Addition and multiplication rules combine events.",
-      "Choose an appropriate random variable model (Normal, Binomial, Poisson)."],
-    formulas:["For independent events, P(at least one) = 1 − product(1 − p_i)."],
-    quiz:[{q:"\"At least one\" is often easiest via:", opts:["Addition rule repeatedly","Complement rule","Bayes’ rule","Z‑table"], answer:1}]},
-
-  { id:"ch15", badge:"15", title:"Confidence Intervals for Proportions", tags:["CI","proportions","standard error","z*"],
-    bullets:[
-      "Estimate the true proportion p with p-hat plus or minus margin of error.",
-      "Conditions: randomization, independence, success/failure (enough successes and failures).",
-      "Higher confidence gives wider intervals; larger n gives narrower intervals."],
-    formulas:["CI: p-hat ± z* sqrt(p-hat q-hat / n)"],
-    quiz:[{q:"What increases the width of a confidence interval?", opts:["Larger sample size","Lower confidence level","Higher confidence level","Smaller p-hat"], answer:2}]},
-
-  { id:"ch16", badge:"16", title:"Testing Hypotheses About Proportions", tags:["z-test","p-value","null hypothesis","alternative"],
-    bullets:[
-      "Test hypotheses about a population proportion p using a z statistic.",
-      "P-value is the probability of data this extreme or more if the null is true.",
-      "Reject the null when P-value is below alpha; otherwise fail to reject."],
-    formulas:["z = (p-hat − p0) / sqrt(p0 q0 / n)"],
-    quiz:[{q:"A small P-value means:", opts:["Strong evidence for the null","Strong evidence against the null","Sample size too small","Proportions are equal"], answer:1}]},
-
-  { id:"ch17", badge:"17", title:"More About Tests", tags:["type I error","type II error","power","alpha"],
-    bullets:[
-      "Type I error: rejecting a true null; probability = alpha.",
-      "Type II error: failing to reject a false null; probability = beta.",
-      "Power = 1 − beta; increases with larger sample size and larger true effect."],
-    formulas:["Power = 1 − beta"],
-    quiz:[{q:"Power increases when:", opts:["Sample size shrinks","Alpha decreases a lot","Sample size increases","Variance increases"], answer:2}]},
-
-  { id:"ch18", badge:"18", title:"Inferences About Means", tags:["t-model","one-sample t","mean"],
-    bullets:[
-      "When sigma is unknown, use t procedures for means.",
-      "t-statistic uses sample SD and has n − 1 degrees of freedom.",
-      "Confidence interval: y-bar ± t* times standard error."],
-    formulas:["t = (y-bar − mu0) / (s / sqrt(n))"],
-    quiz:[{q:"Compared to Normal, a t-distribution has:", opts:["Lighter tails","Same shape","Heavier tails","Discrete probabilities only"], answer:2}]},
-
-  { id:"ch19", badge:"19", title:"Comparing Means", tags:["two-sample t","independent groups","difference of means"],
-    bullets:[
-      "Use two-sample t to compare means of two independent groups.",
-      "Standard error combines variability from both groups.",
-      "Confidence intervals and tests parallel the one-sample t logic."],
-    formulas:["SE(y1-bar − y2-bar) = sqrt(s1^2 / n1 + s2^2 / n2)"],
-    quiz:[{q:"Two-sample t requires:", opts:["Paired data","Independent samples","Categorical response","Always pooled variance"], answer:1}]},
-
-  { id:"ch20", badge:"20", title:"Paired Samples and Blocks", tags:["paired t","differences","blocking"],
-    bullets:[
-      "Paired or matched data: work with the differences.",
-      "Analyze differences with a one-sample t test.",
-      "Blocking or pairing reduces variation and increases power."],
-    formulas:["t = (d-bar) / (sd / sqrt(n))"],
-    quiz:[{q:"When should you use a paired t test?", opts:["Two random groups","Before/after measurements on same subjects","Three groups","Proportions"], answer:1}]},
-
-  { id:"ch21", badge:"21", title:"Comparing Two Proportions", tags:["two-proportion z","pooled","difference"],
-    bullets:[
-      "Compare two proportions p1 and p2 with a z test.",
-      "Use pooled p-hat under the null for the test.",
-      "Confidence interval uses an unpooled standard error."],
-    formulas:["SE(p1-hat − p2-hat) = sqrt(p1-hat q1-hat / n1 + p2-hat q2-hat / n2)"],
-    quiz:[{q:"Pooled proportion is used:", opts:["In confidence intervals","In the null hypothesis test","Never","Only for very small samples"], answer:1}]},
-
-  { id:"ch22", badge:"22", title:"Comparing Counts", tags:["chi-square","goodness of fit","independence","homogeneity"],
-    bullets:[
-      "Chi-square tests compare observed counts to expected counts.",
-      "Goodness-of-fit: one categorical variable vs a model.",
-      "Independence or homogeneity: two-way tables of counts."],
-    formulas:["Chi-square = sum (Observed − Expected)^2 / Expected"],
-    quiz:[{q:"Chi-square P-values are:", opts:["Two-tailed","Left-tailed","Right-tailed","Bilateral"], answer:2}]},
-
-  { id:"ch23", badge:"23", title:"Inferences for Regression", tags:["slope test","t-test","standard error of slope"],
-    bullets:[
-      "Test whether slope is zero using a t test.",
-      "Confidence interval for slope: estimate ± t* times its SE.",
-      "Assumptions: linearity, independence, equal variance, Normal residuals."],
-    formulas:["t = slope / SE(slope)"],
-    quiz:[{q:"Degrees of freedom for regression slope:", opts:["n − 1","n","n − 2","2n"], answer:2}]},
-
-  { id:"ch24", badge:"24", title:"Analysis of Variance", tags:["ANOVA","F-test","multiple means"],
-    bullets:[
-      "ANOVA tests equality of several group means.",
-      "F = variation between group means divided by variation within groups.",
-      "Requires roughly equal variances and Normality within groups."],
-    formulas:["F = MST / MSE"],
-    quiz:[{q:"ANOVA primarily tests:", opts:["Medians","Variances only","Equality of means","Correlation"], answer:2}]},
-
-  { id:"ch25", badge:"25", title:"Multifactor Analysis of Variance", tags:["two-way","interaction","main effects"],
-    bullets:[
-      "Two-factor ANOVA studies two categorical factors at once.",
-      "Main effects: average effect of each factor.",
-      "Interaction: effect of one factor changes across levels of the other."],
-    formulas:["Response = overall mean + factor A effect + factor B effect + error"],
-    quiz:[{q:"Interaction means:", opts:["Effects are additive","Factors are independent","One factor’s effect depends on the other","Residuals are zero"], answer:2}]},
-
-  { id:"ch26", badge:"26", title:"Multiple Regression", tags:["multiple predictors","partial slopes","adjusted R2"],
-    bullets:[
-      "Multiple regression uses several predictors for one response.",
-      "Each coefficient is a partial slope holding other predictors constant.",
-      "Use adjusted R-squared and residual plots to assess model quality."],
-    formulas:["y = b0 + b1 x1 + b2 x2 + ... + bk xk"],
-    quiz:[{q:"In multiple regression, coefficient b_j represents:", opts:["Simple slope of y on x_j ignoring others","Slope of y on x_j adjusted for other predictors","Overall intercept","Residual"], answer:1}]},
-
-  { id:"ch27", badge:"27", title:"Multiple Regression Wisdom", tags:["model selection","diagnostics","leverage","influence"],
-    bullets:[
-      "Check partial regression (added-variable) plots for each predictor.",
-      "Watch for high-leverage and influential points.",
-      "Compare models with adjusted R-squared and context, not just statistics."],
-    formulas:["(Key idea: partial slope = slope in added-variable plot.)"],
-    quiz:[{q:"High-leverage points:", opts:["Are always outliers","Never affect slope","Can strongly affect the fitted line","Are ignored by least squares"], answer:2}]},
-
-  { id:"ch28", badge:"28", title:"Nonparametric Tests", tags:["distribution-free","rank tests","sign test"],
-    bullets:[
-      "Nonparametric methods make fewer assumptions about distributions.",
-      "Examples: sign test, Wilcoxon rank-sum, Wilcoxon signed-rank tests.",
-      "They are useful when Normality is doubtful or when there are strong outliers."],
-    formulas:["(Use ranks or signs instead of raw data values.)"],
-    quiz:[{q:"Nonparametric tests are especially useful when:", opts:["Data are clearly Normal","Variances are equal","There is severe skew or outliers","Data are categorical only"], answer:2}]},
-
-  { id:"ch29", badge:"29", title:"The Bootstrap", tags:["resampling","bootstrap confidence interval","nonparametric"],
-    bullets:[
-      "Bootstrap samples are taken from the data, with replacement.",
-      "The bootstrap distribution of a statistic is used to approximate its sampling distribution.",
-      "Bootstrap confidence intervals are useful when formulas are complicated or unreliable."],
-    formulas:["Percentile interval: take middle percent of bootstrap statistic values."],
-    quiz:[{q:"Bootstrap samples are drawn:", opts:["Without replacement","With replacement from the sample","Directly from the population","From a Normal model"], answer:1}]},
-
-  { id:"rv6", badge:"VI/VII", title:"Part VI/VII Review — Assessing Associations and Modelling", tags:["review","linear models","ANOVA","multiple regression"],
-    bullets:[
-      "Linear models unify regression and ANOVA under one general framework.",
-      "F-tests assess overall model usefulness; t tests assess individual coefficients.",
-      "Always check assumptions: linearity, equal variance, independence, Normal residuals."],
-    formulas:["General linear model: y = X b + error"],
-    quiz:[{q:"Overall utility of a regression or ANOVA model is usually tested with:", opts:["A t test","An F test","A z test","A chi-square test"], answer:1}]}
-];
-
-const container = document.getElementById('cards');
-const toc = document.getElementById('toc');
-
-function makeCard(ch){
-  const el = document.createElement('details');
-  el.className = 'card';
-  el.id = ch.id;
-  const sum = document.createElement('summary');
-  sum.innerHTML = `<div class="badge">${ch.badge}</div><div class="heading">${ch.title}</div>`;
-  const content = document.createElement('div');
-  content.className = 'content';
-
-  // key points chips
-  const kps = document.createElement('div');
-  kps.className = 'kps';
-  ch.tags.slice(0,6).forEach(t=>{const c=document.createElement('span');c.className='chip';c.textContent=t;kps.appendChild(c)});
-  content.appendChild(kps);
-
-  // bullets
-  const ul = document.createElement('ul');
-  ch.bullets.forEach(b=>{const li=document.createElement('li');li.textContent=b;ul.appendChild(li)});
-  content.appendChild(ul);
-
-  // formulas block
-  if(ch.formulas && ch.formulas.length){
-    const box = document.createElement('div');
-    box.className='box';
-    box.innerHTML = `<div class="muted">Formulas & Rules</div>` + ch.formulas.map(f=>`<div class="formula" data-copy>${f}</div>`).join('');
-    content.appendChild(box);
-  }
-
-  // actions
-  const actions = document.createElement('div');
-  actions.className='actions';
-  const copyBtn = document.createElement('button');
-  copyBtn.className='btn';
-  copyBtn.textContent='Copy Key Points';
-  copyBtn.addEventListener('click',()=>copyText([ch.title, ...ch.bullets].join('\n')));
-  const expandBtn = document.createElement('button');
-  expandBtn.className='btn'; expandBtn.textContent='Expand All';
-  expandBtn.addEventListener('click',()=>document.querySelectorAll('details.card').forEach(d=>d.open=true));
-  const collapseBtn = document.createElement('button');
-  collapseBtn.className='btn'; collapseBtn.textContent='Collapse All';
-  collapseBtn.addEventListener('click',()=>document.querySelectorAll('details.card').forEach(d=>d.open=false));
-  actions.append(copyBtn, expandBtn, collapseBtn);
-  content.appendChild(actions);
-
-  // quiz
-  if(ch.quiz){
-    const qwrap = document.createElement('div');
-    qwrap.className='quiz';
-    ch.quiz.forEach((q,i)=>{
-      const qel = document.createElement('div');
-      qel.className='q';
-      qel.innerHTML = `<h4>Quick Check</h4><div>${q.q}</div>`;
-      q.opts.forEach((o,idx)=>{
-        const opt = document.createElement('label');
-        opt.className='opt';
-        opt.innerHTML = `<input type="radio" name="${ch.id}-q${i}" value="${idx}"> <span>${o}</span>`;
-        qel.appendChild(opt);
-      });
-      const fb = document.createElement('div');
-      fb.className='feedback muted';
-      qel.appendChild(fb);
-      qel.addEventListener('change', (e)=>{
-        const sel = +qel.querySelector('input:checked')?.value;
-        fb.classList.remove('good','bad');
-        if(sel===q.answer){ fb.textContent='Correct!'; fb.classList.add('good'); }
-        else { fb.textContent='Try again.'; fb.classList.add('bad'); }
-      });
-      qwrap.appendChild(qel);
-    });
-    content.appendChild(qwrap);
-  }
-
-  el.append(sum, content);
-  return el;
-}
-
-chapters.forEach(ch=>container.appendChild(makeCard(ch)));
-
-// TOC
-chapters.forEach(ch=>{
-  const a = document.createElement('a');
-  a.href = `#${ch.id}`; a.textContent = ch.title; toc.appendChild(a);
-});
-
-// Filter
-const filter = document.getElementById('filter');
-filter.addEventListener('input',()=>{
-  const q = filter.value.toLowerCase().trim();
-  document.querySelectorAll('details.card').forEach(d=>{
-    const hay = d.textContent.toLowerCase();
-    d.style.display = hay.includes(q) ? '' : 'none';
+  const toast=document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg){toast.textContent=msg||'Copied ✓';toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),1300);}  
+  document.addEventListener('dblclick',e=>{
+    const g=e.target.closest('.grain');
+    if(!g||g.getAttribute('data-copy')!=='true')return;
+    const text=g.innerText.trim();
+    if(!text)return;
+    navigator.clipboard.writeText(text).then(()=>{
+      g.style.backgroundColor='var(--flash)';
+      g.style.boxShadow='0 0 0 1px var(--ring)';
+      showToast('Grain copied ✓');
+      setTimeout(()=>{g.style.backgroundColor='';g.style.boxShadow='';},450);
+    }).catch(()=>showToast('Copy failed'));
   });
-});
-
-// Copy utilities
-const toast = document.getElementById('toast');
-function copyText(txt){
-  navigator.clipboard.writeText(txt).then(()=>{
-    toast.textContent='Copied ✓'; toast.classList.add('show');
-    setTimeout(()=>toast.classList.remove('show'),1200);
-  });
-}
-
-// Double‑click copy for formula & box
-addEventListener('dblclick', (e)=>{
-  const t = e.target;
-  if(t.matches('[data-copy], .box, .formula')){
-    copyText(t.innerText.trim());
-    t.style.background = 'var(--copied)';
-    setTimeout(()=>t.style.background='',600);
-  }
-});
 </script>
 </body>
 </html>
+
