@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Statistics Tutorial Dashboard — Part I–IV (Chs 1–14)</title>
+<title>Statistics Tutorial Dashboard — Part I–VII (Chs 1–29)</title>
 <style>
   :root{
     --bg:#0b1020; --panel:#0f1733; --ink:#e8ecff; --muted:#a9b3d1; --accent:#8bb2ff; --accent2:#6ee7b7;
@@ -81,159 +81,283 @@
 const chapters = [
   { id:"ch1", badge:"1", title:"Stats Starts Here", tags:["data","context","cases","variables","categorical","quantitative"],
     bullets:[
-      "Statistics = tools + reasoning for variation & uncertainty.",
+      "Statistics = tools and reasoning for variation and uncertainty.",
       "Data need context: Who, What (units), When, Where, Why, How.",
       "Row = case; column = variable (categorical vs quantitative).",
-      "Match summaries/graphs to variable type before analyzing."
+      "Match summaries and graphs to variable type before analyzing."
     ],
-    formulas:[
-      "None — focus on vocabulary and data workflow."
-    ],
-    quiz:[
-      {q:"Which step should always come first?", opts:["Compute mean/SD","Draw a boxplot","Define context (5W+H)","Standardize to z-scores"], answer:2}
-    ]},
+    formulas:["(No formulas — vocabulary and data workflow.)"],
+    quiz:[{q:"Which step should come first?", opts:["Compute mean and SD","Draw a boxplot","Define context (5W+H)","Standardize to z-scores"], answer:2}]},
 
-  { id:"ch2", badge:"2", title:"Categorical Data: Display & Describe", tags:["bar chart","pie","contingency","conditional %","association"],
+  { id:"ch2", badge:"2", title:"Categorical Data: Display and Describe", tags:["bar chart","pie","contingency","conditional percent","association"],
     bullets:[
       "Summarize with frequency or relative‑frequency tables.",
-      "Bar charts compare counts; pie charts show part-of-whole (use sparingly).",
-      "Two variables → contingency table; compare conditional percentages.",
-      "Check area principle; beware stacked bars that hide differences."
+      "Bar charts compare counts; pie charts show part-of-whole.",
+      "Two variables → contingency table; compare conditional percents.",
+      "Check area principle; avoid misleading stacked bars."
     ],
     formulas:["P(category) = count / total"],
-    quiz:[{q:"Best display to compare 5 categories?", opts:["Pie","Bar chart","Histogram","Timeplot"], answer:1}]},
+    quiz:[{q:"Best display to compare 5 categories?", opts:["Pie chart","Bar chart","Histogram","Timeplot"], answer:1}]},
 
-  { id:"ch3", badge:"3", title:"Quantitative Data: Display & Summarize", tags:["histogram","boxplot","center","spread","shape","outliers"],
+  { id:"ch3", badge:"3", title:"Quantitative Data: Display and Summarize", tags:["histogram","boxplot","center","spread","shape","outliers"],
     bullets:[
-      "Describe Shape–Center–Spread + unusual features.",
-      "Mean/SD for symmetric; Median/IQR for skewed or with outliers.",
+      "Describe shape, center, spread, and unusual features.",
+      "Mean and SD for roughly symmetric; median and IQR for skewed.",
       "Five‑number summary builds a boxplot.",
-      "Always look for gaps and outliers — they tell the story."
+      "Look for gaps and outliers — they tell the story."
     ],
-    formulas:["IQR = Q3 − Q1","z = (y − \u0305y)/s"],
-    quiz:[{q:"Skewed right: which center/spread?", opts:["Mean & SD","Median & IQR","Mode & Range","Mean & IQR"], answer:1}]},
+    formulas:["IQR = Q3 − Q1","z = (y − ybar) / s"],
+    quiz:[{q:"Skewed right: which center/spread?", opts:["Mean and SD","Median and IQR","Mode and range","Mean and IQR"], answer:1}]},
 
-  { id:"ch4", badge:"4", title:"Understanding & Comparing Distributions", tags:["side-by-side boxplots","timeplots","re-expression"],
+  { id:"ch4", badge:"4", title:"Understanding and Comparing Distributions", tags:["side-by-side boxplots","timeplots","re-expression"],
     bullets:[
-      "Compare groups: center, spread, shape, outliers.",
-      "Timeplots reveal trends/seasonality.",
-      "Use log/\u221a/reciprocal re‑expressions to tame skew & unequal spreads."
-    ],
-    formulas:["None — visual comparison principles"],
-    quiz:[{q:"Multiple groups of a quantitative variable: best first view?", opts:["Contingency table","Side‑by‑side boxplots","Pie chart","Mosaic plot"], answer:1}]},
+      "Compare groups with center, spread, shape, and outliers.",
+      "Timeplots reveal trends and seasonality.",
+      "Log, square‑root, or reciprocal re‑expressions can tame skew."],
+    formulas:["(Visual comparison principles, no main formula.)"],
+    quiz:[{q:"Many groups of a quantitative variable: best first view?", opts:["Contingency table","Side‑by‑side boxplots","Pie chart","Mosaic plot"], answer:1}]},
 
-  { id:"ch5", badge:"5", title:"SD as a Ruler & The Normal Model", tags:["standardize","z","Normal","68-95-99.7"],
+  { id:"ch5", badge:"5", title:"SD as a Ruler and the Normal Model", tags:["standardize","z","Normal","68-95-99.7"],
     bullets:[
-      "Standardizing enables comparisons across scales (z-scores).",
-      "Shift affects center; rescale affects center & spread.",
-      "Normal model for unimodal, symmetric data; verify with Normal probability plot.",
-      "68–95–99.7 rule for quick probability checks."
-    ],
-    formulas:["z = (y − \u03bc)/\u03c3","68–95–99.7% within 1–2–3 SD"],
-    quiz:[{q:"z = −2 means:", opts:["2 SD above mean","2 SD below mean","At mean","Unitless but undefined"], answer:1}]},
+      "Standardizing to z-scores lets you compare across scales.",
+      "Shifting adds a constant; rescaling multiplies both center and spread.",
+      "Normal model works for unimodal, symmetric data.",
+      "Use the 68–95–99.7 rule for quick probability checks."],
+    formulas:["z = (y − mu) / sigma","About 68%, 95%, 99.7% within 1, 2, 3 SD of the mean."],
+    quiz:[{q:"z = −2 means:", opts:["2 SD above mean","2 SD below mean","At mean","Undefined"], answer:1}]},
 
-  { id:"ch6", badge:"6", title:"Part I Review — Exploring & Understanding Data", tags:["workflow","choose graph","summarize","interpret"],
+  { id:"ch6", badge:"6", title:"Part I Review — Exploring and Understanding Data", tags:["workflow","choose graph","summarize","interpret"],
     bullets:[
       "Workflow: identify type → choose display → summarize → interpret.",
-      "Check conditions before Normal approximations.",
-      "Context always frames conclusions."
+      "Check conditions before using Normal approximations.",
+      "Always interpret in context, not just in symbols."
     ],
-    formulas:["Quick check: unimodal+symmetry → Normal ok"],
-    quiz:[{q:"Which is NOT part of S‑C‑S?", opts:["Shape","Center","Skew direction","Standard error"], answer:3}]},
+    formulas:["Unimodal and roughly symmetric → Normal model is often reasonable."],
+    quiz:[{q:"Which is NOT part of shape–center–spread?", opts:["Shape","Center","Skew direction","Standard error"], answer:3}]},
 
-  { id:"ch7", badge:"7", title:"Scatterplots, Association, Correlation", tags:["scatterplot","form","direction","strength","r"],
+  { id:"ch7", badge:"7", title:"Scatterplots, Association, and Correlation", tags:["scatterplot","form","direction","strength","r"],
     bullets:[
       "Use scatterplots for two quantitative variables.",
-      "Describe form (linear?), direction (+/−), strength.",
-      "Correlation r measures linear strength; sensitive to outliers; unitless.",
-      "Plot first, compute r second; correlation ≠ causation."
-    ],
-    formulas:["-1 \u2264 r \u2264 1"],
+      "Describe form (linear or not), direction (positive or negative), strength.",
+      "Correlation r measures linear strength and direction; it is unitless.",
+      "Plot first, compute r second; correlation does not imply causation."],
+    formulas:["−1 <= r <= 1"],
     quiz:[{q:"r close to 0 implies:", opts:["No association at all","No linear association","Variables independent","Perfect curve"], answer:1}]},
 
   { id:"ch8", badge:"8", title:"Linear Regression", tags:["least squares","slope","intercept","r2","residuals"],
     bullets:[
-      "Fit \u0177 = a + bx by minimizing squared residuals.",
-      "b = r (s_y/s_x); a = \u0305y − b\u0305x.",
-      "Interpret slope as rate; r^2 = variance explained.",
-      "Check residual plots; beware extrapolation & influential points."
-    ],
-    formulas:["b = r\, s_y/s_x","r^2 = 1 − SS_res/SS_tot"],
-    quiz:[{q:"Residual =", opts:["y − \u0177","\u0177 − y","(y − \u0305y)/s","x − \u0305x"], answer:0}]},
+      "Fit y-hat = a + b x by minimizing squared residuals.",
+      "Slope b is the predicted change in y for 1 unit change in x.",
+      "r-squared is the fraction of variation in y explained by x.",
+      "Check residual plots; beware extrapolation and influential points."],
+    formulas:["Residual = y − y-hat","r-squared = 1 − (SS_res / SS_tot)"],
+    quiz:[{q:"Residual equals:", opts:["y − y-hat","y-hat − y","(y − ybar)/s","x − xbar"], answer:0}]},
 
   { id:"rv2", badge:"II", title:"Part II Review — Exploring Relationships", tags:["review","correlation","regression","re-expression"],
     bullets:[
-      "Use scatterplots → check linearity → compute r and fit line if appropriate.",
-      "r^2 quantifies explanatory power; residual SD quantifies typical error.",
-      "Re‑express to straighten or stabilize variance; never claim causation from association."
-    ], formulas:["None"], quiz:[{q:"If residual plot is curved, you should:", opts:["Keep line","Try transformation or new model","Force intercept 0","Delete points"], answer:1}]},
+      "Use scatterplots → check linearity → compute r and fit a line if appropriate.",
+      "r-squared measures explanatory power; residual SD measures typical error.",
+      "Re‑express variables if needed; still avoid causal language unless from experiments."],
+    formulas:["(No new formulas beyond correlation and regression.)"],
+    quiz:[{q:"If residual plot is clearly curved, you should:", opts:["Keep the same line","Try a transformation or new model","Force intercept 0","Delete points"], answer:1}]},
 
   { id:"ch9", badge:"9", title:"Sample Surveys", tags:["SRS","stratified","cluster","bias","sampling error"],
     bullets:[
-      "Three big ideas: sample part, randomize, size matters (not fraction).",
+      "Three big ideas: sample part of the whole, randomize, sample size matters.",
       "Avoid bias: convenience, voluntary response, undercoverage, response bias.",
-      "Designs: SRS, stratified, cluster, multistage, systematic.",
-      "Statistic estimates parameter (p̂ ↔ p, ȳ ↔ μ)."
-    ], formulas:["None"], quiz:[{q:"Best cure for bias is:", opts:["Bigger sample","Randomization in design","More questions","Post‑hoc weighting only"], answer:1}]},
+      "Designs: simple random, stratified, cluster, multistage, systematic.",
+      "Sample statistics estimate population parameters."],
+    formulas:["(No main formula — focus on design vocabulary.)"],
+    quiz:[{q:"Best cure for bias is:", opts:["Bigger sample","Randomization in design","More questions","Post‑hoc weighting only"], answer:1}]},
 
-  { id:"ch10", badge:"10", title:"Experiments & Observational Studies", tags:["causation","random assignment","control","replicate","block","blinding"],
+  { id:"ch10", badge:"10", title:"Experiments and Observational Studies", tags:["causation","random assignment","control","replicate","block","blinding"],
     bullets:[
-      "Only experiments with random assignment support causal claims.",
-      "Fisher’s 4: Control, Randomize, Replicate, Block.",
-      "Use blinding; watch for confounding.",
-      "Diagram: random allocate → treat → compare (use boxplots)."
-    ], formulas:["None"], quiz:[{q:"Which design can show causation?", opts:["Retrospective study","Prospective study","Randomized experiment","Census"], answer:2}]},
+      "Only randomized experiments support cause-and-effect claims.",
+      "Four principles: control, randomize, replicate, block.",
+      "Use blinding; watch for confounding variables.",
+      "Diagrams: random allocate → treat → compare."],
+    formulas:["(Conceptual, not formula-based.)"],
+    quiz:[{q:"Which design can show causation?", opts:["Retrospective study","Prospective study","Randomized experiment","Census"], answer:2}]},
 
   { id:"rv3", badge:"III", title:"Part III Review — Gathering Data", tags:["review","sampling","experiments"],
     bullets:[
-      "Good data before good analysis; bad collection ruins inference.",
-      "Random sampling for generalization; random assignment for causation.",
-      "Block/stratify to reduce variance where appropriate."
-    ], formulas:["None"], quiz:[{q:"Blocking is most like:", opts:["Convenience sampling","Stratification","Census","Replication"], answer:1}]},
+      "Good data are more important than fancy models.",
+      "Random sampling supports generalization; random assignment supports causation.",
+      "Blocks and strata reduce variability by grouping similar units."],
+    formulas:["(No new formulas.)"],
+    quiz:[{q:"Blocking in experiments is most like what in sampling?", opts:["Convenience sampling","Stratification","Census","Replication"], answer:1}]},
 
   { id:"ch11", badge:"11", title:"From Randomness to Probability", tags:["LLN","empirical probability","addition rule","complement"],
     bullets:[
-      "Randomness: unpredictable single trial; predictable long run.",
-      "LLN: relative frequencies converge to probabilities under identical independent trials.",
-      "Complement: P(A^c)=1−P(A); disjoint addition rule.",
-      "Beware mythical 'Law of Averages' in short runs."
-    ], formulas:["P(A)=#A/#S","P(A\u222aB)=P(A)+P(B) for disjoint"],
-    quiz:[{q:"LLN guarantees:", opts:["Next flip balances prior outcomes","Long‑run stabilization","Immediate convergence","Independence of all events"], answer:1}]},
+      "Randomness: unpredictable in short run, predictable in long run.",
+      "Law of Large Numbers: relative frequency approaches probability.",
+      "Complement: P(not A) = 1 − P(A).",
+      "Addition rule for disjoint events: P(A or B) = P(A) + P(B)."],
+    formulas:["P(A) = number of outcomes in A / number of outcomes in sample space"],
+    quiz:[{q:"LLN guarantees:", opts:["Next flip balances prior outcomes","Long‑run stabilization of relative frequency","Immediate convergence","Independence of events"], answer:1}]},
 
   { id:"ch12", badge:"12", title:"Probability Rules!", tags:["conditional","independence","multiplication","Bayes","trees","Venn"],
     bullets:[
-      "Conditional: P(B|A)=P(A\u2229B)/P(A).",
-      "Independence: P(B|A)=P(B) → P(A\u2229B)=P(A)P(B).",
-      "General multiplication & addition (with overlap).",
-      "Bayes' Rule to reverse conditioning; visualize with trees and tables."
-    ], formulas:["P(A\u2229B)=P(A)P(B|A)","P(A|B)=P(B|A)P(A)/P(B)"],
+      "Conditional probability: P(B|A) = P(A and B) / P(A).",
+      "Independence: P(B|A) = P(B); then P(A and B) = P(A)P(B).",
+      "General addition rule: P(A or B) = P(A) + P(B) − P(A and B).",
+      "Use Bayes’ Rule to reverse conditioning; visualize with trees and tables."],
+    formulas:["P(A and B) = P(A) P(B|A)","P(A|B) = P(B|A) P(A) / P(B)"],
     quiz:[{q:"Disjoint events can be independent.", opts:["True","False"], answer:1}]},
 
-  { id:"ch13", badge:"13", title:"Random Variables", tags:["discrete","continuous","E(X)","Var(X)","sum/diff","binomial","Normal"],
+  { id:"ch13", badge:"13", title:"Random Variables", tags:["discrete","continuous","expected value","variance","binomial","Normal"],
     bullets:[
-      "Probability model lists values and probabilities (discrete) or density (continuous).",
-      "E(X)=\u2211 xP(x); Var(X)=\u2211(x−\u03bc)^2P(x); SD=\u221aVar.",
-      "Linear rules: E(a+bX)=a+bE(X); Var(a+bX)=b^2Var(X).",
-      "Independent sums: Var(X\u00b1Y)=Var(X)+Var(Y). Binomial & Normal models appear."
-    ], formulas:["E(X)=\u2211 xP(x)","Var(X)=\u2211(x-\u03bc)^2P(x)","Var(X\u00b1Y)=Var(X)+Var(Y) (indep.)"],
-    quiz:[{q:"Var(X−Y) for independent X,Y equals:", opts:["Var(X)−Var(Y)","Var(X)+Var(Y)","0","2Var(X)"], answer:1}]},
+      "Random variable assigns numeric values to outcomes.",
+      "Expected value is long‑run average: E(X) = sum of x times P(x).",
+      "Variance measures spread around the mean; SD is the square root.",
+      "For independent variables, variances add when you sum or subtract."],
+    formulas:["E(X) = sum x P(x)","Var(X) = sum (x − mu)^2 P(x)","Var(X ± Y) = Var(X) + Var(Y) for independent X,Y"],
+    quiz:[{q:"Var(X − Y) for independent X and Y equals:", opts:["Var(X) − Var(Y)","Var(X) + Var(Y)","0","2 Var(X)"], answer:1}]},
 
-  { id:"ch14", badge:"14", title:"Sampling Distribution Models", tags:["sampling distribution","SE","CLT","Normal approx"],
+  { id:"ch14", badge:"14", title:"Sampling Distribution Models", tags:["sampling distribution","standard error","CLT","Normal approximation"],
     bullets:[
-      "A statistic varies by sample → its sampling distribution has center & spread.",
-      "SE of mean: \u03c3/\u221an; by CLT, \u0305y \u2248 Normal for large n.",
-      "Binomial counts/proportions have modelled variability; Normal approx when n large & p not extreme.",
-      "Sets stage for confidence intervals & hypothesis tests."
-    ], formulas:["SE(\u0305y)=\u03c3/\u221an","\u0305y \u2248 N(\u03bc, \u03c3/\u221an) (large n)"],
-    quiz:[{q:"As n increases, SE of \u0305y:", opts:["Increases","Unchanged","Decreases like 1/\u221an","Decreases like 1/n"], answer:2}]},
+      "A sampling distribution is the model of a statistic over many samples.",
+      "Standard error describes typical sampling variability.",
+      "Central Limit Theorem: sample mean is approximately Normal for large n.",
+      "Normal approximation can be used for proportions and means when conditions hold."],
+    formulas:["SE(mean) = sigma / sqrt(n)","Sample mean is approximately Normal with mean mu and SD sigma/sqrt(n) when n is large."],
+    quiz:[{q:"As n increases, SE of the sample mean:", opts:["Increases","Stays the same","Decreases like 1/sqrt(n)","Decreases like 1/n"], answer:2}]},
 
-  { id:"rv4", badge:"IV", title:"Part IV Review — Randomness & Probability", tags:["review","LLN","rules","models"],
+  { id:"rv4", badge:"IV", title:"Part IV Review — Randomness and Probability", tags:["review","LLN","rules","models"],
     bullets:[
-      "LLN → long‑run stability; no short‑run 'due' events.",
-      "Combine events with addition/multiplication; update with conditionals.",
-      "Choose appropriate RV model (Normal, Binomial, Poisson)."
-    ], formulas:["Quick: if events independent ⇒ P(\n  at least one) = 1 − \u220f(1−p_i)"],
-    quiz:[{q:"'At least one' is often easiest via:", opts:["Addition rule repeatedly","Complement rule","Bayes' rule","Z‑table"], answer:1}]}
+      "Law of Large Numbers gives long‑run stability.",
+      "Addition and multiplication rules combine events.",
+      "Choose an appropriate random variable model (Normal, Binomial, Poisson)."],
+    formulas:["For independent events, P(at least one) = 1 − product(1 − p_i)."],
+    quiz:[{q:"\"At least one\" is often easiest via:", opts:["Addition rule repeatedly","Complement rule","Bayes’ rule","Z‑table"], answer:1}]},
+
+  { id:"ch15", badge:"15", title:"Confidence Intervals for Proportions", tags:["CI","proportions","standard error","z*"],
+    bullets:[
+      "Estimate the true proportion p with p-hat plus or minus margin of error.",
+      "Conditions: randomization, independence, success/failure (enough successes and failures).",
+      "Higher confidence gives wider intervals; larger n gives narrower intervals."],
+    formulas:["CI: p-hat ± z* sqrt(p-hat q-hat / n)"],
+    quiz:[{q:"What increases the width of a confidence interval?", opts:["Larger sample size","Lower confidence level","Higher confidence level","Smaller p-hat"], answer:2}]},
+
+  { id:"ch16", badge:"16", title:"Testing Hypotheses About Proportions", tags:["z-test","p-value","null hypothesis","alternative"],
+    bullets:[
+      "Test hypotheses about a population proportion p using a z statistic.",
+      "P-value is the probability of data this extreme or more if the null is true.",
+      "Reject the null when P-value is below alpha; otherwise fail to reject."],
+    formulas:["z = (p-hat − p0) / sqrt(p0 q0 / n)"],
+    quiz:[{q:"A small P-value means:", opts:["Strong evidence for the null","Strong evidence against the null","Sample size too small","Proportions are equal"], answer:1}]},
+
+  { id:"ch17", badge:"17", title:"More About Tests", tags:["type I error","type II error","power","alpha"],
+    bullets:[
+      "Type I error: rejecting a true null; probability = alpha.",
+      "Type II error: failing to reject a false null; probability = beta.",
+      "Power = 1 − beta; increases with larger sample size and larger true effect."],
+    formulas:["Power = 1 − beta"],
+    quiz:[{q:"Power increases when:", opts:["Sample size shrinks","Alpha decreases a lot","Sample size increases","Variance increases"], answer:2}]},
+
+  { id:"ch18", badge:"18", title:"Inferences About Means", tags:["t-model","one-sample t","mean"],
+    bullets:[
+      "When sigma is unknown, use t procedures for means.",
+      "t-statistic uses sample SD and has n − 1 degrees of freedom.",
+      "Confidence interval: y-bar ± t* times standard error."],
+    formulas:["t = (y-bar − mu0) / (s / sqrt(n))"],
+    quiz:[{q:"Compared to Normal, a t-distribution has:", opts:["Lighter tails","Same shape","Heavier tails","Discrete probabilities only"], answer:2}]},
+
+  { id:"ch19", badge:"19", title:"Comparing Means", tags:["two-sample t","independent groups","difference of means"],
+    bullets:[
+      "Use two-sample t to compare means of two independent groups.",
+      "Standard error combines variability from both groups.",
+      "Confidence intervals and tests parallel the one-sample t logic."],
+    formulas:["SE(y1-bar − y2-bar) = sqrt(s1^2 / n1 + s2^2 / n2)"],
+    quiz:[{q:"Two-sample t requires:", opts:["Paired data","Independent samples","Categorical response","Always pooled variance"], answer:1}]},
+
+  { id:"ch20", badge:"20", title:"Paired Samples and Blocks", tags:["paired t","differences","blocking"],
+    bullets:[
+      "Paired or matched data: work with the differences.",
+      "Analyze differences with a one-sample t test.",
+      "Blocking or pairing reduces variation and increases power."],
+    formulas:["t = (d-bar) / (sd / sqrt(n))"],
+    quiz:[{q:"When should you use a paired t test?", opts:["Two random groups","Before/after measurements on same subjects","Three groups","Proportions"], answer:1}]},
+
+  { id:"ch21", badge:"21", title:"Comparing Two Proportions", tags:["two-proportion z","pooled","difference"],
+    bullets:[
+      "Compare two proportions p1 and p2 with a z test.",
+      "Use pooled p-hat under the null for the test.",
+      "Confidence interval uses an unpooled standard error."],
+    formulas:["SE(p1-hat − p2-hat) = sqrt(p1-hat q1-hat / n1 + p2-hat q2-hat / n2)"],
+    quiz:[{q:"Pooled proportion is used:", opts:["In confidence intervals","In the null hypothesis test","Never","Only for very small samples"], answer:1}]},
+
+  { id:"ch22", badge:"22", title:"Comparing Counts", tags:["chi-square","goodness of fit","independence","homogeneity"],
+    bullets:[
+      "Chi-square tests compare observed counts to expected counts.",
+      "Goodness-of-fit: one categorical variable vs a model.",
+      "Independence or homogeneity: two-way tables of counts."],
+    formulas:["Chi-square = sum (Observed − Expected)^2 / Expected"],
+    quiz:[{q:"Chi-square P-values are:", opts:["Two-tailed","Left-tailed","Right-tailed","Bilateral"], answer:2}]},
+
+  { id:"ch23", badge:"23", title:"Inferences for Regression", tags:["slope test","t-test","standard error of slope"],
+    bullets:[
+      "Test whether slope is zero using a t test.",
+      "Confidence interval for slope: estimate ± t* times its SE.",
+      "Assumptions: linearity, independence, equal variance, Normal residuals."],
+    formulas:["t = slope / SE(slope)"],
+    quiz:[{q:"Degrees of freedom for regression slope:", opts:["n − 1","n","n − 2","2n"], answer:2}]},
+
+  { id:"ch24", badge:"24", title:"Analysis of Variance", tags:["ANOVA","F-test","multiple means"],
+    bullets:[
+      "ANOVA tests equality of several group means.",
+      "F = variation between group means divided by variation within groups.",
+      "Requires roughly equal variances and Normality within groups."],
+    formulas:["F = MST / MSE"],
+    quiz:[{q:"ANOVA primarily tests:", opts:["Medians","Variances only","Equality of means","Correlation"], answer:2}]},
+
+  { id:"ch25", badge:"25", title:"Multifactor Analysis of Variance", tags:["two-way","interaction","main effects"],
+    bullets:[
+      "Two-factor ANOVA studies two categorical factors at once.",
+      "Main effects: average effect of each factor.",
+      "Interaction: effect of one factor changes across levels of the other."],
+    formulas:["Response = overall mean + factor A effect + factor B effect + error"],
+    quiz:[{q:"Interaction means:", opts:["Effects are additive","Factors are independent","One factor’s effect depends on the other","Residuals are zero"], answer:2}]},
+
+  { id:"ch26", badge:"26", title:"Multiple Regression", tags:["multiple predictors","partial slopes","adjusted R2"],
+    bullets:[
+      "Multiple regression uses several predictors for one response.",
+      "Each coefficient is a partial slope holding other predictors constant.",
+      "Use adjusted R-squared and residual plots to assess model quality."],
+    formulas:["y = b0 + b1 x1 + b2 x2 + ... + bk xk"],
+    quiz:[{q:"In multiple regression, coefficient b_j represents:", opts:["Simple slope of y on x_j ignoring others","Slope of y on x_j adjusted for other predictors","Overall intercept","Residual"], answer:1}]},
+
+  { id:"ch27", badge:"27", title:"Multiple Regression Wisdom", tags:["model selection","diagnostics","leverage","influence"],
+    bullets:[
+      "Check partial regression (added-variable) plots for each predictor.",
+      "Watch for high-leverage and influential points.",
+      "Compare models with adjusted R-squared and context, not just statistics."],
+    formulas:["(Key idea: partial slope = slope in added-variable plot.)"],
+    quiz:[{q:"High-leverage points:", opts:["Are always outliers","Never affect slope","Can strongly affect the fitted line","Are ignored by least squares"], answer:2}]},
+
+  { id:"ch28", badge:"28", title:"Nonparametric Tests", tags:["distribution-free","rank tests","sign test"],
+    bullets:[
+      "Nonparametric methods make fewer assumptions about distributions.",
+      "Examples: sign test, Wilcoxon rank-sum, Wilcoxon signed-rank tests.",
+      "They are useful when Normality is doubtful or when there are strong outliers."],
+    formulas:["(Use ranks or signs instead of raw data values.)"],
+    quiz:[{q:"Nonparametric tests are especially useful when:", opts:["Data are clearly Normal","Variances are equal","There is severe skew or outliers","Data are categorical only"], answer:2}]},
+
+  { id:"ch29", badge:"29", title:"The Bootstrap", tags:["resampling","bootstrap confidence interval","nonparametric"],
+    bullets:[
+      "Bootstrap samples are taken from the data, with replacement.",
+      "The bootstrap distribution of a statistic is used to approximate its sampling distribution.",
+      "Bootstrap confidence intervals are useful when formulas are complicated or unreliable."],
+    formulas:["Percentile interval: take middle percent of bootstrap statistic values."],
+    quiz:[{q:"Bootstrap samples are drawn:", opts:["Without replacement","With replacement from the sample","Directly from the population","From a Normal model"], answer:1}]},
+
+  { id:"rv6", badge:"VI/VII", title:"Part VI/VII Review — Assessing Associations and Modelling", tags:["review","linear models","ANOVA","multiple regression"],
+    bullets:[
+      "Linear models unify regression and ANOVA under one general framework.",
+      "F-tests assess overall model usefulness; t tests assess individual coefficients.",
+      "Always check assumptions: linearity, equal variance, independence, Normal residuals."],
+    formulas:["General linear model: y = X b + error"],
+    quiz:[{q:"Overall utility of a regression or ANOVA model is usually tested with:", opts:["A t test","An F test","A z test","A chi-square test"], answer:1}]}
 ];
 
 const container = document.getElementById('cards');
@@ -354,4 +478,3 @@ addEventListener('dblclick', (e)=>{
 </script>
 </body>
 </html>
-
