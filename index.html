@@ -22,12 +22,23 @@
   .logo-sub{font-size:.75rem;color:var(--soft)}
   .side-sec{margin-top:6px}
   .side-title{font-size:.78rem;text-transform:uppercase;letter-spacing:.09em;color:var(--soft);margin:6px 0 4px}
+  .side-toggle{display:none;align-items:center;justify-content:space-between;width:100%;background:transparent;border:0;padding:0;font:inherit;color:inherit;cursor:pointer}
+  .side-arrow{display:none}
   .side-list{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:.8rem}
   .side-list a{text-decoration:none;color:var(--soft);display:flex;justify-content:space-between;align-items:center;padding:4px 7px;border-radius:9px;border:1px solid transparent}
   .side-list a:hover{border-color:var(--border);background:#020617;color:var(--accent)}
   .badge{font-size:.7rem;padding:1px 6px;border-radius:999px;border:1px solid #1f2937;background:#020617}
   .side-note{font-size:.72rem;color:var(--soft);margin-top:8px}
   .side-note strong{color:var(--accent)}
+
+  @media(max-width:900px){
+    .side-title-static{display:none}
+    .side-toggle{display:flex;padding:6px 8px;border-radius:9px;border:1px solid var(--border);background:#020617}
+    .side-title{margin:0}
+    .side-arrow{display:inline-block;font-size:.7rem;margin-left:6px;transition:transform .15s ease-out}
+    .side-sec.collapsed .side-list{display:none}
+    .side-sec.collapsed .side-arrow{transform:rotate(-90deg)}
+  }
 
   .main{display:flex;flex-direction:column;gap:14px}
   .hero{background:linear-gradient(135deg,#020617,#020617 50%,#020617 100%);border-radius:18px;border:1px solid var(--border);padding:14px 14px 12px;box-shadow:0 18px 48px rgba(15,23,42,.9)}
@@ -84,7 +95,11 @@
       </div>
     </div>
     <div class="side-sec">
-      <div class="side-title">Jump to</div>
+      <div class="side-title side-title-static">Jump to</div>
+      <button class="side-toggle" type="button">
+        <span class="side-title">Jump to</span>
+        <span class="side-arrow">▾</span>
+      </button>
       <ul class="side-list">
         <li><a href="#global"><span>Global Course Tree</span><span class="badge">All</span></a></li>
         <li><a href="#partI"><span>Part I/II – Describe</span><span class="badge">Ch 1–8</span></a></li>
@@ -975,6 +990,16 @@
   const toast=document.getElementById('toast');
   let toastTimer;
   function showToast(msg){toast.textContent=msg||'Copied ✓';toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),1300);}  
+  (function(){
+    const jumpSec=document.querySelector('.side-sec');
+    const jumpToggle=jumpSec&&jumpSec.querySelector('.side-toggle');
+    if(!jumpSec||!jumpToggle)return;
+    function isMobile(){return window.matchMedia('(max-width: 900px)').matches}
+    function applyByViewport(){if(isMobile())jumpSec.classList.add('collapsed');else jumpSec.classList.remove('collapsed')}
+    applyByViewport();
+    window.addEventListener('resize',applyByViewport);
+    jumpToggle.addEventListener('click',()=>{if(!isMobile())return;jumpSec.classList.toggle('collapsed')});
+  })();
   document.addEventListener('dblclick',e=>{
     const g=e.target.closest('.grain');
     if(!g||g.getAttribute('data-copy')!=='true')return;
@@ -990,4 +1015,3 @@
 </script>
 </body>
 </html>
-
