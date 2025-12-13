@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chapter 21: Comparing Two Proportions</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      margin: 2rem;
+      max-width: 900px;
+    }
+    h1, h2 {
+      color: #1f3b5b;
+    }
+    h3 {
+      color: #2c6f7b;
+    }
+    section {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .formula {
+      background: #f6f9fc;
+      border-left: 4px solid #2c6f7b;
+      padding: 0.6rem 0.9rem;
+      margin: 0.4rem 0;
+      font-family: "Courier New", monospace;
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+    .example {
+      background: #fff6da;
+      border-left: 4px solid #dba520;
+      padding: 0.6rem 0.9rem;
+      margin: 0.4rem 0;
+    }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chapter 21: Comparing Two Proportions</h1>
+
+  <section>
+    <h2>21.1 The Standard Deviation of the Difference Between Two Proportions</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>The variance of two independent proportions adds, so we can find the SD of their difference by summing variances.</li>
+      <li>The standard error replaces unknown population proportions with observed proportions to give a practical measure of spread.</li>
+      <li>All quantities are in percentage-point units because proportions are unitless fractions.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <div class="formula">
+      Var(p̂₁ − p̂₂) = p₁q₁/n₁ + p₂q₂/n₂
+    </div>
+    <p>
+      This is the variance of the difference: each group’s variance p·q/n contributes, and the q’s are 1 − p.
+    </p>
+    <div class="formula">
+      SD(p̂₁ − p̂₂) = √[p₁q₁/n₁ + p₂q₂/n₂]
+    </div>
+    <p>
+      Taking the square root returns the spread in the same units as the proportions, preparing us to build z-scores.
+    </p>
+    <div class="formula">
+      SE(p̂₁ − p̂₂) = √[p̂₁q̂₁/n₁ + p̂₂q̂₂/n₂]
+    </div>
+    <p>
+      Because the true proportions are unknown, we substitute the observed proportions (p̂) to estimate the SD we can compute.
+    </p>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      Comparing 57% of 248 boys and 70% of 256 girls with profiles gives SE = √[(0.57·0.43)/248 + (0.70·0.30)/256] ≈ 0.0425, so the difference in profile rates has about a 4.25 percentage-point spread due to sampling variation.
+    </div>
+  </section>
+
+  <section>
+    <h2>21.2 Assumptions and Conditions When Comparing Proportions</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Causality and valid inference require independent responses within each group and between the groups.</li>
+      <li>The 10% condition keeps the independence assumption safe when sampling without replacement.</li>
+      <li>Each group must observe at least 10 successes and 10 failures (or expected counts of 10 under the null) so the Normal model holds.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><strong>Randomization Condition:</strong> Treat data as drawn at random (or from a randomized experiment) to avoid systematic bias.</li>
+      <li><strong>Independent Groups Assumption:</strong> The two samples must consist of unrelated individuals; otherwise, the differences are correlated and the variance-addition rule breaks.</li>
+      <li><strong>Success/Failure Condition:</strong> For each group, both n·p̂ and n·(1−p̂) should be ≥10, so that each sampling distribution is close to Normal.</li>
+      <li><strong>10% Condition:</strong> Sample size n ≤ 0.10·population size to maintain approximate independence when sampling without replacement.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      The teen profile survey satisfied all conditions: random samples, independent boys/girls groups, sizes far below 10% of the population, and at least 10 teens in each success/failure category, so inference is justified.
+    </div>
+  </section>
+
+  <section>
+    <h2>21.3 A Confidence Interval for the Difference Between Two Proportions</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>The difference of two independent proportions is approximately Normal when both groups are large enough.</li>
+      <li>A two-proportion z-interval centers on the observed difference and stretches by z*·SE to describe plausible values of the true difference.</li>
+      <li>If the confidence interval avoids zero, we have evidence of a nonzero difference.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <div class="formula">
+      p̂₁ − p̂₂ ~ Normal(mean = p₁ − p₂, SD = √[p₁q₁/n₁ + p₂q₂/n₂])
+    </div>
+    <p>
+      The sampling distribution of the difference centers on the true difference; the SD describes how much the observed difference will vary from sample to sample.
+    </p>
+    <div class="formula">
+      CI = (p̂₁ − p̂₂) ± z* · SE(p̂₁ − p̂₂)
+    </div>
+    <p>
+      The margin of error z*·SE captures the uncertainty; z* depends on the confidence level (e.g., 1.96 for 95%).
+    </p>
+    <div class="formula">
+      SE(p̂₁ − p̂₂) = √[p̂₁q̂₁/n₁ + p̂₂q̂₂/n₂]
+    </div>
+    <p>
+      Observed proportions stand in for the true ones when computing the interval.
+    </p>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      The 95% CI for girls minus boys profiling rates is 0.13 ± 1.96·0.0425 ≈ (0.047, 0.213). We can be 95% confident the true gap is 4.7 to 21.3 percentage points, so teen girls are more likely to post profiles than boys.
+    </div>
+    <div class="example">
+      For seatbelt use, the 95% CI for female- vs. male-passenger driving is (0.143, 0.191), indicating drivers with female passengers are between 14.3% and 19.1% more likely to buckle up.
+    </div>
+  </section>
+
+  <section>
+    <h2>21.4 The z-Test for a Difference Between Proportions</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Under H₀: p₁ − p₂ = 0, we pool the counts to estimate the shared proportion and compute a pooled SE.</li>
+      <li>A two-proportion z-test compares the observed difference to the pooled SE through a z-score; a tiny P-value means the difference is unlikely under the null.</li>
+      <li>Pooling leverages the belief that the two groups share a common success rate under the null, reducing variance.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <div class="formula">
+      p̂_pool = (success₁ + success₂) / (n₁ + n₂)
+    </div>
+    <p>
+      This is the combined success rate when we assume the null hypothesis of equality is true.
+    </p>
+    <div class="formula">
+      SE_pool = √[p̂_pool·(1 − p̂_pool)/n₁ + p̂_pool·(1 − p̂_pool)/n₂]
+    </div>
+    <p>
+      The pooled standard error estimates the SD of the difference under the assumption the two true proportions coincide.
+    </p>
+    <div class="formula">
+      z = (p̂₁ − p̂₂) / SE_pool
+    </div>
+    <p>
+      Standardizing the observed difference reveals how many pooled SE units away from zero it lies; the standard Normal gives the P-value.
+    </p>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      The Indigenous vs. non-Indigenous medium-security rates produce p̂_pool ≈ 0.458, SE_pool ≈ 0.0677, z ≈ 2.69, and P ≈ 0.0072. Because the P-value is small, we reject equality and conclude a significant difference in classification rates.
+    </div>
+    <div class="example">
+      The teen online privacy data also results in P ≈ 0.0096, so the proportion of boys and girls who feel easy to find online differs.
+    </div>
+    <h3>Additional note</h3>
+    <ul>
+      <li><strong>Margin-of-error planning:</strong> Set the desired margin equal to z*·√[p(1−p)/n + p(1−p)/n] and solve for n (use p=0.5 for conservatism); about 2,222 teens per group gave a 6-point margin in the example.</li>
+      <li><strong>Power planning:</strong> Software needs guessed proportions, difference, α-level, direction, and target power; one example required 1,464 boys and 1,464 girls to detect a 5-point difference with 90% power.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Remember to check all assumptions before applying these methods: randomness, independence within and between groups, sufficient successes/failures, and the 10% rule. These procedures apply only to independent samples of categorical data.</p>
+  </footer>
+</body>
+</html>

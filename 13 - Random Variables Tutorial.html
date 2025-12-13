@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chapter 13: Random Variables</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; line-height: 1.5; margin: 2rem; color: #1c1c1c; background: #fefefe; }
+    h1, h2 { margin-bottom: 0.5rem; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.4rem; margin-top: 2rem; }
+    h3 { margin-top: 1.2rem; font-size: 1.1rem; }
+    ul { margin: 0.5rem 0 0.5rem 1.25rem; }
+    code { background: #f4f4f4; padding: 0.1rem 0.3rem; border-radius: 3px; }
+    .example { background: #f9f9f9; border-left: 4px solid #666; padding: 0.5rem 1rem; margin: 0.5rem 0 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Chapter 13: Random Variables</h1>
+
+  <h2>13.1 Centre: The Expected Value or Mean</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>A random variable assigns numbers to outcomes and is described by a probability model.</li>
+    <li>The expected value is the long-run average, the “centre” of that model.</li>
+    <li>The Law of Large Numbers explains why sample averages gravitate toward the expected value.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><code>m = E(X) = Σ x·P(x)</code> – multiply each outcome by its probability and sum; the units match the variable (for example, dollars)</li>
+  </ul>
+  <div class="example">
+    <strong>Example:</strong> The Lucky Lovers discount random variable has values $20, $10, and $0 with probabilities 1/4, 1/12, and 2/3, giving <code>E(X) ≈ $5.83</code> as the average discount over many visits.
+  </div>
+
+  <h2>13.2 Spread: The Variance and Standard Deviation</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>The variance is the mean of the squared deviations from the expected value.</li>
+    <li>The standard deviation is the square root of the variance, so it shares the same units as the random variable.</li>
+    <li>An alternative shortcut formula can simplify computations.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><code>Var(X) = Σ (x - m)²·P(x)</code> – average squared distance from the mean (in squared units).</li>
+    <li><code>SD(X) = √Var(X)</code> – the spread in the same units as the outcomes.</li>
+    <li><code>Var(X) = Σ x²·P(x) - m²</code> – alternate computation that may be easier when values are known.</li>
+  </ul>
+  <div class="example">
+    <strong>Example:</strong> Insurance pays $10,000, $5,000, or $0; with mean $20 and variance 149,600, the standard deviation is about $386.78, signalling significant risk despite a positive average profit.
+  </div>
+
+  <h2>13.3 Combining Random Variables</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Adding or subtracting a constant shifts the mean without affecting spread.</li>
+    <li>Multiplying by a constant scales both the mean and spread; variance scales by the square of the constant.</li>
+    <li>The expected value of a sum/difference is the sum/difference of expected values.</li>
+    <li>Variances add only when the variables are independent; if not, covariance adjusts the total.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><code>E(X ± c) = E(X) ± c</code>, <code>Var(X ± c) = Var(X)</code>, <code>SD(X ± c) = SD(X)</code></li>
+    <li><code>E(aX) = a·E(X)</code>, <code>Var(aX) = a²·Var(X)</code>, <code>SD(aX) = |a|·SD(X)</code></li>
+    <li><code>E(X ± Y) = E(X) ± E(Y)</code></li>
+    <li><code>Var(X ± Y) = Var(X) + Var(Y)</code> (if independent); otherwise use <code>Var(X ± Y) = Var(X) + Var(Y) - 2·Cov(X, Y)</code></li>
+    <li><code>Corr(X, Y) = Cov(X, Y)/(SD(X)·SD(Y))</code> – the unitless measure between −1 and +1 that describes how variables move together.</li>
+  </ul>
+  <div class="example">
+    <strong>Example:</strong> Two couples share discounts: adding independent discounts yields <code>SD ≈ $12.19</code>; doubling a single bill gives <code>SD ≈ $17.24</code>, showing the benefit of spreading risk.
+  </div>
+
+  <h2>13.4 The Binomial Model</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Bernoulli trials have two outcomes, a constant success probability, and independence.</li>
+    <li>The Binomial random variable counts successes in <code>n</code> trials with success probability <code>p</code>.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><code>P(X = k) = nCk·pᵏ·qⁿ⁻ᵏ</code> where <code>q = 1 - p</code>; multiply the probability of one sequence by the number of such sequences.</li>
+    <li><code>E(X) = np</code> – expected number of successes.</li>
+    <li><code>SD(X) = √(npq)</code> – spread around that mean.</li>
+  </ul>
+  <div class="example">
+    <strong>Example:</strong> Opening five cereal boxes with <code>p = 0.2</code> for De Grasse cards gives <code>P(X = 2) = 5C2·0.2²·0.8³ ≈ 0.2048</code> and <code>E(X) = 1</code>.
+  </div>
+
+  <h2>13.5 The Poisson Model</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Poisson counts rare, independent events happening at a steady rate over time or space.</li>
+    <li>The mean <code>λ</code> equals the expected count and also the variance.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><code>P(X = x) = e^{−λ}·λˣ/x!</code> – probability of exactly <code>x</code> occurrences.</li>
+    <li><code>E(X) = λ</code>, <code>SD(X) = √λ</code></li>
+  </ul>
+  <div class="example">
+    <strong>Example:</strong> In Woburn with <code>λ = np = 3.85</code>, the chance of eight or more leukemia cases is about 0.043, suggesting rare clusters can arise by chance.
+  </div>
+
+  <h2>13.6 Continuous Models</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Continuous random variables use density curves; probabilities are areas under the curve.</li>
+    <li>The Uniform model spreads probability evenly over an interval, with mean at the midpoint.</li>
+    <li>The Normal model is symmetric, well-behaved under shifts/scaling, and sums of independent Normals remain Normal.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li>Uniform: <code>P(c ≤ X ≤ d) = (d - c)/(b - a)</code>, <code>E(X) = (a + b)/2</code>, <code>Var(X) = (b - a)²/12</code></li>
+    <li>Normal: standardize to <code>Z = (X - μ)/σ</code>; use the 68-95-99.7 rule for interpreting spread.</li>
+    <li>Sum of independent Normals: <code>mean = sum of means</code>, <code>variance = sum of variances</code>.</li>
+  </ul>
+  <div class="example">
+    <strong>Example:</strong> Packing two systems takes <code>N(9, 1.5)</code> minutes each. The total is <code>N(18, √(1.5²+1.5²) ≈ 2.12)</code>, so <code>P(total > 20) ≈ 0.1736</code>.
+  </div>
+
+  <h2>13.7 Approximating the Binomial with a Normal Model</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>When <code>np ≥ 10</code> and <code>nq ≥ 10</code>, the Binomial is nearly Normal (Success/Failure Condition).</li>
+    <li>Standardize the discrete count and consult a Normal table instead of computing large combinations.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li>Approximate <code>Binom(n, p)</code> with <code>N(np, √(npq))</code>, then <code>z = (x - np)/√(npq)</code>.</li>
+  </ul>
+  <div class="example">
+    <strong>Example:</strong> For 1422 emails with <code>p = 0.09</code>, the expected number of real ones is <code>127.98</code> with <code>SD ≈ 10.79</code>. So <code>P(X ≤ 151) ≈ P(z ≤ 2.13) ≈ 0.9834</code>.
+  </div>
+
+  <h2>13.8 The Continuity Correction</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Normal models are continuous; discrete counts sit in bins. Adjust intervals by 0.5 on each side to capture the whole bin.</li>
+    <li>This refinement improves approximations, especially for small ranges.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li>To approximate <code>P(X = k)</code>, evaluate <code>P(k - 0.5 ≤ X ≤ k + 0.5)</code> in the Normal model.</li>
+    <li>For ranges, extend both endpoints by 0.5 before standardizing.</li>
+  </ul>
+  <div class="example">
+    <strong>Example:</strong> Rejecting 40 LCD screens out of 500 with <code>p = 0.07</code>. With <code>μ = 35</code>, <code>σ ≈ 5.7</code>, continuity correction gives <code>P(X ≥ 40) = P(z ≥ (39.5-35)/5.7 ≈ 0.789) ≈ 0.215</code>.
+  </div>
+</body>
+</html>

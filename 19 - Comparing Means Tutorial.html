@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chapter 19 Comparing Means Tutorial</title>
+</head>
+<body>
+  <article>
+    <h2>19.1 Comparing Means of Independent Samples</h2>
+    <p>When two independent groups are being compared, the goal is to describe how far apart their true means might be and whether that gap could be due to chance. Good practice begins with side-by-side boxplots, followed by inference based on the difference in sample means, <code>y₁ - y₂</code>, and a ruler built from the standard error and a Student’s t model.</p>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>The variance of the difference equals the sum of the variances only when the two groups are independent, so we square the standard error contributions from each group before adding them.</li>
+      <li>Confidence intervals and hypothesis tests for the difference rely on the Student’s t distribution with a complicated but computable degrees-of-freedom value; software handles the ugly formula.</li>
+      <li>Before proceeding, check (1) random sampling or random assignment, (2) independent groups, and (3) roughly normal population behavior for each group, especially when sample sizes are small.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ol>
+      <li>
+        <p><strong>Standard error of the difference</strong><br>
+        <code>SE(y₁ - y₂) = √(s₁² / n₁ + s₂² / n₂)</code><br>
+        This measures the typical size of <code>y₁ - y₂</code> fluctuations that arise just from sampling variability. Each term weighs a group’s estimated variance, <code>sᵢ²</code>, by its sample size <code>nᵢ</code>, so larger samples shrink their share of the total uncertainty. The units match the response variable (e.g., ounces of soup or minutes of battery life).</p>
+        <p><strong>Example:</strong> Ordinary bowls had <code>s = 6.1 oz</code> with <code>n = 27</code>, while refilling bowls had <code>s = 8.4 oz</code>. <code>SE = √(8.4²/27 + 6.1²/27) ≈ 2.0 oz</code>, so the difference in means is judged against this 2.0 oz ruler.</p>
+      </li>
+      <li>
+        <p><strong>Sampling statistic for inference</strong><br>
+        <code>t = ((y₁ - y₂) - (μ₁ - μ₂)) / SE(y₁ - y₂)</code><br>
+        This z-like ratio compares the observed gap <code>y₁ - y₂</code> to the hypothesized population gap <code>μ₁ - μ₂</code> (often assumed zero) in units of standard error. Under the assumptions, this <code>t</code> value follows a Student’s t distribution, so we can find critical values or P-values even when the true standard deviations are unknown.</p>
+        <p><strong>Example:</strong> If the true difference were zero, a sample difference of 6.2 oz with <code>SE = 2.0 oz</code> gives <code>t = 3.1</code>, which is unlikely under the null.</p>
+      </li>
+      <li>
+        <p><strong>Two-sample t confidence interval</strong><br>
+        <code>(y₁ - y₂) ± t* × SE(y₁ - y₂)</code><br>
+        The margin of error, <code>t* × SE</code>, combines the critical t value for the chosen confidence level with the same standard error used in testing. The resulting interval keeps the units of the response and estimates the plausible range for <code>μ₁ - μ₂</code>.</p>
+        <p><strong>Example:</strong> With <code>t* ≈ 2.011</code> for 95% confidence and <code>SE = 2.0 oz</code>, the margin of error is <code>4.02 oz</code>, so the interval is <code>(14.7 - 8.5) ± 4.02 = (2.18, 10.22) oz</code>, suggesting refilling bowls lead to noticeably more consumption.</p>
+      </li>
+    </ol>
+    <h3>Short example(s)</h3>
+    <p>The soup experiment showed people eating from secretly refilling bowls consumed an average of <code>6.2 oz</code> more soup. Checking conditions, computing <code>SE = 2.0 oz</code>, and building the 95% CI <code>(2.18, 10.22)</code> lets us conclude the mean difference is both positive and practically important.</p>
+
+    <h2>19.2 The Two-Sample t-Test</h2>
+    <p>The two-sample t-test turns the confidence-interval machinery into a hypothesis test. The null hypothesis always centers on a specific difference, usually <code>Δ₀ = 0</code>, and the alternative reflects the research question (two-sided unless context suggests otherwise).</p>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Write the null as <code>H₀: μ₁ - μ₂ = Δ₀</code> (commonly <code>Δ₀ = 0</code>) and the alternative as a “not equal,” “greater than,” or “less than” statement depending on the claim.</li>
+      <li>Use the same standard error and Student’s t model as in the interval, so the assumptions (independence, randomization, near normality) remain critical.</li>
+      <li>A small P-value means the observed difference is unlikely under the null, so we reject <code>H₀</code> and conclude the means differ in the direction the alternative specifies.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ol>
+      <li>
+        <p><strong>Null hypothesis</strong><br>
+        <code>H₀: μ₁ - μ₂ = Δ₀</code><br>
+        This is the statement we test; if <code>Δ₀ = 0</code>, we are testing whether no average difference exists. The alternative <code>Hₐ</code> can be two-sided or one-sided (e.g., <code>μ₁ - μ₂ > 0</code>).</p>
+        <p><strong>Example:</strong> The camera study expected a change from friendship, so <code>H₀: μ_F - μ_S = 0</code> and <code>Hₐ: μ_F - μ_S ≠ 0</code>.</p>
+      </li>
+      <li>
+        <p><strong>Test statistic</strong><br>
+        <code>t = ((y₁ - y₂) - Δ₀) / SE(y₁ - y₂)</code><br>
+        The ratio is similar to the confidence interval but compared to the hypothesized gap <code>Δ₀</code>. Again, the units are those of the response variable, and we use the Student’s t distribution (with the same <code>df</code> formula) to get the P-value.</p>
+        <p><strong>Example:</strong> Friends offered <code>y_F = $281.88</code> and strangers <code>y_S = $211.43</code>, leading to <code>SE = 18.70</code>. The test statistic is <code>t = (70.45 - 0)/18.70 ≈ 3.77</code>, and the P-value is about 0.006, so we conclude friendship affects the price.</p>
+      </li>
+    </ol>
+    <h3>Short example(s)</h3>
+    <p>In the camera-price experiment, the test rejected the null with <code>P ≈ 0.006</code>, so there is strong evidence that friendship alters what people are willing to pay.</p>
+
+    <h2>19.3 The Pooled t-Test</h2>
+    <p>Pooled t-tests assume the two populations have the same variance; this extra assumption can shrink the standard error slightly but is only justifiable in special situations, such as randomized experiments where treatments likely leave the variance unchanged.</p>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Before pooling, check that the spreads look similar and that the scientific context justifies equal variance (for example, the treatments differ only in the mean effect and not in variability).</li>
+      <li>The pooled estimate uses information from both samples to get a single variance estimate, giving <code>df = n₁ + n₂ - 2</code>, which is easier to compute than the unpooled formula.</li>
+      <li>If the equal-variance assumption is questionable, stick with the unpooled two-sample t methods to avoid invalid conclusions.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ol>
+      <li>
+        <p><strong>Pooled variance</strong><br>
+        <code>s_{pooled}² = ((n₁ - 1)s₁² + (n₂ - 1)s₂²) / (n₁ + n₂ - 2)</code><br>
+        This weighted average draws on both samples, giving more weight to the group with more degrees of freedom (sample size minus one). The pooled variance still carries the units squared of the response (e.g., oz²).</p>
+        <p><strong>Example:</strong> In the soup study, <code>s_r² = 8.4²</code>, <code>s_o² = 6.9²</code>, so <code>s_{pooled}² = (26·8.4² + 26·6.9²)/52 ≈ 66.125</code>.</p>
+      </li>
+      <li>
+        <p><strong>Pooled standard error</strong><br>
+        <code>SE_{pooled}(y₁ - y₂) = √(s_{pooled}²(1/n₁ + 1/n₂))</code><br>
+        Replacing each group’s variance with the pooled estimate shrinks the standard error when the groups truly share a variance.</p>
+        <p><strong>Example:</strong> With <code>s_{pooled}² ≈ 66.125</code> and <code>n₁ = n₂ = 27</code>, <code>SE_{pooled} ≈ √(66.125(1/27 + 1/27)) ≈ 2.21 oz</code>.</p>
+      </li>
+      <li>
+        <p><strong>Pooled t-statistic and df</strong><br>
+        <code>t = ((y₁ - y₂) - Δ₀)/SE_{pooled}(y₁ - y₂)</code> with <code>df = n₁ + n₂ - 2</code>.<br>
+        The form echoes earlier tests and intervals, but now the critical value <code>t*</code> and P-value use the simpler degrees of freedom.</p>
+        <p><strong>Example:</strong> The refilling-bowl estimate gave <code>t = (1.6 - 0)/2.21 ≈ 0.72</code> with <code>df = 52</code>, resulting in a P-value near 0.47, so there is no evidence people recognized eating more soup.</p>
+      </li>
+    </ol>
+    <h3>Short example(s)</h3>
+    <p>The soup bowl precision estimates show that pooling is safe when spreads look similar, even though the pooled test still finds no significant difference in self-reported consumption (<code>P ≈ 0.47</code>).</p>
+
+    <h2>19.4 Determining the Sample Size</h2>
+    <p>Study planning balances precision and resource limits. When you want a specific width for a confidence interval or a target power for a test, choose a sample size that delivers the desired margin of error or detection probability, usually assuming equal sample sizes for convenience.</p>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>For narrow intervals, solve the margin-of-error formula for <code>n</code> using a pilot estimate of the standard deviations and a z-critical value if <code>n</code> is large enough for normal approximation.</li>
+      <li>Power calculations typically assume equal variances and use software to find the sample size needed to detect a chosen difference with a desired probability (power) at a given significance level.</li>
+      <li>Be conservative with guesses (round up standard deviations, use slightly larger <code>z*</code> or <code>t*</code>) so you don’t underestimate the necessary effort.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ol>
+      <li>
+        <p><strong>Margin of error goal</strong><br>
+        <code>ME = z* × √(σ₁²/n + σ₂²/n)</code> when <code>n₁ = n₂ = n</code><br>
+        Here <code>σᵢ</code> are guesses at the population standard deviations (often the sample <code>sᵢ</code>). The left side is the width you want from the confidence interval, and solving for <code>n</code> tells you how many observations each group needs. Units match the response variable.</p>
+        <p><strong>Example:</strong> For battery life, <code>ME = 5</code> minutes, <code>σ₁ ≈ 10.3</code>, <code>σ₂ ≈ 14.6</code>, and <code>z* = 1.96</code>. The equation <code>5 = 1.96 × √((10.3² + 14.6²)/n)</code> leads to <code>n ≈ 50</code>, so 50 batteries per brand achieve the precision goal.</p>
+      </li>
+      <li>
+        <p><strong>Power-driven sample size</strong><br>
+        Power analysis inputs: significance level <code>α</code>, desired detectable difference (e.g., 5 termites killed), preliminary common standard deviation (e.g., <code>σ ≈ 3</code>), and target power (e.g., 0.90). Software returns the number of observations per group needed for that configuration.</p>
+        <p><strong>Example:</strong> With <code>α = 0.05</code>, difference = 5 termites, and <code>σ = 3</code>, Minitab reports <code>n ≈ 9</code> per dosage group to reach 0.90 power, meaning 91% of such studies would spot a true five-termite gap.</p>
+      </li>
+    </ol>
+    <h3>Short example(s)</h3>
+    <p>The battery project shows how planning for a 5-minute margin of error forces <code>n ≈ 50</code> per group, which guides the experiment’s scale.</p>
+    <p>The termite power exercise demonstrates that even with small groups, a large effect (5 termites difference) can be detected confidently with just nine samples per dose when the standard deviation is low.</p>
+  </article>
+</body>
+</html>

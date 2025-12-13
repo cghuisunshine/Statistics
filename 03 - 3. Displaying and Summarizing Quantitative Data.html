@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Displaying and Summarizing Quantitative Data – Chapter 3 Tutorial</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 32px; background: #f9fafb; color: #111; line-height: 1.6; }
+    h1, h2, h3 { margin: 0 0 8px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; margin-top: 24px; }
+    h3 { font-size: 18px; margin-top: 16px; }
+    section { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 20px; margin-bottom: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+    ul { margin: 6px 0 12px 18px; }
+    li { margin-bottom: 6px; }
+    .subhead { font-weight: 700; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Displaying and Summarizing Quantitative Data – Chapter 3 Tutorial</h1>
+
+  <section id="3-1">
+    <h2>3.1 Displays for Quantitative Variables</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Use the Quantitative Data Condition: values must be numerical with known units before drawing histograms, stem-and-leaf plots, or dotplots.</li>
+      <li>Histograms slice values into equal-width bins; bar height shows count (or percent). Bin width choice can reveal or hide features.</li>
+      <li>Relative frequency histograms rescale the y-axis to percents; shape stays the same.</li>
+      <li>Stem-and-leaf plots show individual values while revealing shape; good for small to moderate samples.</li>
+      <li>Dotplots place one dot per case; great for small data sets and spotting clusters or gaps.</li>
+      <li>Gaps signal missing ranges; spikes may hint at rounding or heaping; always follow the area principle.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Histogram:</span> Divide the quantitative axis into equal bins; count cases per bin. Meaning: visualizes the distribution’s shape and density.</li>
+      <li><span class="subhead">Relative frequency:</span> Percent in bin = (bin count / total) × 100. Meaning: standardizes counts for fair comparison.</li>
+      <li><span class="subhead">Stem-and-leaf:</span> Split each value into stem (leading digit[s]) and leaf (next digit). Meaning: preserves raw values while showing distribution.</li>
+      <li><span class="subhead">Dotplot:</span> One dot per case along a scale. Meaning: shows individual values, clusters, and gaps directly.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Tsunami magnitudes:</strong> Histogram with 0.5-unit bins shows most quakes near 7; finer 0.2-unit bins reveal a spike at 7.0 (likely rounding) and a gap from 4.2–4.4.</li>
+      <li><strong>Pulse rates (24 women):</strong> Stem-and-leaf exposes that all values are multiples of 4, implying the nurse counted 15 seconds then ×4.</li>
+      <li><strong>Kentucky Derby times:</strong> Dotplot shows two clusters; the race distance changed in 1896, explaining the gap.</li>
+    </ul>
+  </section>
+
+  <section id="3-2">
+    <h2>3.2 Shape</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Describe shape with modes (unimodal, bimodal, multimodal, uniform), symmetry vs. skew (left/right), and tail length.</li>
+      <li>Look for outliers and gaps; they can signal distinct groups, errors, or important cases.</li>
+      <li>Always discuss shape before centre and spread; shape guides which summaries are appropriate.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Mode (graphical):</span> Peaks of the histogram/dotplot. Meaning: common value regions; multiple modes may indicate mixed groups.</li>
+      <li><span class="subhead">Skewness:</span> Longer tail direction defines skew (right = positive, left = negative). Meaning: shows imbalance; often suggests using median/IQR.</li>
+      <li><span class="subhead">Outlier (rule-of-thumb):</span> Values far from the main body; later formalized with 1.5 IQR fences in boxplots. Meaning: potential errors or interesting cases.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Credit card spending:</strong> Unimodal, strongly right-skewed with a few negatives; shape warns against using mean alone.</li>
+      <li><strong>Earthquake magnitudes:</strong> Unimodal, slight left tail; outliers at 9.0–9.1 (Japan/Sumatra) and a few small quakes.</li>
+      <li><strong>Housing people per unit:</strong> Histogram with three low outliers prompts investigation of those cities.</li>
+    </ul>
+  </section>
+
+  <section id="3-3">
+    <h2>3.3 Centre (Median)</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>The median splits ordered data so half the values are below and half above; units match the data.</li>
+      <li>Use the median for skewed data or when outliers are present; it is resistant to extreme values.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Median position (odd n):</span> (n + 1) / 2. Meaning: locates the middle value in the sorted list.</li>
+      <li><span class="subhead">Median (even n):</span> Average of the two middle values. Meaning: balances half the data on each side.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Tsunami quakes (1989–2013):</strong> n = 221; median at position 111 = 7.2 magnitude, describing a “typical” tsunami-causing quake.</li>
+      <li><strong>Blue Jays wins:</strong> Median season wins is the midpoint of the ordered win counts since 1993; half the seasons are above, half below.</li>
+    </ul>
+  </section>
+
+  <section id="3-4">
+    <h2>3.4 Spread (Range &amp; IQR)</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Spread shows how far values vary around the centre; always report a spread with any centre.</li>
+      <li>Range uses extremes; very sensitive to outliers. IQR focuses on the middle 50% and is resistant.</li>
+      <li>Quartiles are the 25th (Q1) and 75th (Q3) percentiles; median is the 50th percentile.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Range:</span> max − min. Meaning: total span of the data; influenced by extremes.</li>
+      <li><span class="subhead">IQR:</span> Q3 − Q1. Meaning: width of the middle half; pairs naturally with the median.</li>
+      <li><span class="subhead">Percentile:</span> Value below which a given percent of data fall. Meaning: locates positions in ordered data.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Tsunami quakes:</strong> Q1 = 6.7, Q3 = 7.6 → IQR = 0.9 magnitude units; middle half is tightly clustered.</li>
+      <li><strong>Divorce rates (Canada):</strong> IQR captures how much rates vary year-to-year without being swayed by single highs/lows.</li>
+    </ul>
+  </section>
+
+  <section id="3-5">
+    <h2>3.5 Boxplots &amp; 5-Number Summary</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>5-number summary: min, Q1, median, Q3, max; concise snapshot of centre and spread.</li>
+      <li>Boxplot: box from Q1 to Q3 with median line; whiskers to most extreme values within fences.</li>
+      <li>Fences flag possible outliers: values beyond 1.5 × IQR from Q1 or Q3 are plotted separately.</li>
+      <li>Median position and whisker lengths show skewness; boxplots excel at comparing groups.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Fences:</span> Upper fence = Q3 + 1.5×IQR; Lower fence = Q1 − 1.5×IQR. Meaning: rule-of-thumb boundaries for suspect outliers.</li>
+      <li><span class="subhead">Whiskers:</span> Extend to most extreme values inside fences. Meaning: show main data range without outliers.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Tsunami magnitudes:</strong> 5-number summary: 4.0, 6.7, 7.2, 7.6, 9.1. Fences ≈ 5.35 and 8.95 flag the 9.0–9.1 quakes and tiny 4.0 quake as outliers.</li>
+      <li><strong>Fuel economy boxplot:</strong> Electric outlier (112 mpg equivalent) appears beyond whisker; IQR shows typical subcompact mpg spread.</li>
+    </ul>
+  </section>
+
+  <section id="3-6">
+    <h2>3.6 Mean, Variance, and Standard Deviation</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Mean (average) balances the data; sensitive to outliers and skew; best for roughly symmetric distributions.</li>
+      <li>Variance and standard deviation (sd) measure typical squared/unsquared deviation from the mean; sd shares data units.</li>
+      <li>Always pair mean with sd; they summarize centre and spread together.</li>
+      <li>Empirical Rule (for mound-shaped data): ~68% within 1 sd, ~95% within 2 sd, ~99.7% within 3 sd of the mean.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Mean:</span> <code>\bar{y} = \sum y_i / n</code>. Meaning: balance point; total divided by count; units match data.</li>
+      <li><span class="subhead">Deviation:</span> <code>y_i − \bar{y}</code>. Meaning: how far each value is from the mean (can be negative/positive).</li>
+      <li><span class="subhead">Variance (sample):</span> <code>s² = Σ(y − \bar{y})² / (n − 1)</code>. Meaning: average squared deviation; uses n−1 to avoid underestimating spread.</li>
+      <li><span class="subhead">Standard deviation:</span> <code>s = √(Σ(y − \bar{y})² / (n − 1))</code>. Meaning: typical distance from the mean in original units.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Tsunami quakes (n=221):</strong> Mean ≈ 7.15, sd ≈ 0.70; Empirical Rule → ~95% of magnitudes between 5.75 and 8.55.</li>
+      <li><strong>Credit card spending:</strong> Mean $478.19, sd $741.87, but skew/outliers make median/IQR more trustworthy.</li>
+      <li><strong>Nissan fuel efficiency:</strong> Mean 22.4 mpg, sd 2.45; symmetric shape justifies mean/sd; outlier noted but mild impact.</li>
+    </ul>
+  </section>
+
+  <section id="3-7">
+    <h2>3.7 Telling the Story</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Always report shape, centre, spread, and unusual features together; match summaries to shape.</li>
+      <li>Skewed or outlier-prone data → median, IQR, 5-number summary (optionally note mean/sd with caution).</li>
+      <li>Roughly symmetric, unimodal data → mean and sd (optionally median/IQR); IQR often slightly larger than sd for symmetric data.</li>
+      <li>Avoid over-precision; one or two decimals beyond data resolution is enough.</li>
+      <li>Never use histograms for categorical data; never use bar-chart language (shape/centre/spread) for categories.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Flight cancellations:</strong> Histogram skewed right with an extreme month &gt;20% cancelled; median/IQR summarize typical months better than mean/sd.</li>
+      <li><strong>Fuel economy (Maxima):</strong> Unimodal, near-symmetric; mean 22.4 mpg, sd 2.45 mpg describe expected variation; low outlier flagged.</li>
+    </ul>
+  </section>
+</body>
+</html>

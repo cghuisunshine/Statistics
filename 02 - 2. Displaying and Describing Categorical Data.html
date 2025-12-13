@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Displaying and Describing Categorical Data – Chapter 2 Tutorial</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 32px; background: #f9fafb; color: #111; line-height: 1.6; }
+    h1, h2, h3 { margin: 0 0 8px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; margin-top: 24px; }
+    h3 { font-size: 18px; margin-top: 16px; }
+    section { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 20px; margin-bottom: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+    ul { margin: 6px 0 12px 18px; }
+    li { margin-bottom: 6px; }
+    .subhead { font-weight: 700; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Displaying and Describing Categorical Data – Chapter 2 Tutorial</h1>
+
+  <section id="2-1">
+    <h2>2.1 Summarizing and Displaying a Single Categorical Variable</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Follow the three rules: make a picture, make a picture, make a picture—visuals reveal patterns, surprises, and outliers that tables hide.</li>
+      <li>Use the area principle: graphical area should be proportional to the values represented; distorted areas mislead.</li>
+      <li>Frequency tables (counts) and relative frequency tables (percents) describe how cases fall into categories.</li>
+      <li>Bar charts (counts or percents) and pie charts (parts of a whole) are standard displays; choose based on clarity of comparisons.</li>
+      <li>Check the categorical data condition: data must be counts/percents of non-overlapping categories before using bar or pie charts.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Frequency table:</span> Lists each category with its count. Meaning: shows how many cases fall in each group.</li>
+      <li><span class="subhead">Relative frequency table:</span> Lists each category with its proportion/percent of the total. Meaning: standardizes counts for fair comparison.</li>
+      <li><span class="subhead">Area principle:</span> Graphical area ∝ data value. Meaning: prevents visual exaggeration (e.g., oversized icons or 3D pies).</li>
+      <li><span class="subhead">Bar chart / relative bar chart:</span> Equal-width bars whose height shows count or percent. Meaning: easy visual comparison across categories.</li>
+      <li><span class="subhead">Pie chart:</span> Circle sliced with angles/areas proportional to category percents. Meaning: shows part-to-whole; harder for fine comparisons.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Titanic ticket class:</strong> Frequency table (First 325, Second 285, Third 706, Crew 885) becomes a bar chart obeying the area principle; reveals most aboard were not crew and Third &gt; First or Second.</li>
+      <li><strong>Heavy drinking by region:</strong> Thematic map categorizes percent heavy drinkers; categorizing a quantitative measure can clarify regional patterns.</li>
+    </ul>
+  </section>
+
+  <section id="2-2">
+    <h2>2.2 Exploring the Relationship Between Two Categorical Variables</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Contingency tables cross-classify cases by two variables; margins give individual (marginal) distributions.</li>
+      <li>Joint distribution = cell percent of the grand total; marginal distribution = totals for one variable; conditional distribution = distribution of one variable within a category of the other.</li>
+      <li>Comparing conditional distributions across categories shows association; if they match, variables are independent.</li>
+      <li>Visuals: side-by-side or stacked (segmented) bar charts of conditional percents; drop one category when binary to simplify.</li>
+      <li>Simpson’s paradox: overall percents can reverse the story once data are broken into meaningful groups—always ask “percent of what?”</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Contingency table:</span> Grid of counts for all category combinations. Meaning: foundation for two-variable categorical analysis.</li>
+      <li><span class="subhead">Marginal distribution:</span> Totals (counts or percents) for one variable, found in table margins. Meaning: how cases distribute on one variable ignoring the other.</li>
+      <li><span class="subhead">Joint distribution:</span> Each cell’s percent of the overall total. Meaning: probability a random case falls in a specific category pairing.</li>
+      <li><span class="subhead">Conditional distribution:</span> Distribution of one variable restricted to a category of the other (row or column percents). Meaning: answers “within this group, how do outcomes split?”</li>
+      <li><span class="subhead">Independent variables:</span> Conditional distributions of one variable are the same across all categories of the other. Meaning: knowing one gives no info about the other.</li>
+      <li><span class="subhead">Segmented bar chart:</span> Bars scaled to 100% and divided by conditional percents. Meaning: quick visual check for equality of conditional distributions.</li>
+      <li><span class="subhead">Simpson’s paradox:</span> Trend/advantage seen overall reverses within groups when a lurking variable is considered. Meaning: avoid combining groups that differ on a confounding factor.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Titanic survival by class:</strong> Conditional survival percents: First 62.5%, Second 41.4%, Third 25.2%, Crew 24.0%. Survival and class are associated (not independent).</li>
+      <li><strong>Living arrangements by sex (young adults):</strong> Conditional percents show women more often in couples, men more often living with parents—visualized with side-by-side bars.</li>
+      <li><strong>Fish intake vs. prostate cancer:</strong> Conditional cancer risk ranges ~7–11%; small “never/seldom” group hints at higher risk but sample is small—illustrates cautious interpretation.</li>
+      <li><strong>Simpson’s paradox (pilots/day-night):</strong> Usha beats Pierre in day and night separately, but Pierre’s overall rate looks higher because he flew more day flights (easier conditions).</li>
+    </ul>
+  </section>
+</body>
+</html>

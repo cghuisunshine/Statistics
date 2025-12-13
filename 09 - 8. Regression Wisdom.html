@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Regression Wisdom – Chapter 8 Tutorial</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 32px; background: #f9fafb; color: #111; line-height: 1.6; }
+    h1, h2, h3 { margin: 0 0 8px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; margin-top: 24px; }
+    h3 { font-size: 18px; margin-top: 16px; }
+    section { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 20px; margin-bottom: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+    ul { margin: 6px 0 12px 18px; }
+    li { margin-bottom: 6px; }
+    .subhead { font-weight: 700; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Regression Wisdom – Chapter 8 Tutorial</h1>
+
+  <section id="8-1">
+    <h2>8.1 Examining Residuals</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Regression isn’t finished until residuals are checked; they reveal nonlinearity, non-constant spread, and subgroups.</li>
+      <li>Residual plot should show no pattern if the Straight-Enough and Equal-Variance conditions hold.</li>
+      <li>Multiple modes in residuals or histograms can flag distinct groups (lurking categorical variables).</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Penguin dive heart rate vs. duration:</strong> Scatterplot looked roughly linear, but residuals showed a clear bend—linearity violated.</li>
+      <li><strong>Breakfast cereals:</strong> Residual histogram showed side modes; grouping by “healthy” vs. plain cereals explained high/low residual clusters.</li>
+    </ul>
+  </section>
+
+  <section id="8-2">
+    <h2>8.2 Unusual Observations: Leverage &amp; Influence</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>High leverage: x-value far from x-mean; can pull the fitted line.</li>
+      <li>Influential: removing the point changes slope/intercept noticeably; requires both leverage and a discordant y.</li>
+      <li>Outliers (large residual) need not be influential if x is ordinary; high-leverage points with small residuals can still anchor the line.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Armspan vs. height (CensusAtSchool):</strong> An unusually tall/short student has high leverage; check influence by refitting without them.</li>
+      <li><strong>Planet distances:</strong> Outer planets have extreme x; a mismeasured outer point would strongly influence the fitted line.</li>
+    </ul>
+  </section>
+
+  <section id="8-3">
+    <h2>8.3 Extrapolation &amp; Subsets</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Never trust predictions far beyond observed x-range; linear trends can change (piecewise or nonlinear reality).</li>
+      <li>Hidden subgroups (e.g., primates vs. carnivores; cereal shelf levels) can yield different slopes; fit separately when appropriate.</li>
+      <li>Piecewise models may be better when trends shift over time (e.g., immigration percentages by decade).</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Asian immigration % over time:</strong> Different slopes before/after policy shifts; extrapolating to 1955 gave poor prediction.</li>
+      <li><strong>Cereal shelves:</strong> Separate lines by kid/eye-level shelves revealed different calorie–sugar relationships.</li>
+    </ul>
+  </section>
+
+  <section id="8-4">
+    <h2>8.4 Correlation ≠ Causation &amp; Lurking Variables</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Strong linear association does not prove causality; lurking variables may drive both x and y.</li>
+      <li>Subgroup differences (gender, species type, shelf placement) can masquerade as or mask relationships.</li>
+      <li>Report context and subject-matter rationale before implying cause.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Cereal “healthiness”:</strong> Higher fat inflates calories; sugar alone doesn’t cause calories—other nutrients lurk.</li>
+      <li><strong>Armspan/height by gender:</strong> Separate gender lines differ; gender is a lurking variable if ignored.</li>
+    </ul>
+  </section>
+
+  <section id="8-5">
+    <h2>8.5 Averages, Restricted Range, and Re-expression</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Averaging can inflate correlation (ecological correlations); restricted ranges can deflate correlation/slope.</li>
+      <li>Re-expressing (logs/square roots) can linearize curved relationships before fitting a line.</li>
+      <li>Always recheck residuals after transformation; choose the model that straightens patterns and stabilizes spread.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Brain weight vs. gestation:</strong> Log or sqrt of brain weight straightens the curve; separate fits for primates vs. carnivores improve modeling.</li>
+      <li><strong>Immigration counts:</strong> Piecewise or transformed trends better than a single linear extrapolation.</li>
+    </ul>
+  </section>
+</body>
+</html>

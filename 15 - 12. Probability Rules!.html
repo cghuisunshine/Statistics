@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Probability Rules! - Chapter 12 Tutorial</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; background: #f7f9fc; color: #0f172a; max-width: 1100px; margin: 0 auto; padding: 32px; line-height: 1.6; }
+    h1 { font-size: 28px; margin: 0 0 16px; }
+    h2 { font-size: 22px; margin: 12px 0 8px; }
+    h3 { font-size: 18px; margin: 10px 0 6px; }
+    section { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin-bottom: 16px; box-shadow: 0 3px 8px rgba(15, 23, 42, 0.04); }
+    ul { margin: 8px 0 12px 20px; }
+    li { margin-bottom: 6px; }
+    .formula { display: block; background: #eef2ff; border-left: 4px solid #3b82f6; padding: 8px 10px; margin: 6px 0; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h1>Probability Rules! - Chapter 12 Tutorial</h1>
+
+  <section id="12-1">
+    <h2>12.1 Probability on Condition</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Conditional probability updates the chance of an event after knowing another event occurred.</li>
+      <li>Row or column percentages in a contingency table are conditional distributions; interior cells give joint probabilities.</li>
+      <li>When outcomes are not equally likely, use given probabilities or relative frequencies rather than simple counts.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li>
+        <div class="formula">P(B|A) = P(A and B) / P(A), with P(A) &gt; 0</div>
+        Of all cases where A happens, this fraction tells how many also have B. A, B are events; the result is a probability between 0 and 1.
+      </li>
+      <li>
+        <div class="formula">From tables: cell / total = P(A and B); cell / row (or column) total = P(B|A)</div>
+        Counts or probabilities inside the table convert directly to joints and conditionals.
+      </li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Stonehenge visitors: among 55 Quebecers, 50 prefer French, so P(French|Quebec) = 50/55 ~ 0.909; among 24 Atlantic visitors, 9 prefer French, so P(French|Atlantic) = 9/24 = 0.375.</li>
+    </ul>
+  </section>
+
+  <section id="12-2">
+    <h2>12.2 Independence and the Multiplication Rule</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Events are independent when knowing one does not change the probability of the other.</li>
+      <li>Disjoint events cannot be independent, because if one occurs the other is impossible.</li>
+      <li>Independence is usually an assumption supported by study design (for example, random sampling) rather than something we can prove from data alone.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li>
+        <div class="formula">A and B are independent if P(B|A) = P(B) (equivalently P(A|B) = P(A))</div>
+        Learning A gives no information about B; the chance of B stays the same.</li>
+      <li>
+        <div class="formula">General Multiplication Rule: P(A and B) = P(A) * P(B|A)</div>
+        Builds a joint probability by first getting A, then B given that A occurred.</li>
+      <li>
+        <div class="formula">If A and B are independent: P(A and B) = P(A) * P(B)</div>
+        For independent events, the conditional collapses to the marginal probability; extends by multiplying all probabilities for many independent events.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Traffic lights: with P(red) = 0.61, first red on Wednesday requires not red Monday and Tuesday then red Wednesday: (0.39)(0.39)(0.61) ~ 0.093, assuming day-to-day independence.</li>
+      <li>Campus survey: P(relationship|sports) = 0.11/0.25 = 0.44 vs P(relationship) = 0.33; because these differ, being in sports and being in a relationship are not independent.</li>
+    </ul>
+  </section>
+
+  <section id="12-3">
+    <h2>12.3 Picturing Probability</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Probability tables store marginal probabilities in the totals and joint probabilities in the interior; interior cells add to the margins.</li>
+      <li>Venn diagrams visualize overlap; tree diagrams track sequences and conditional probabilities by multiplying along branches.</li>
+      <li>Endpoint probabilities on a tree are disjoint; add them to find the probability of any combined event (such as any accident).</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li>
+        <div class="formula">Joint from a tree path: multiply the branch probabilities</div>
+        This is the General Multiplication Rule drawn out; each branch is a conditional or marginal probability.</li>
+      <li>
+        <div class="formula">Total probability for an event = sum of endpoint probabilities that match the event</div>
+        Because endpoints are disjoint, adding their probabilities gives the overall chance of that event.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Facebook vs Twitter: P(FB) = 0.71, P(Twitter) = 0.18, P(both) = 0.15. Table gives P(Twitter|FB) = 0.15/0.71 ~ 0.21, which is not equal to P(Twitter) = 0.18, so the events are not independent.</li>
+      <li>Binge-drinking tree: P(binge) = 0.44, P(accident|binge) = 0.17, P(accident|moderate) = 0.09, P(accident|abstain) = 0. The joint P(binge and accident) = 0.44 * 0.17 = 0.075. Total accident probability is 0.075 + 0.033 + 0 = 0.108.</li>
+    </ul>
+  </section>
+
+  <section id="12-4">
+    <h2>12.4 Reversing Conditioning and Bayes' Rule</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>To reverse conditioning, divide the joint probability by the probability of the given condition.</li>
+      <li>Bayes' Rule is the algebraic form of this reversal; a tree helps list all ways the observed evidence can occur.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li>
+        <div class="formula">P(A|B) = P(A and B) / P(B)</div>
+        Uses the overlap (A and B) divided by all cases with B; symbols are events A, B and their probabilities.</li>
+      <li>
+        <div class="formula">Bayes' Rule (two-way split): P(B|A) = [P(A|B) * P(B)] / ([P(A|B) * P(B)] + [P(A|B^c) * P(B^c)])</div>
+        A is the observed evidence; B is the condition of interest; B^c is "not B." The numerator is the joint probability of A and B, the denominator totals all paths that produce A.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Accident given binge: joint P(binge and accident) = 0.075 and P(accident) = 0.108, so P(binge|accident) = 0.075/0.108 ~ 0.694; most alcohol-related accidents come from binge drinkers.</li>
+      <li>TB screen: with P(TB) = 0.00005, P(+|no TB) = 0.01, P(-|TB) = 0.001, the joint P(TB and +) ~ 0.00004995 and P(+) ~ 0.01005, so P(TB|+) ~ 0.005; a positive test still means less than a 1% chance of actually having TB because the disease is rare.</li>
+      <li>Seatbelts: P(belt) = 0.77, P(injury|belt) = 0.08, P(injury|no belt) = 0.37. Joint no-belt injury probability is 0.23 * 0.37 = 0.0851; total injury probability is 0.1467; P(no belt|injury) ~ 0.58, so most serious injuries involve unbelted drivers.</li>
+    </ul>
+  </section>
+
+  <section id="12-pitfalls">
+    <h2>Common pitfalls</h2>
+    <ul>
+      <li>Do not assume independence or disjointness without justification; disjoint events cannot be independent.</li>
+      <li>Use complements to handle "at least one" or "none" questions efficiently.</li>
+      <li>"And" typically means multiply (with conditioning if needed); "or" typically means add and subtract any overlap.</li>
+      <li>Reversing conditioning can change the probability a lot; check the direction carefully rather than assuming P(A|B) is like P(B|A).</li>
+    </ul>
+  </section>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Linear Regression – Chapter 7 Tutorial</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 32px; background: #f9fafb; color: #111; line-height: 1.6; }
+    h1, h2, h3 { margin: 0 0 8px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; margin-top: 24px; }
+    h3 { font-size: 18px; margin-top: 16px; }
+    section { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 20px; margin-bottom: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+    ul { margin: 6px 0 12px 18px; }
+    li { margin-bottom: 6px; }
+    .subhead { font-weight: 700; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Linear Regression – Chapter 7 Tutorial</h1>
+
+  <section id="7-1">
+    <h2>7.1 Least Squares: The Line of Best Fit</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Model a linear association with a line: response (y) vs. explanatory (x); distinction matters—swap x/y and the line changes.</li>
+      <li>Predicted value (ŷ) comes from the line; residual = observed y – ŷ; residuals measure vertical “error.”</li>
+      <li>Least squares line minimizes the sum of squared residuals—best overall vertical fit.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Residual:</span> \(e = y - \hat{y}\). Meaning: how far (and in what direction) the model misses for a case.</li>
+      <li><span class="subhead">Least squares line:</span> \(\hat{y} = b_0 + b_1 x\), chosen to minimize \(\sum e^2\). Meaning: slope/intercept selected to make squared vertical errors as small as possible.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Burger King fat vs. protein:</strong> ŷ = 8.4 + 0.91·Protein; a 37 g protein sandwich is predicted ~42 g fat; actual 18 g → residual –24 g (less fat than expected).</li>
+    </ul>
+  </section>
+
+  <section id="7-2">
+    <h2>7.2 The Linear Model</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Interpret slope: change in predicted y per 1-unit increase in x, in y-units per x-unit.</li>
+      <li>Interpret intercept cautiously: predicted y when x = 0; often extrapolation and may not be meaningful.</li>
+      <li>Regression uses correlation and SDs: \(b_1 = r \cdot s_y / s_x\); \(b_0 = \bar{y} - b_1 \bar{x}\).</li>
+      <li>Residual plot (residuals vs. x or fitted ŷ) should show no pattern if linear model is appropriate.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Slope:</span> \(b_1 = r \cdot (s_y / s_x)\). Meaning: scaled by correlation and relative spreads.</li>
+      <li><span class="subhead">Intercept:</span> \(b_0 = \bar{y} - b_1 \bar{x}\). Meaning: ensures line passes through (\(\bar{x}, \bar{y}\)).</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Fat vs. protein:</strong> Slope 0.91 g fat per 1 g protein; intercept 8.4 g fat at 0 g protein (not physically meaningful but algebraic anchor).</li>
+    </ul>
+  </section>
+
+  <section id="7-3">
+    <h2>7.3 Correlation and Regression Together</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Sign of slope matches sign of correlation.</li>
+      <li>Changing units rescales slope/intercept but leaves r and \(R^2\) unchanged.</li>
+      <li>Switching x and y changes slope/intercept; least squares is asymmetric—choose explanatory/response deliberately.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Prediction in z-space:</span> \(\hat{z}_y = r \cdot z_x\). Meaning: predicted standardized y pulls toward mean by factor r (“regression to the mean”).</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>House price vs. size:</strong> Correlation ~0.84 → predicted price z = 0.84·z(size); “regression effect” shrinks extreme z-scores toward 0.</li>
+    </ul>
+  </section>
+
+  <section id="7-4">
+    <h2>7.4 Assessing the Fit</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Residual plots should show no pattern; patterns (curvature, fanning) suggest nonlinearity or non-constant variance.</li>
+      <li>Standard deviation of residuals (s) estimates typical prediction error in y-units.</li>
+      <li>Coefficient of determination \(R^2\) = percent of variability in y explained by the linear model with x.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Residual SD:</span> \(s = \sqrt{\sum e^2 / (n-2)}\). Meaning: typical vertical scatter around the line.</li>
+      <li><span class="subhead">\(R^2\):</span> \(R^2 = r^2\) (for simple linear regression). Meaning: fraction of y-variance accounted for by the model.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Burger King:</strong> If \(R^2\) is moderately high, much of fat variation is explained by protein; s quantifies typical fat-prediction error.</li>
+    </ul>
+  </section>
+
+  <section id="7-5">
+    <h2>7.5 Assumptions and Conditions</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li><span class="subhead">Linearity:</span> Scatterplot and residual plot should show straight-enough relationship.</li>
+      <li><span class="subhead">Independence:</span> Errors for cases should be independent (watch out for time/space patterns).</li>
+      <li><span class="subhead">Equal variance:</span> Residual spread roughly constant across x (no funnel shape).</li>
+      <li><span class="subhead">Normality of residuals:</span> For inference, residuals should be roughly Normal; for prediction, less critical but check for extreme outliers.</li>
+      <li>Never extrapolate far beyond data range; beware of outliers and leverage points—they can unduly influence slope and intercept.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Whopper menu:</strong> Check residual plot for curvature; triple Whopper may be high-leverage; ensure linearity before trusting line.</li>
+    </ul>
+  </section>
+
+  <section id="7-6">
+    <h2>7.6 Straightening Data (Re-expressions)</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Use transformations (logs, square roots, reciprocals) to straighten curved relationships before fitting a line.</li>
+      <li>After re-expression, refit regression, recheck residuals, and reinterpret slope/intercept on transformed scale.</li>
+      <li>Choice guided by pattern: upward curves often benefit from log(y), log(x), or both; downward curves may need inverse or square roots.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Stopping distance vs. speed:</strong> Raw scatter is curved; sqrt(distance) vs. speed yields straighter relation and better residuals.</li>
+      <li><strong>Migration over time:</strong> Trends may need different models; straightening or different form if residuals show pattern.</li>
+    </ul>
+  </section>
+</body>
+</html>

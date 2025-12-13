@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Part VII Review: Modelling the World at Large</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.5; padding: 20px; max-width: 900px; }
+    h1, h2, h3 { margin-top: 1.5em; }
+    ul { margin-top: 0.4em; }
+    section { margin-bottom: 2em; }
+    .example { font-style: italic; margin-left: 1em; }
+    .formula { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Part VII Review: Modelling the World at Large</h1>
+
+  <section>
+    <h2>Part VII Quick Review: Linear models guide inference</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Linear models predict a quantitative response by adding the contributions of numeric or categorical predictors.</li>
+      <li>The overall F-test compares the full model to the constant model, and we proceed to t-tests once the F is significant.</li>
+      <li>Always check the assumptions—linearity, independence, constant variance, and near-normal residuals—before trusting inference.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="formula">Linear regression model:</span> ŷ = β₀ + β₁x₁ + … + βₚxₚ. This sums weighted predictors to estimate the response; with wild horses, ŷ ≈ 6.24 + 0.112 × Adults, so each adult adds about 0.11 foals.</li>
+      <li><span class="formula">Overall F-test:</span> F = MS_model / MS_error. A large F (≈97.3 for the wild horse dataset) means the predictors explain much more than the mean model.</li>
+      <li><span class="formula">Residual:</span> e = y − ŷ; it measures the prediction error in response units and drives residual diagnostics.</li>
+      <li><span class="formula">R²:</span> R² = 1 − SSE/SST; the wild horses give R² ≈ 0.835, so 83.5% of foal variability is explained by adult count.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <p class="example">The wild-horse experiment (Exercise 4) fits a simple regression, then adds a Sterilized indicator to show how categorical predictors sit inside the same linear equation.</p>
+  </section>
+
+  <section>
+    <h2>Regression inference &amp; predictions with multiple predictors</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Each slope represents the change in the response per unit increase in its predictor while holding others constant.</li>
+      <li>The same t-based structure applies for both intervals and hypothesis tests on slopes.</li>
+      <li>Prediction intervals are wider than confidence intervals because they cover single future observations, not mean responses.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="formula">t-statistic for a slope:</span> t = (β̂ − 0)/SE(β̂). Comparing β̂ to 0 tells us if a predictor genuinely contributes (e.g., t ≈ 13.5 for Adults).</li>
+      <li><span class="formula">Confidence interval for a slope:</span> β̂ ± t*SE(β̂). With β̂ ≈ 0.112 and SE ≈ 0.027, the 95% CI is roughly (0.06, 0.16), so each adult adds between 0.06 and 0.16 foals.</li>
+      <li><span class="formula">Prediction interval:</span> ŷ_new ± t*SE_pred, where SE_pred = √[SE_fit² + σ²]. For 80 adults, ŷ ≈ 15 and the 90% PI might span about ±6 foals because it adds variation from individual herds.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <p class="example">Exercise 6 added the Sterilized indicator (0/1 coding) and found a coefficient of about −6.44, indicating that sterilizing stallions is associated with ~6 fewer foals per herd, assuming other factors stay fixed.</p>
+  </section>
+
+  <section>
+    <h2>ANOVA and categorical predictors</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>ANOVA is regression under the hood once we encode categorical levels with dummy variables.</li>
+      <li>Main effects test whether each factor explains extra variability; interactions test whether the effect of one factor depends on another.</li>
+      <li>Degrees of freedom depend on the number of levels (k − 1) and determine the reference distribution (F or t).</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="formula">F ratio:</span> F = MS_factor / MS_error. An F ≈ 4.23 for TV watching by athletic participation shows the factor explains more than residual noise.</li>
+      <li><span class="formula">Indicator coefficient:</span> For D = 1 for a subgroup, β_D equals the mean difference between that subgroup and the reference (e.g., North of Derby has +158.9 deaths relative to south, holding calcium fixed).</li>
+      <li><span class="formula">df_error:</span> n − k for one-way ANOVA or n − p − 1 for regression; they size the tail probabilities used in hypothesis tests.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <p class="example">Exercises 7 and 8 asked how many degrees of freedom are consumed by factors like ball weight, approach, mouse type, and lights, and whether to fit interactions based on the experimental design.</p>
+  </section>
+
+  <section>
+    <h2>Proportions, counts, and categorical inference</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>The two-proportion z-test compares the difference in sample proportions to the pooled standard error under the null hypothesis.</li>
+      <li>Chi-square tests check how well observed counts agree with expected counts from a hypothesized distribution.</li>
+      <li>Many different-looking procedures (z, χ²) reduce to the same logic in 2×2 tables, so focus on the underlying story.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="formula">Two-proportion z:</span> z = (p̂₁ − p̂₂) / √[p̂(1 − p̂)(1/n₁ + 1/n₂)], where p̂ is the pooled proportion. Exercise 15 shows older women (≈0.079 success) versus younger ones (≈0.268); a large |z| supports a real difference.</li>
+      <li><span class="formula">Chi-square:</span> χ² = Σ (O − E)² / E. Use it to compare lost bag counts across airlines or to test whether hand dominance affects musical ability.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <p class="example">Exercises 16–19 combined these approaches to answer questions about airline baggage loss, musical ability differences, and teen traffic deaths by fitting either z-tests or χ² tests.</p>
+  </section>
+
+  <section>
+    <h2>Confidence intervals &amp; sample size planning</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>The t-based CI for the mean gets wider if variability is high, the sample is small, or the confidence level increases.</li>
+      <li>Halving the interval width means increasing n by four because the standard error scales with 1/√n.</li>
+      <li>Deciding on a desired margin of error up front lets you compute the required sample size before collecting more data.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="formula">CI for a mean:</span> x̄ ± t_{df,α/2} × (s/√n). With the paper airplane data (x̄ ≈ 48.36, s ≈ 18.08, n = 11), the 95% interval is roughly 48 ± 9, so 40 feet is plausible.</li>
+      <li><span class="formula">Sample size for margin ME:</span> n ≈ (t_{df,α/2} × s / ME)². For LA rainfall (s ≈ 9) and ME = 2 inches at 90% confidence, plug the appropriate t or z to find the years needed.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <p class="example">Exercise 10 asked how a 99% CI would compare to the 95% CI and how many observations would be needed to cut the width in half, reinforcing how t-s and √n control precision.</p>
+  </section>
+
+  <section>
+    <h2>Diagnostics and refining multiple-regression models</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Residual-vs-fitted and normal plots identify departure from linearity, heteroskedasticity, or non-normality; large Studentized residuals signal outliers.</li>
+      <li>Indicator variables capture special years, treatment groups, or thresholds that otherwise would distort a smooth trend.</li>
+      <li>Adjusted R² penalizes extra predictors, so look for meaningful increases before enlarging the model.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="formula">Indicator coefficient:</span> When D = 1 for a special case, β_D is the average difference between that case and the reference (e.g., the North of Derby coefficient means northern towns averaged 159 more deaths).</li>
+      <li><span class="formula">Adjusted R²:</span> R²_adj = 1 − [(1 − R²)(n − 1)/(n − p − 1)]; it shrinks R² when predictors add little explanatory power, helping decide whether outlier-driven terms really improve the fit.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <p class="example">Exercise 38 showed how the suspicious 1988 data point was handled by introducing an indicator for that year, which raised R² from about 9% to 86.8% and tightened the residual plot.</p>
+  </section>
+
+  <section>
+    <h3>Suggestions for next steps</h3>
+    <ol>
+      <li>Sketch diagnostics for a few exercises in a browser (filtered views, column charts, or simple plots) to reinforce the visual checks.</li>
+      <li>Summarize one regression by writing a short paragraph that references both the coefficient table and the residual plot.</li>
+      <li>Continue the template for future chapters by matching section headings exactly to the chapter or subsection numbers.</li>
+    </ol>
+  </section>
+</body>
+</html>

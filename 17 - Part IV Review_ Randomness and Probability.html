@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Part IV Review – Randomness and Probability</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; line-height: 1.6; color: #1f2933; }
+    h1, h2, h3 { color: #0f1720; margin-bottom: 8px; }
+    h1 { margin-top: 0; }
+    section { margin-bottom: 24px; }
+    ul { margin: 6px 0 12px 22px; }
+    code { background: #f4f4f4; padding: 2px 4px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Part IV Review – Randomness and Probability</h1>
+
+  <section>
+    <h2>Quick Review</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Law of Large Numbers: long-run proportions settle near the true probability as trials increase; there is no “law of averages” that forces short-run balance.</li>
+      <li>Addition and multiplication rules combine event probabilities; handle overlaps (OR) and joint occurrence (AND).</li>
+      <li>Conditional probability measures the chance of one event given another.</li>
+      <li>Mutually exclusive (disjoint) events cannot occur together; independent events do not affect each other.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li>Addition Rule: <code>P(A ∪ B) = P(A) + P(B) - P(A ∩ B)</code>; adds chances of either event, subtracts the overlap so it’s not double-counted.</li>
+      <li>Multiplication Rule: <code>P(A ∩ B) = P(A) · P(B | A)</code>; joint chance equals the chance of A times the conditional chance of B once A has happened.</li>
+      <li>Conditional Probability: <code>P(B | A) = P(A ∩ B) / P(A)</code>; probability of B in the restricted world where A is known true.</li>
+      <li>Independence check: if <code>P(B | A) = P(B)</code> (or <code>P(A ∩ B) = P(A)P(B)</code>), A and B are independent; otherwise they’re dependent.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Car defects (29% cosmetic, 7% functional, 2% both): <code>P(any defect) = 0.29 + 0.07 - 0.02 = 0.34</code>; <code>P(functional | cosmetic) = 0.02 / 0.29 ≈ 0.07</code>, so cosmetic issues barely change the chance of a functional defect.</li>
+      <li>LLN intuition: flipping a coin 10 times may not give 5 heads, but by 1000 flips the head proportion hovers near 0.5 because randomness evens out over many trials.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Randomness and Probability Models</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>A probability model lists outcomes and their probabilities for a random variable; its mean is the expected value (long-run average).</li>
+      <li>For independent random variables, variances add for sums or differences, so combined spread comes from both sources.</li>
+      <li>Normal model approximates unimodal, symmetric quantitative data; Binomial fits counts of successes in fixed, independent trials; Poisson fits rare counts over time/space.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li>Expected Value: <code>μ = E[X] = Σ x · P(X = x)</code>; weighted average outcome, in the same units as X (e.g., dollars, points).</li>
+      <li>Variance additivity (independent X, Y): <code>Var(X ± Y) = Var(X) + Var(Y)</code>; combined spread is the sum of individual spreads; <code>σ = √Var</code>.</li>
+      <li>Binomial probability (X ~ Bin(n, p)): <code>P(X = k) = C(n, k) p^k (1 - p)^{n-k}</code>; counts successes with fixed trials n and constant success rate p. Mean <code>np</code>, SD <code>√(np(1-p))</code>.</li>
+      <li>Normal standardization: <code>z = (x - μ) / σ</code>; converts a value to standard deviations from the mean for table or calculator lookups.</li>
+      <li>Poisson model (rate λ): <code>P(X = k) = e^{-λ} λ^k / k!</code>; counts rare events with mean and variance both equal to λ.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Airfare total (3 to China, 5 to France, $1200 ±150 and $900 ±100): mean total cost <code>3·1200 + 5·900 = $8100</code>; variance <code>3·150² + 5·100² = 117500</code>; SD <code>≈ $343</code>.</li>
+      <li>Facebook use in 10 teenagers (p = 0.75): <code>P(at least one not on) = 1 - 0.75^10 ≈ 0.94</code>; complement handles the “at least one” wording efficiently.</li>
+      <li>Autism rate 1% in 20 000 people: Binomial mean <code>np = 200</code>, SD <code>√(20000·0.01·0.99) ≈ 14.1</code>; Normal fit is fine, so <code>P(more than 300)</code> is essentially 0 because 300 is about 7 SD above the mean.</li>
+      <li>O-ring failures (n = 10, p = 0.01): Poisson with <code>λ = 0.1</code> works; <code>P(exactly 1) ≈ e^{-0.1} · 0.1 ≈ 0.091</code>, <code>P(at least 1) ≈ 1 - e^{-0.1} ≈ 0.095</code>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Review Exercise Ideas &amp; Strategies</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Two-way tables (like job type by sex) clarify joint, marginal, and conditional probabilities; independence fails if conditional percentages differ from overall percentages.</li>
+      <li>Complement probabilities quickly answer “at least one” and “none” questions.</li>
+      <li>For counts of successes (smokers, Facebook users, accidents), use Binomial/Normal approximations with <code>np</code> and <code>n(1-p)</code> as checks; apply the 68–95–99.7 rule when Normal fits.</li>
+      <li>Differences of independent measurements (heights, melon weights, ticket prices): mean difference is the difference of means; SD comes from adding variances.</li>
+      <li>Expected value supports decisions in games, insurance, and premiums; compare expected gain vs. cost.</li>
+      <li>Mutually exclusive vs. independent: disjoint events can’t happen together (joint probability 0), while independent events can overlap but do not influence each other.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li>Difference of independent normals: <code>μ_diff = μ1 - μ2</code>; <code>σ_diff = √(σ1² + σ2²)</code>; units follow the original measure (e.g., inches, dollars).</li>
+      <li>Sample count spread (Binomial): <code>σ = √(np(1-p))</code>; describes typical swing in the number of successes around the expected count.</li>
+      <li>Expected net gain: sum of each outcome’s net value times its probability; shows fair price or house edge.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Heights (men 69.1″ ±2.8, women 64.0″ ±2.5): <code>μ_diff = 5.1″</code>, <code>σ_diff ≈ 3.75″</code>; <code>P(man taller) ≈ 0.91</code>, so about 91% of random couples have the husband taller.</li>
+      <li>Game cost $5, payouts $5 (10%), $7 (40%), $3 (50%): net outcomes $0, $2, -$2; <code>E(net) = 0.1·0 + 0.4·2 + 0.5·(-2) = -$0.20</code>, so the game favors the house; SD <code>≈ $1.89</code> shows moderate swing.</li>
+      <li>Survey of 820 homes, national ownership 67%: expected owners <code>np ≈ 549.4</code>, SD <code>≈ 13.7</code>; observing 523 is about 2 SD low—uncommon but not impossible, so claim needs context before declaring it “unusually” low.</li>
+    </ul>
+  </section>
+</body>
+</html>

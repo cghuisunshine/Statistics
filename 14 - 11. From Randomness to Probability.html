@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>From Randomness to Probability – Chapter 11 Tutorial</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; background: #f7f9fc; color: #0f172a; max-width: 1100px; margin: 0 auto; padding: 32px; line-height: 1.6; }
+    h1 { font-size: 28px; margin: 0 0 16px; }
+    h2 { font-size: 22px; margin: 12px 0 8px; }
+    h3 { font-size: 18px; margin: 10px 0 6px; }
+    section { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin-bottom: 16px; box-shadow: 0 3px 8px rgba(15, 23, 42, 0.04); }
+    ul { margin: 8px 0 12px 20px; }
+    li { margin-bottom: 6px; }
+    .formula { display: block; background: #eef2ff; border-left: 4px solid #3b82f6; padding: 8px 10px; margin: 6px 0; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 14px; }
+    .subnote { color: #475569; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h1>From Randomness to Probability – Chapter 11 Tutorial</h1>
+
+  <section id="11-1">
+    <h2>11.1 Random Phenomena</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>A random phenomenon has known possible outcomes but we cannot predict the result of a single trial.</li>
+      <li>Each repetition is a trial with an outcome; outcomes combine into events, and all outcomes together form the sample space <em>S</em>.</li>
+      <li>Long-run relative frequency stabilizes; the Law of Large Numbers (LLN) says that with independent, identically distributed trials, the relative frequency approaches a single value.</li>
+      <li>Empirical probability describes that long-run proportion; independence means past results do not change the chance of the next outcome.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li>
+        <div class="formula">P(A) = ( # times A occurs ) / ( total # of trials )</div>
+        Long-run relative frequency definition of probability; counts of event A divided by all trials, yielding a proportion between 0 and 1.
+      </li>
+      <li>
+        <div class="formula">Law of Large Numbers: relative frequency of A → P(A) as trials → large (with stable probabilities and independent trials)</div>
+        Guarantees that repeating the same random process many times causes the running proportion to settle near the true probability.
+      </li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Observing the Portage and Main light each day shows the “green” proportion settling near 0.35; more days smooth the wiggles.</li>
+      <li>Flipping six heads in a row does not make a tail “due”—independent flips keep the chance of heads at 0.5 each time.</li>
+    </ul>
+  </section>
+
+  <section id="11-2">
+    <h2>11.2 Modelling Probability</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Theoretical probability comes from a model (often equally likely outcomes) instead of observation.</li>
+      <li>When outcomes are equally likely, probability depends on counting outcomes in the event versus outcomes in the entire sample space.</li>
+      <li>Not all events are equally likely; personal or subjective probabilities express belief rather than long-run frequency.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li>
+        <div class="formula">P(A) = ( # outcomes in A ) / ( # possible equally likely outcomes )</div>
+        For balanced models (fair coins, fair dice), probability is a simple fraction of favourable outcomes over all possible outcomes.
+      </li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Two coin flips have sample space S = {HH, HT, TH, TT}; event “one head and one tail” has 2 outcomes, so P = 2/4 = 0.5.</li>
+      <li>From a well-shuffled deck, P(face card) = 12/52 = 3/13; P(ace of spades) = 1/52.</li>
+      <li>Subjective probability: a student’s “I’m 70% sure I’ll get an A” reflects belief, not a long-run repeatable process.</li>
+    </ul>
+  </section>
+
+  <section id="11-3">
+    <h2>11.3 Formal Probability Rules</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Probabilities are bounded: 0 ≤ P(A) ≤ 1; the total across the entire sample space is 1.</li>
+      <li>The complement of A (written A<sup>C</sup>) contains all outcomes not in A.</li>
+      <li>Disjoint (mutually exclusive) events have no outcomes in common; for them we can add probabilities directly.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li>
+        <div class="formula">0 ≤ P(A) ≤ 1</div>
+        Probability is always a proportion; negative chances or values above 1 are impossible.
+      </li>
+      <li>
+        <div class="formula">P(S) = 1</div>
+        The probabilities of all possible outcomes together must exhaust 1 (total certainty).
+      </li>
+      <li>
+        <div class="formula">P(A<sup>C</sup>) = 1 - P(A)</div>
+        The chance of “not A” is everything left after accounting for A.</li>
+      <li>
+        <div class="formula">If A and B are disjoint, P(A or B) = P(A) + P(B)</div>
+        For outcomes that cannot happen together, add their probabilities to get the chance of either one.
+      </li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Traffic light: if P(green) = 0.35 and P(yellow) = 0.04, then P(red) = 1 - (0.35 + 0.04) = 0.61 by complementing the other colours.</li>
+      <li>Checking a distribution: if probabilities assigned to student years sum to 0.90, some outcomes or probability mass are missing because totals must equal 1.</li>
+    </ul>
+  </section>
+
+  <section id="11-4">
+    <h2>11.4 The General Addition Rule</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>When events overlap, adding their probabilities double-counts the intersection; subtract that overlap to correct.</li>
+      <li>“A or B” in probability is inclusive (A, B, or both); “A or B but not both” removes the intersection.</li>
+      <li>Venn diagrams help visualize overlap, complements, and exclusive parts of events.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li>
+        <div class="formula">P(A or B) = P(A) + P(B) - P(A and B)</div>
+        General addition rule: total chance of either event equals their sum minus the probability of both (to avoid double-counting shared outcomes).
+      </li>
+      <li>
+        <div class="formula">P(A or B but not both) = P(A) + P(B) - 2P(A and B)</div>
+        Exclusive “or”: remove the overlap entirely by subtracting it twice.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Intersection stop: P(stop for red) = 0.65, P(stop for bus) = 0.16, P(both) = 0.03 ⇒ P(stop) = 0.65 + 0.16 − 0.03 = 0.78.</li>
+      <li>Campus survey: P(relationship) = 0.33, P(sports) = 0.25, P(both) = 0.11 ⇒ P(relationship or sports) = 0.33 + 0.25 − 0.11 = 0.47; P(either but not both) = 0.36.</li>
+    </ul>
+  </section>
+
+  <section id="11-summary">
+    <h2>Quick recap</h2>
+    <ul>
+      <li>Probability as long-run proportion links empirical data to theoretical models; LLN justifies interpreting stabilized relative frequencies as probabilities.</li>
+      <li>Legitimate assignments must stay between 0 and 1 and sum to 1 across the sample space.</li>
+      <li>Use complements and addition rules to simplify calculations, switching to the general addition rule when events can occur together.</li>
+    </ul>
+  </section>
+</body>
+</html>

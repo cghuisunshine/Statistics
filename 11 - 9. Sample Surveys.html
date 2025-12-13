@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sample Surveys – Chapter 9 Tutorial</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 32px; background: #f9fafb; color: #111; line-height: 1.6; }
+    h1, h2, h3 { margin: 0 0 8px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; margin-top: 24px; }
+    h3 { font-size: 18px; margin-top: 16px; }
+    section { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 20px; margin-bottom: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+    ul { margin: 6px 0 12px 18px; }
+    li { margin-bottom: 6px; }
+    .subhead { font-weight: 700; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Sample Surveys – Chapter 9 Tutorial</h1>
+
+  <section id="9-1">
+    <h2>9.1 Three Big Ideas of Sampling</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Examine a part of the whole: use a sample to learn about a population.</li>
+      <li>Randomize: random selection protects against unknown influences and bias.</li>
+      <li>Sample size matters (not population size/fraction): accuracy depends mostly on n, not what fraction of the population is sampled.</li>
+      <li>Bias is fatal: biased methods (convenience, voluntary, poor frames) over/under-represent groups and can’t be fixed after the fact.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Ipsos Reid history poll:</strong> Conclusion about all Canadians comes from ~1000 adults because random sampling + adequate n yields representativeness.</li>
+      <li><strong>Literary Digest 1936:</strong> Phone/car-owner frame during Depression undercovered poorer voters → biased prediction for Landon.</li>
+    </ul>
+  </section>
+
+  <section id="9-2">
+    <h2>9.2 Simple Random Samples (SRS)</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Every subset of size n has equal chance; use random numbers/technology to select.</li>
+      <li>Sampling frame: the list from which you draw; quality of frame affects coverage.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Customer database SRS of 8000:</strong> Two independent SRSs matched well on age, income, wealth—evidence of representativeness via randomization.</li>
+    </ul>
+  </section>
+
+  <section id="9-3">
+    <h2>9.3 Other Sampling Designs</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li><span class="subhead">Stratified sample:</span> Divide into homogeneous strata, SRS within each → improves precision for subgroup comparisons.</li>
+      <li><span class="subhead">Cluster sample:</span> Randomly select heterogeneous clusters (e.g., schools), survey everyone in clusters → efficiency when lists are hard.</li>
+      <li><span class="subhead">Systematic sample:</span> Random start, then every k-th unit; simple to implement with ordered lists.</li>
+      <li><span class="subhead">Multistage:</span> Combine methods (e.g., stratify → cluster → sample within).</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>3 randomly chosen churches → members within:</strong> Cluster sample (churches are clusters); may miss variation if clusters not representative.</li>
+      <li><strong>Call every 10th cafeteria customer:</strong> Systematic sample; risk of bias if flow is periodic or venue under-represents non-users.</li>
+    </ul>
+  </section>
+
+  <section id="9-4">
+    <h2>9.4 Sources of Bias</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li><span class="subhead">Voluntary response:</span> People choose to participate; tends to attract strong opinions.</li>
+      <li><span class="subhead">Convenience sample:</span> Easy-to-reach subjects; often unrepresentative.</li>
+      <li><span class="subhead">Undercoverage:</span> Parts of population not in frame (e.g., no phone).</li>
+      <li><span class="subhead">Nonresponse:</span> Selected individuals can’t/won’t respond; may differ systematically.</li>
+      <li><span class="subhead">Response/wording bias:</span> Question wording or interviewer influence skews answers.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Online Ephedra poll:</strong> Voluntary response of site visitors → not generalizable despite large n.</li>
+      <li><strong>Park playground survey of park visitors:</strong> Convenience; over-represents park users/parents with kids.</li>
+      <li><strong>Wording:</strong> Leading wording about “too small playground” biases responses toward repair/expansion.</li>
+    </ul>
+  </section>
+
+  <section id="9-5">
+    <h2>9.5 Practical Sampling Tips</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Define population &amp; frame clearly; anticipate who might be missed.</li>
+      <li>Use random selection; adjust contact strategy (call-backs, time variation) to reduce nonresponse.</li>
+      <li>Match design to logistics: stratify when subgroups matter; cluster for cost; systematic for ordered lists.</li>
+      <li>Large n cannot fix bias; focus on design first.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Phone surveys midday only:</strong> Undercover workers; improve by varying call times and using RDD (random digit dialing) to include unlisted/cell numbers.</li>
+      <li><strong>Employee satisfaction:</strong> Stratify by role (managers/foremen/labourers) to ensure representation of each group.</li>
+    </ul>
+  </section>
+</body>
+</html>

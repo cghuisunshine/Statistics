@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inferences for Regression</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: system-ui, sans-serif; line-height:1.5; padding:1.5rem; max-width:900px; margin:auto; }
+    h1 { text-align:center; margin-bottom:1rem; }
+    section { margin-bottom:2rem; }
+    h2 { margin-top:1.25rem; }
+    ul { margin:0.35rem 0 0.35rem 1.5rem; }
+    pre { background:#f5f5f5; padding:0.75rem; overflow:auto; }
+    code { font-family:SFMono-Regular,monospace; }
+    .subheading { font-weight:600; margin-top:0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Chapter 23: Inferences for Regression</h1>
+
+  <section id="23-1">
+    <h2>23.1 A Regression Model</h2>
+    <p class="subheading">Key ideas</p>
+    <ul>
+      <li>The population regression line puts the means of the y-distributions along a straight path so that each x-value has an expected response.</li>
+      <li>Residuals, the differences between observed values and the fitted line, are the playground for checking assumptions.</li>
+      <li>Always check assumptions in order: straight enough, independence, equal spread, and near-Normal residuals.</li>
+    </ul>
+    <p class="subheading">Important formulas &amp; their meaning</p>
+    <ul>
+      <li><code>μ<sub>y</sub> = β₀ + β₁ x</code> – the population line. <code>μ<sub>y</sub></code> is the true mean response for x, <code>β₀</code> the mythical intercept, and <code>β₁</code> the change in the mean per unit x.</li>
+      <li><code>y = β₀ + β₁ x + ε</code> – each actual y equals the mean plus a random error <code>ε</code> that is centered at zero, independent, equally spread, and roughly Normal.</li>
+      <li><code>e = y - ŷ</code> – the observable residual that we plot to evaluate the assumptions above; it uses the sample slope <code>b₁</code>.</li>
+    </ul>
+    <p class="subheading">Short example(s)</p>
+    <p>The body fat data fit <code>%Body Fat = –42.7 + 1.7 Waist</code>. Each additional inch adds about 1.7 percentage points to the mean body fat, and residual plots confirmed the assumptions.</p>
+  </section>
+
+  <section id="23-2">
+    <h2>23.2 Standard Errors of Parameter Estimates</h2>
+    <p class="subheading">Key ideas</p>
+    <ul>
+      <li>The residual standard deviation <code>s<sub>e</sub></code> measures the scatter around the line in the units of y.</li>
+      <li><code>SE(b₁)</code> is the standard deviation of the slope from one random sample to the next.</li>
+      <li>Only three ingredients affect <code>SE(b₁)</code>: the scatter around the line, the spread of x, and the sample size.</li>
+    </ul>
+    <p class="subheading">Important formulas &amp; their meaning</p>
+    <ul>
+      <li><code>s<sub>e</sub> = sqrt(Σ(y<sub>i</sub> - ŷ<sub>i</sub>)² / (n - 2))</code> – summarizes how far points stray from the fitted line in y-units, adjusting for the two estimated parameters.</li>
+      <li><code>SE(b₁) = s<sub>e</sub> / (√(n - 1) × s<sub>x</sub>)</code> – the denominator combines the number of observations and the spread in x; a wider range of x or more data stabilizes the slope estimate, while a larger <code>s<sub>e</sub></code> makes it less precise.</li>
+    </ul>
+    <p class="subheading">Short example(s)</p>
+    <p>Impact craters (n=39): <code>s<sub>e</sub> ≈ 0.6362</code>, <code>s<sub>x</sub> ≈ 1.5768</code>, so <code>SE(b₁) ≈ 0.0655</code>. The slope’s t-ratio of about 8 shows a highly precise estimate even with log-transformed data.</p>
+  </section>
+
+  <section id="23-3">
+    <h2>23.3 Regression Inference</h2>
+    <p class="subheading">Key ideas</p>
+    <ul>
+      <li>The usual null hypothesis is <code>β₁ = 0</code>, which would mean no linear relationship.</li>
+      <li>The standardized slope follows a Student’s t-distribution with <code>n - 2</code> degrees of freedom.</li>
+      <li>Confidence intervals add and subtract a margin of error to the observed slope.</li>
+    </ul>
+    <p class="subheading">Important formulas &amp; their meaning</p>
+    <ul>
+      <li><code>t = (b₁ - 0) / SE(b₁)</code> – measures how many standard errors the sample slope is away from zero. Units cancel, so t is unitless.</li>
+      <li><code>b₁ ± t* × SE(b₁)</code> – a two-sided confidence interval; <code>t*</code> comes from the t-table for the desired confidence level and <code>n - 2</code> df.</li>
+    </ul>
+    <p class="subheading">Short example(s)</p>
+    <p>Body fat example: <code>b₁ = 1.70</code>, <code>SE(b₁) = 0.0743</code> gives <code>t ≈ 22.9</code> (P ≈ 0). The 95% CI is approximately (1.55, 1.85) %Body Fat per inch.</p>
+  </section>
+
+  <section id="23-4">
+    <h2>23.4 Confidence and Prediction Intervals for the Response Variable</h2>
+    <p class="subheading">Key ideas</p>
+    <ul>
+      <li>Confidence intervals estimate the mean response for all subjects with a given x.</li>
+      <li>Prediction intervals estimate a single future response, so they must be wider.</li>
+      <li>Both intervals use the same critical <code>t*</code> but different standard errors.</li>
+    </ul>
+    <p class="subheading">Important formulas &amp; their meaning</p>
+    <ul>
+      <li><code>SE(m<sub>ν</sub>) = sqrt[SE(b₁)² (x<sub>ν</sub> - x̄)² + s<sub>e</sub>² / n]</code> – standard error for the mean response at new x; the first term captures slope uncertainty (growing with distance from x̄), the second shrinks with larger n.</li>
+      <li><code>SE(ŷ<sub>ν</sub>) = sqrt[SE(b₁)² (x<sub>ν</sub> - x̄)² + s<sub>e</sub>² / n + s<sub>e</sub>²]</code> – adds the individual-level variance <code>s<sub>e</sub>²</code> so prediction intervals remain wide even with large samples.</li>
+    </ul>
+    <p class="subheading">Short example(s)</p>
+    <p>For a 38-inch waist, the mean %Body Fat 95% CI is <code>21.9% ± 0.63%</code>, while the prediction interval for one man is <code>21.9% ± 9.30%</code>. The former answers “average”, the latter “one person”.</p>
+  </section>
+
+  <section id="23-5">
+    <h2>23.5 Correlation Test</h2>
+    <p class="subheading">Key ideas</p>
+    <ul>
+      <li>The test for zero correlation gives the same t-statistic as the slope test because <code>β₁</code> and <code>ρ</code> are linked.</li>
+      <li>One can test <code>ρ = 0</code> directly when both variables are treated as random.</li>
+    </ul>
+    <p class="subheading">Important formulas &amp; their meaning</p>
+    <ul>
+      <li><code>t = r √(n - 2) / √(1 - r²)</code> – uses the sample correlation <code>r</code> and sample size <code>n</code>; the t-value has <code>n - 2</code> degrees of freedom.</li>
+    </ul>
+    <p class="subheading">Short example(s)</p>
+    <p>The body fat data have <code>r ≈ 0.823</code>, so <code>t ≈ 22.9</code>, matching the regression slope test and leading to rejection of the null correlation.</p>
+  </section>
+
+  <section id="23-6">
+    <h2>23.6 The Analysis of Variance (ANOVA) for Regression</h2>
+    <p class="subheading">Key ideas</p>
+    <ul>
+      <li>Total variability splits into regression (explained) and residual (unexplained) components.</li>
+      <li>Degrees of freedom follow the same decomposition: <code>n - 1 = 1 + (n - 2)</code>.</li>
+      <li>The F-test compares mean squares to assess whether the model adds explanatory power.</li>
+    </ul>
+    <p class="subheading">Important formulas &amp; their meaning</p>
+    <ul>
+      <li><code>Total SS = Regression SS + Residual SS</code> – sums capture total variation, the part explained by the line, and leftover scatter.</li>
+      <li><code>R² = Regression SS / Total SS</code> – proportion of variance explained; unitless and easy to interpret.</li>
+      <li><code>F = MSR / MSE</code> where <code>MSR</code> and <code>MSE</code> are their SS divided by respective df; large F signals the model beats random noise.</li>
+    </ul>
+    <p class="subheading">Short example(s)</p>
+    <p>A sample of 10 men yielded <code>R² ≈ 59.4%</code> and an F≈11.7 (P=.009), showing waist size explains a significant piece of body fat variance.</p>
+  </section>
+
+  <section id="23-7">
+    <h2>23.7 Logistic Regression</h2>
+    <p class="subheading">Key ideas</p>
+    <ul>
+      <li>Logistic regression models a binary response (0/1) by working with log-odds.</li>
+      <li>The estimated curve stays between 0 and 1 and is smooth, avoiding impossible probabilities.</li>
+      <li>χ² statistics test the significance of the slope and intercept.</li>
+    </ul>
+    <p class="subheading">Important formulas &amp; their meaning</p>
+    <ul>
+      <li><code>ln(p / (1 - p)) = β₀ + β₁ x</code> – the log-odds (logit) of success is linear in x. Since odds are unitless, the slope represents how the log of the chance ratio shifts with x.</li>
+      <li><code>p = 1 / (1 + e^{-(β₀ + β₁ x)})</code> – converts the log-odds back to a probability between 0 and 1.</li>
+    </ul>
+    <p class="subheading">Short example(s)</p>
+    <p>Diabetes risk vs. BMI: <code>ln(p / (1 - p)) = –3.9967 + 0.1025 BMI</code>. The slope’s χ² P-value near zero proves BMI significantly raises the odds of diabetes, with the logistic curve providing sensible probabilities.</p>
+  </section>
+
+  <section id="review">
+    <h2>Review &amp; Cautions</h2>
+    <p class="subheading">Key ideas</p>
+    <ul>
+      <li>Always validate linearity, independence, equal spread, and Normality before trusting t-tests or prediction intervals.</li>
+      <li>Plot thickening, outliers, and extrapolation can spoil inference even if the formulas look neat.</li>
+      <li>Software tables offer residual plots, t-statistics, P-values, and ANOVA summaries; use them all.</li>
+    </ul>
+    <p class="subheading">Important reminders</p>
+    <ul>
+      <li><code>s<sub>e</sub></code> is the foundation for every standard error and interval.</li>
+      <li>Confidence intervals shrink with more data, but prediction intervals remain bounded below by the inherent scatter around the line.</li>
+    </ul>
+  </section>
+</body>
+</html>

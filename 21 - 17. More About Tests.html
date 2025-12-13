@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chapter 17: More About Tests</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; line-height: 1.6; margin: 2rem; background: #fdfdfd; color: #222; }
+    h2 { margin-top: 2rem; margin-bottom: 0.4rem; color: #2b3a67; }
+    h3 { margin-top: 1rem; margin-bottom: 0.3rem; color: #3c5b95; }
+    ul { margin-top: 0; margin-bottom: 1rem; padding-left: 1.2rem; }
+    .example { margin-bottom: 1rem; padding: 0.8rem; border-radius: 4px; background: #f5f7ff; border: 1px solid #d0d7f0; }
+    code { font-size: 0.95rem; background: #eef0ff; padding: 0.1rem 0.3rem; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <h1>Chapter 17: More About Tests</h1>
+
+  <section id="17-1">
+    <h2>17.1 Choosing the Hypotheses</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Null hypotheses come from the context, mimic the default story, and cannot be proved—only tested.</li>
+      <li>Alternatives express the claim we hope to demonstrate; the direction of the inequality determines the type of tail.</li>
+      <li>Parameter identification starts the test: e.g., <code>p</code> for proportions, with the hypothesized value coming from background knowledge.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><code>H0: parameter = value</code> anchors the sampling model (for proportions, the unitless probability between 0 and 1); the hypothesized value is chosen from prior knowledge.</li>
+      <li><code>HA: parameter &lt; / &gt; / ≠ value</code> encapsulates what we want to prove; the direction focuses the region of unusual data.</li>
+      <li><code>p̂ = successes / n</code> is the sample proportion and fuels every z-score and confidence interval.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      Ontario medical school data: <code>H0: p = 0.13</code> (population rural share) and <code>HA: p &lt; 0.13</code>, because rural applicants were suspected to be under-represented.
+    </div>
+    <div class="example">
+      Avandia heart-attack rate: <code>H0: p = 0.202</code>, <code>HA: p &gt; 0.202</code>—the alternative matches the FDA's concern about increased risk.
+    </div>
+  </section>
+
+  <section id="17-2">
+    <h2>17.2 How to Think About P-Values</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>The P-value is about the data: it answers “How likely are results at least this extreme, assuming the null is true?”</li>
+      <li>It is not P(<em>H0</em> | data); reversing the conditional probability requires extra assumptions.</li>
+      <li>Small P-values indicate evidence against the null, but you still judge the context before deciding.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><code>P-value = P(observed statistic value or more extreme | H0)</code>—a unitless probability between 0 and 1 that quantifies how “rare” the observed data are under the null.</li>
+      <li><code>z = (p̂ − p0) / sqrt(p0(1 − p0)/n)</code> (one-proportion z-score): numerator is the deviation from the null value, denominator is the Null-model standard deviation, showing how many standard deviations away the sample is.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      Ontario rural rate: <code>p̂ ≈ 0.0728</code>, <code>p0 = 0.13</code>, <code>n = 4948</code> ⇒ <code>z ≈ −11.92</code>. The P-value is below 0.0000001, so the observed proportion is extraordinarily rare if the true rate were 13%.
+    </div>
+  </section>
+
+  <section id="17-3">
+    <h2>17.3 Alpha Levels and Significance</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Define your threshold <code>α</code> (e.g., 0.10, 0.05, 0.01) before seeing the data—this value describes how rare a P-value must be to reject <code>H0</code>.</li>
+      <li>When <code>P-value &lt; α</code>, the result is “statistically significant at α”; otherwise you say “fail to reject H0,” not “accept H0.”</li>
+      <li>Report the precise P-value so readers judge the strength of evidence, rather than relying solely on the binary α decision.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><code>Reject H0 ⇔ P-value &lt; α</code>; otherwise fail to reject—this sharp rule keeps decision-making consistent and sets α as the guardrail for rare events.</li>
+      <li><code>α = P(Type I error)</code> when <code>H0</code> is true; choosing a smaller α reduces the chance of a false positive but makes rejection harder.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      Therapeutic touch study: P-value = 0.79 is much larger than any reasonable α, so the correct phrasing is “fail to reject H0”; the data offer no evidence that practitioners exceed guessing.
+    </div>
+  </section>
+
+  <section id="17-4">
+    <h2>17.4 Critical Values for Hypothesis Tests</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Critical values (<code>z*</code>) mark the boundary between reject/fail-to-reject for chosen α, allowing quick comparisons when technology is unavailable.</li>
+      <li>One-sided tests place the entire α in a single tail; two-sided tests split α/2 into each tail.</li>
+      <li>Confidence intervals and hypothesis tests stem from the same calculations: if the null value sits outside the (1 − α)·100% CI, the corresponding test rejects at α.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li>Critical values from the standard Normal: one-sided <code>α = 0.05 ⇒ z* ≈ −1.645</code>, two-sided <code>α = 0.05 ⇒ z* ≈ ±1.96</code>. Any observed <code>|z| &gt; |z*|</code> implies <code>P-value &lt; α</code>.</li>
+      <li><code>CI: p̂ ± z* · sqrt(p̂(1 − p̂)/n)</code>—the same <code>z*</code> that defines α/2 builds the confidence interval; if <code>p0</code> falls outside the CI, that null is rejected at the matching α.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      The Ontario z-score (−11.92) is far left of the one-sided critical value −1.645 for α = 0.05, so reject H0; the confidence interval (0.063, 0.082) also excludes 0.13, confirming the same conclusion.
+    </div>
+  </section>
+
+  <section id="17-5">
+    <h2>17.5 Decision Errors</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Type I error (α): rejecting a true null (“false alarm”).</li>
+      <li>Type II error (β): failing to reject a false null (“missed discovery”).</li>
+      <li>Power (<code>1 − β</code>) is the probability of correctly rejecting a false null; increasing power minimizes Type II errors.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><code>α = P(Type I error)</code> when <code>H0</code> is true; it is controlled by the choice of alpha level.</li>
+      <li><code>β = P(Type II error)</code> depends on the true parameter within <code>HA</code>—the further the truth is from <code>H0</code>, the smaller β becomes.</li>
+      <li><code>Power = 1 − β</code> is the probability of detecting an effect when it exists; it reflects how much evidence is needed to overcome variability.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      In the Avandia meta-analysis, if the drug really did not raise heart-attack risk but the researchers concluded it did, they would have committed a Type I error—patients might wrongly avoid a useful medicine.
+    </div>
+  </section>
+
+  <section id="17-6">
+    <h2>17.6 Power and Sample Size</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Power is the test’s strength to detect a false null: the higher the power, the lower the chance of β.</li>
+      <li>Effect size (<code>|true value − null value|</code>) and sample size drive power—larger effects or bigger samples reduce variability and increase power.</li>
+      <li>Sensitivity (= power) and specificity (= 1 − α) describe medical testing performance: sensitivity tells how often sick people are flagged, and specificity tells how often healthy people are correctly cleared.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><code>Power = 1 − β</code>—unitless probability that a test rejects a false null.</li>
+      <li><code>Effect size = |true parameter − null parameter|</code>—distance (in the parameter’s units) between reality and the hypothesized value.</li>
+      <li><code>Specificity = 1 − α</code> and <code>Sensitivity = Power</code>—link significance and Type II errors to real diagnostic accuracy.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      Combining 47 Avandia trials (a meta-analysis) increased the effective sample size and power, reducing the risk of missing a real increase in heart-attack risk (a dangerous Type II error).
+    </div>
+    <div class="example">
+      Therapeutic touch: if a 75% success rate mattered, powering the study at α = 0.01 gave 99.99% power, so it was extremely unlikely the test would miss such a large effect.
+    </div>
+  </section>
+</body>
+</html>

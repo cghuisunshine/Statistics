@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding and Comparing Distributions – Chapter 4 Tutorial</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 32px; background: #f9fafb; color: #111; line-height: 1.6; }
+    h1, h2, h3 { margin: 0 0 8px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; margin-top: 24px; }
+    h3 { font-size: 18px; margin-top: 16px; }
+    section { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 20px; margin-bottom: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+    ul { margin: 6px 0 12px 18px; }
+    li { margin-bottom: 6px; }
+    .subhead { font-weight: 700; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Understanding and Comparing Distributions – Chapter 4 Tutorial</h1>
+
+  <section id="4-1">
+    <h2>4.1 Comparing Groups</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Comparisons matter: ask how a quantitative variable differs across groups defined by a categorical variable.</li>
+      <li>Use consistent scales when comparing histograms or stems across groups to avoid visual distortion.</li>
+      <li>Summaries (median, IQR, mean, sd) should be reported for each group; choose median/IQR for skew, mean/sd for roughly symmetric shapes.</li>
+      <li>Back-to-back stem-and-leaf plots are handy for small samples to compare two groups on one axis.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">5-number summary (per group):</span> min, Q1, median, Q3, max. Meaning: frames centre and spread, enabling quick group contrasts.</li>
+      <li><span class="subhead">IQR (per group):</span> Q3 − Q1. Meaning: width of the middle 50%—compare variability between groups.</li>
+      <li><span class="subhead">Mean &amp; sd (per group):</span> \(\bar{x} = \sum x / n\); \(s = \sqrt{\sum (x-\bar{x})^2 / (n-1)}\). Meaning: typical level and typical deviation when shapes are not severely skewed.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Wind speed: Summer vs. Winter:</strong> Winter days have higher median wind (~1.72 mph) and larger IQR (1.82) than Summer (median ~0.71 mph, IQR 1.27); winter histogram is flatter, summer more skewed right.</li>
+      <li><strong>Crime rates by region:</strong> Back-to-back stems show Western CMAs have higher motor vehicle theft and homicide rates; Thunder Bay is an Ontario outlier in homicide.</li>
+      <li><strong>Mug insulation:</strong> Boxplots of temperature loss after 30 minutes show the Nissan mug with smallest median loss (best at keeping heat) and tightest IQR; SIGG loses heat fastest.</li>
+    </ul>
+  </section>
+
+  <section id="4-2">
+    <h2>4.2 Comparing Boxplots</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Side-by-side boxplots efficiently compare centres, spreads, and potential outliers across many groups (e.g., months).</li>
+      <li>Ordering boxplots naturally (time, dose, etc.) reveals patterns and seasonality.</li>
+      <li>Outliers are context-dependent: a value ordinary in one group may be extreme in another.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Box boundaries:</span> Lower edge = Q1; upper edge = Q3; line = median. Meaning: shows the central 50% and typical middle.</li>
+      <li><span class="subhead">Whiskers &amp; fences:</span> Whiskers reach most extreme inlier within 1.5×IQR of Q1/Q3; values beyond fences flagged as suspect outliers. Meaning: visual rule-of-thumb for unusual points.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Monthly wind speeds:</strong> Boxplots show winds strongest and most variable Oct–Apr; calm, tight spreads Jun–Aug. New outliers emerge within-month (e.g., a rare windy August day).</li>
+      <li><strong>Roller coaster speeds:</strong> Median speeds similar for wood and steel, but steel has larger spread and more outliers (including the extreme Formula Rossa).</li>
+    </ul>
+  </section>
+
+  <section id="4-3">
+    <h2>4.3 Outliers</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Outliers merit attention: they may be errors, key events, or part of a long tail; investigate before deciding.</li>
+      <li>Never drop outliers silently; report analyses with/without them when necessary.</li>
+      <li>Outlier status depends on context (grouping, time); a value can be ordinary globally but extreme within a subgroup.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Fence rule:</span> Values &lt; Q1 − 1.5×IQR or &gt; Q3 + 1.5×IQR are flagged. Meaning: heuristic to spot potentially unusual cases.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Wind outliers:</strong> Windiest February day = winter storm; June outlier = rare Massachusetts tornado day; August outlier = Hurricane Irene. Context explains extremes.</li>
+      <li><strong>Formula Rossa coaster:</strong> Extreme speed traced to hydraulic launch system—distinct mechanism vs. gravity-driven coasters.</li>
+      <li><strong>Data error caution:</strong> 1950 census “14-year-old widowers” traced to column shifts on punch cards—illustrates why to check anomalies.</li>
+    </ul>
+  </section>
+
+  <section id="4-4">
+    <h2>4.4 Timeplots</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Order matters: plot quantitative values against time to spot trends, cycles, and changes in variability.</li>
+      <li>Smoothers (moving averages, lowess, median smoothers) reveal underlying trends by reducing point-to-point noise.</li>
+      <li>Be cautious forecasting; physical/seasonal patterns may continue, but economic/social series may not.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Moving average (concept):</span> At time t, average values in a window around t. Meaning: local typical level; window width controls smoothness.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Daily wind speeds:</strong> Timeplot shows calm, low-variance summer and higher, volatile winter; lowess smooth highlights seasonal dip and rise.</li>
+      <li><strong>Roller coaster track lengths:</strong> Smoothed timeplot suggests tracks shortening since ~1970s, though long outliers remain.</li>
+      <li><strong>Airline load factors:</strong> Timeplots with smoothers show rising trend and seasonal cycles; different smoothers (lowess vs. median) can highlight broad vs. local patterns.</li>
+    </ul>
+  </section>
+
+  <section id="4-5">
+    <h2>4.5 Re-expressing Data</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Re-expression (transformations) can tame skew, stabilize variance, and make group spreads comparable.</li>
+      <li>Right-skewed, positive data often benefit from log, square root, or reciprocal; left-skewed may benefit from squaring or exponentials.</li>
+      <li>After re-expression, reassess shape, centre, spread, and outliers; interpretation shifts to the transformed scale.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Log transform:</span> \(y' = \log_{10}(y)\) or \(\ln(y)\) for \(y&gt;0\). Meaning: compresses large values, often symmetrizing right-skewed data; differences in logs correspond to ratios on the original scale.</li>
+      <li><span class="subhead">Square root:</span> \(y' = \sqrt{y}\) for \(y \ge 0\). Meaning: moderates right skew, especially for count-like data.</li>
+      <li><span class="subhead">Reciprocal:</span> \(y' = 1/y\). Meaning: flattens high values; useful when large original values correspond to small effects (e.g., times, rates).</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>CEO pay (2012):</strong> Raw compensation is extremely right-skewed; log10 pay is roughly symmetric with centre ~6.84 (≈ $6.9M). Outliers remain identifiable but clearer.</li>
+      <li><strong>Cotinine levels:</strong> Raw scales hide ETS vs. nonsmokers because smokers’ spread dominates; log transform makes spreads comparable and shows ETS exposure raises cotinine above unexposed nonsmokers.</li>
+      <li><strong>Assets histogram:</strong> Heavy skew can be clarified via square root or log; log scale turns multiplicative differences into additive, aiding comparison.</li>
+    </ul>
+  </section>
+</body>
+</html>

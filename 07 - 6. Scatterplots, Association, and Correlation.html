@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scatterplots, Association, and Correlation – Chapter 6 Tutorial</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 32px; background: #f9fafb; color: #111; line-height: 1.6; }
+    h1, h2, h3 { margin: 0 0 8px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; margin-top: 24px; }
+    h3 { font-size: 18px; margin-top: 16px; }
+    section { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 20px; margin-bottom: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+    ul { margin: 6px 0 12px 18px; }
+    li { margin-bottom: 6px; }
+    .subhead { font-weight: 700; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Scatterplots, Association, and Correlation – Chapter 6 Tutorial</h1>
+
+  <section id="6-1">
+    <h2>6.1 Scatterplots</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Scatterplots show the relationship between two quantitative variables; plot one point per case (x = explanatory, y = response).</li>
+      <li>Describe: direction (positive/negative/none), form (linear/curved/none), strength (tight vs. diffuse), and unusual features (outliers, clusters).</li>
+      <li>Add a categorical variable via color/symbols to reveal subgroups (lurking variables).</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li>No formula—focus on visual description. Positive association: as x increases, y tends to increase; negative association: as x increases, y tends to decrease.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Brain weight vs. gestation:</strong> Positive, curved pattern; separating primates vs. carnivores reveals two distinct curves and a lurking categorical variable.</li>
+      <li><strong>Worldwide prices (iPod/Big Mac):</strong> Plot shows currency/purchasing power differences; strong positive association, potential outliers.</li>
+    </ul>
+  </section>
+
+  <section id="6-2">
+    <h2>6.2 Correlation</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Correlation (r) measures strength/direction of a linear association between two quantitative variables.</li>
+      <li>Unitless, between –1 and +1; sign = direction; magnitude = strength (closer to |1| = stronger linear fit).</li>
+      <li>Correlation is sensitive to outliers and only captures linear trends; not resistant; does not imply causation.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Correlation:</span> \(r = \frac{1}{n-1}\sum \left(\frac{x_i-\bar{x}}{s_x}\right)\left(\frac{y_i-\bar{y}}{s_y}\right)\). Meaning: average product of paired z-scores; measures how jointly high/low the standardized values are.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Ventilation cost vs. speed:</strong> Linear scatter with strong positive r (example inference of strength/direction).</li>
+      <li><strong>Study time vs. exam score:</strong> Positive r expected; outlier of a long study but low score would weaken r.</li>
+    </ul>
+  </section>
+
+  <section id="6-3">
+    <h2>6.3 Straightening Scatterplots (optional)</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>When form is curved, re-express one or both variables (logs, square roots, reciprocals) to achieve a straighter pattern.</li>
+      <li>Straightening clarifies direction/strength and makes correlation more informative.</li>
+      <li>Choose transforms guided by shape: right-curved increasing patterns often benefit from log(y), log(x), or both.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li>No single formula; common re-expressions: \(y'=\log(y)\), \(x'=\log(x)\), \(y'=\sqrt{y}\), \(y'=1/y\). Meaning: compresses large values, stabilizes spread, linearizes multiplicative relationships.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Brain weight vs. gestation:</strong> Taking logs (not shown in text example, but hinted) would likely straighten the curved positive trend.</li>
+      <li><strong>GDP per capita vs. HDI:</strong> Raw GDP is right-skewed; log(GDP) vs. HDI yields a tighter, more linear association.</li>
+    </ul>
+  </section>
+
+  <section id="6-4">
+    <h2>Conditions &amp; Cautions</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li><span class="subhead">Quantitative Variables Condition:</span> Both variables must be quantitative for scatterplots/correlation.</li>
+      <li><span class="subhead">Straight Enough Condition:</span> Correlation summarizes linear association; check scatterplot for linear form before using r.</li>
+      <li><span class="subhead">Outlier Condition:</span> Outliers can distort r; identify and report with/without when necessary.</li>
+      <li><span class="subhead">Correlation ≠ causation:</span> Association does not prove cause; lurking/confounding variables may drive observed patterns.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Lurking variable:</strong> In brain weight vs. gestation, species type (primate/carnivore) is a lurking categorical variable that changes the pattern.</li>
+      <li><strong>Outlier impact:</strong> A single extreme point in a linear cloud can drag r toward –1 or +1 or mask a true trend.</li>
+    </ul>
+  </section>
+</body>
+</html>

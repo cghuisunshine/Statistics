@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chapter 12: Probability Rules!</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.6; padding: 2rem; max-width: 900px; margin: auto; }
+    h2 { border-bottom: 2px solid #333; padding-bottom: 0.25rem; margin-top: 2rem; }
+    h3 { margin-top: 1.5rem; }
+    ul { margin-top: 0.5rem; }
+    li + li { margin-top: 0.35rem; }
+    em { font-style: italic; }
+  </style>
+</head>
+<body>
+  <h2>12.1 Probability on Condition</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Conditional probability narrows the sample space by assuming a given event has already occurred, so each new outcome is measured relative to that condition.</li>
+    <li>Even when outcomes are not equally likely, we can compute probabilities by dividing joint probabilities by the probability of the conditioning event.</li>
+    <li>Stonehenge travellers illustrate how probabilities change: the chance of finding a Francophone depends on which province is known.</li>
+  </ul>
+
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><strong>Conditional probability:</strong> P(B | A) = P(A and B) / P(A). This ratio asks, “out of all outcomes where A happens, what fraction also satisfy B?” The numbers are unitless proportions between 0 and 1. In practice, we count how often both A and B happen, then divide by how often A happens at all.</li>
+  </ul>
+
+  <h3>Short example(s)</h3>
+  <ul>
+    <li>Out of 55 Quebecers, 50 preferred French, so P(French | Quebec) = 50/55 ≈ 0.91. Conditioning on a Quebecer vastly boosts the chance of French compared to the unconditional 0.278.</li>
+    <li>Atlantic visitors yielded P(French | Atlantic) = 9/24 = 0.375, showing how the conditional probability differs by region even though the joint probability remains based on the same table.</li>
+  </ul>
+
+  <h2>12.2 Independence and the Multiplication Rule</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Independence means one event occurring leaves the probability of the other unchanged, which is crucial for multiplying probabilities directly.</li>
+    <li>The General Multiplication Rule always applies, while the simplified version \(P(A and B) = P(A) * P(B)\) requires independence.</li>
+    <li>Many models assume independence but you should always justify it before applying the shortcut.</li>
+  </ul>
+
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><strong>Independence:</strong> P(B | A) = P(B). When the conditional probability equals the unconditional probability, knowing A has no effect on B, which keeps the probability structure stable.</li>
+    <li><strong>General Multiplication Rule:</strong> P(A and B) = P(A) * P(B | A). This reflects the idea that to get both A and B, you first see A, then the probability of B given A.</li>
+    <li><strong>Multiplication Rule for independent events:</strong> If A and B are independent, P(A and B) = P(A) * P(B). The conditional \(P(B | A)\) collapses to \(P(B)\), so you simply multiply the two probabilities.</li>
+  </ul>
+
+  <h3>Short example(s)</h3>
+  <ul>
+    <li>Hitting red lights Monday and Tuesday uses independence: (0.61)(0.61) = 0.3721, because each day has a 61% chance of red that doesn’t change with the previous day.</li>
+    <li>The probability of avoiding red until Wednesday is (0.39)(0.39)(0.61) ≈ 0.093, showing how complementary probabilities combine via multiplication when days are independent.</li>
+  </ul>
+
+  <h2>12.3 Picturing Probability</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Tables, Venn diagrams, and tree diagrams organize joint, marginal, and conditional probabilities so we can read off the needed values.</li>
+    <li>Tables work well when you have totals and intersections; tree diagrams excel when probabilities branch conditionally.</li>
+    <li>Disjoint outcomes produce rows or terminal leaves whose probabilities add to marginal totals or 1.</li>
+  </ul>
+
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><strong>Joint probability on a tree:</strong> Multiply probabilities along the path that leads to the event. The tree keeps conditional probabilities explicit and ensures each path represents a disjoint outcome.</li>
+  </ul>
+
+  <h3>Short example(s)</h3>
+  <ul>
+    <li>Binge drinking and alcohol-related accidents: P(Binge and Accident) = 0.44 * 0.17 = 0.075, taking the probability of binge drinking and multiplying by the conditional accident rate among binge drinkers.</li>
+    <li>The probability of at least one accident equals 1 minus the probability of no accidents: 1 − (0.83)(0.91)(1.0) = 0.108. The tree shows the complement path for “no accident.”</li>
+  </ul>
+
+  <h2>12.4 Reversing the Conditioning &amp; Bayes’ Rule</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Bayes’ Rule lets you compute P(B | A) when you know P(A | B), the prior probability of B, and the marginal probability of A.</li>
+    <li>Tree diagrams help track all joint probabilities that contribute to the condition, especially when outcomes have small probabilities.</li>
+    <li>Reversal of conditioning is often counterintuitive, so compute with care before jumping to conclusions.</li>
+  </ul>
+
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><strong>Bayes’ Rule:</strong> \(P(B | A) = \dfrac{P(A | B)P(B)}{P(A | B)P(B) + P(A | B^c)P(B^c)}\). The numerator is the joint probability of A and B, while the denominator is the total probability of A across all possible ways it can occur; the ratio flips the conditioning.</li>
+  </ul>
+
+  <h3>Short example(s)</h3>
+  <ul>
+    <li>TB screening: with P(TB) = 0.00005, P(test + | TB) = 0.999, and P(test + | TB^c) = 0.01, Bayes’ Rule gives P(TB | test +) ≈ 0.00497, so a positive result still means less than a 0.5% chance of actual TB.</li>
+    <li>Seatbelt study: P(not belted | serious injury) = 0.0851 / (0.0616 + 0.0851) ≈ 0.58, showing how reversing the condition highlights that unbelted drivers dominate serious outcomes.</li>
+  </ul>
+</body>
+</html>

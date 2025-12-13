@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chapter 15 Confidence Intervals Tutorial</title>
+</head>
+<body>
+  <h1>15.1 A Confidence Interval</h1>
+  <h2>Key ideas</h2>
+  <ul>
+    <li>A sample proportion (p-hat) is only an estimate of the fixed population proportion p; repeated random samples of size n would centre around p but vary because of chance.</li>
+    <li>The sampling distribution of p-hat is approximately Normal for large n, so we track its variability with the estimated standard deviation called the <strong>standard error</strong>.</li>
+    <li>A confidence interval combines the observed p-hat with this spread to capture plausible values of p.</li>
+  </ul>
+  <h2>Important formulas &amp; their meaning</h2>
+  <ul>
+    <li><strong>Standard error of a proportion:</strong> <code>SE(p-hat) = sqrt(p-hat(1 - p-hat) / n)</code>
+      <p>This measures how much p-hat typically wiggles from the true p across hypothetical repeats; units are plain proportions (e.g., 0.015 means 1.5 percentage points). The numerator p-hat(1 - p-hat) pairs the observed proportion with its complement, and the denominator is the sample size.</p>
+    </li>
+    <li><strong>One-proportion z-interval:</strong> <code>p-hat ± z* × SE(p-hat)</code>
+      <p>This builds the confidence interval by taking z* standard errors away from the centre p-hat. The critical value z* comes from the standard Normal model and matches the desired confidence level (for example, 1.96 for 95%), and the interval units are the same as p-hat so you can read it as a percentage range.</p>
+    </li>
+  </ul>
+  <h2>Short example(s)</h2>
+  <p>In the 2016 Nanos poll, 66% of 1000 Canadians supported the refugee policy, so p-hat = 0.66 and <code>SE(p-hat) = sqrt(0.66×0.34 / 1000) ≈ 0.015</code>. A 95% interval is <code>0.66 ± 1.96×0.015</code>, roughly 0.63 to 0.69, giving 95% confidence that true support lies between 63% and 69%.</p>
+
+  <h1>15.2 Interpreting Confidence Intervals: What Does “95% Confidence” Really Mean?</h1>
+  <h2>Key ideas</h2>
+  <ul>
+    <li>The confidence level (say 95%) describes long-run behaviour: 95% of intervals built the same way from repeated random samples will contain the fixed parameter p.</li>
+    <li>The uncertainty is about whether this interval is one of the winners, not that p changes; p is fixed while the interval shifts from sample to sample.</li>
+    <li>Different samples give different centres and different intervals, so each interval is just one of many plausible guesses.</li>
+  </ul>
+  <h2>Important formulas &amp; their meaning</h2>
+  <ul>
+    <li><strong>Confidence level definition:</strong> A statement like “95% confidence” means 95% of such constructed intervals (across hypothetical repeats) capture the true value. There is no randomness in p; we only accept a 5% failure rate because the interval, not the parameter, fluctuates.</li>
+  </ul>
+  <h2>Short example(s)</h2>
+  <p>In the Angus Reid survey about belief in aliens, the computed interval was just one of many: another random sample might centre at 0.68 or 0.63, and the intervals slide with the sample proportion. The true value is fixed while most of the simulated intervals still cover it, showing the 95% success rate.</p>
+
+  <h1>15.3 Margin of Error: Certainty versus Precision</h1>
+  <h2>Key ideas</h2>
+  <ul>
+    <li>The <strong>margin of error</strong> is how far each side of the interval stretches from the estimate; it quantifies precision while the confidence level measures certainty.</li>
+    <li>Increasing the confidence level (e.g., from 95% to 99%) requires a larger margin of error, so every interval balances confidence and precision.</li>
+    <li>Sample size controls the margin of error too: larger n shrinks the standard error, allowing a tighter interval without losing confidence.</li>
+  </ul>
+  <h2>Important formulas &amp; their meaning</h2>
+  <ul>
+    <li><strong>Margin of error:</strong> <code>ME = z* × SE(p-hat)</code>
+      <p>This multiplies the number of standard errors we take (z*) with the wiggle of the statistic; units are the same as the proportion, so ME = 0.017 means ±1.7 percentage points.</p>
+    </li>
+    <li><strong>Critical value:</strong> z* is the number of standard deviations that captures the chosen confidence level in the standard Normal. For example, 95% corresponds to z* ≈ 1.96, 90% to 1.645, and 99.7% to 3.00.</li>
+    <li><strong>Sample size for a target ME:</strong> <code>n = (z*² × p(1 - p)) / ME²</code>
+      <p>Rearranging the margin of error formula solves for the required n. Use a prior guess or be conservative with p = 0.5, and always round up because you can’t sample a fractional person and still want at least the desired precision.</p>
+    </li>
+  </ul>
+  <h2>Short example(s)</h2>
+  <ul>
+    <li>The Angus Reid 1515-person poll reported a “worst-case” ME = 0.026 by plugging p = 0.5 into z* = 1.96, giving ±2.6 percentage points even before seeing the data.</li>
+    <li>Using the actual p-hat = 0.79 and z* = 1.645 for 90% confidence gave ME ≈ 1.7%, narrowing the interval but increasing uncertainty because the critical value is smaller.</li>
+    <li>To get ME = 0.01 at 95% confidence with p-hat = 0.79 requires n ≈ (1.96² × 0.79 × 0.21)/0.01² ≈ 6374, so reducing the error by 60% demands about six times more respondents.</li>
+  </ul>
+
+  <h1>15.4 Assumptions and Conditions</h1>
+  <h2>Key ideas</h2>
+  <ul>
+    <li>The Normal model for p-hat relies on independence (randomization or experiment), the 10% condition (sampling less than 10% of the population), and the success/failure condition (at least 10 successes and 10 failures).</li>
+    <li>The textbook recommendation is to follow a four-step strategy—Plan (Who, What, When, Why), Model (check conditions), Mechanics (compute interval), and Conclusion (interpret)—to keep logic transparent.</li>
+    <li>Be conservative when guessing p for sample size planning: choose the value from the plausible range that maximizes p(1 - p).</li>
+  </ul>
+  <h2>Important formulas &amp; their meaning</h2>
+  <ul>
+    <li><strong>One-proportion z-interval (revisited):</strong> <code>p-hat ± z* × sqrt(p-hat(1 - p-hat) / n)</code>
+      <p>Trust this interval only when the success/failure condition holds so that the Central Limit Theorem gives approximate Normal behaviour. The 10% condition keeps the independence assumption safe when sampling without replacement.</p>
+    </li>
+    <li><strong>Sample size guideline:</strong> <code>n ≥ (z*² × p(1 - p)) / ME²</code>, with p guessed from prior knowledge or set to 0.5 to stay safe; rounding up protects the promised margin of error.</li>
+  </ul>
+  <h2>Short example(s)</h2>
+  <p>The 2010 Gallup death penalty poll sampled 510 adults, with p-hat = 0.58. The Randomization, 10% (population ≫ 510), and Success/Failure (510×0.58 ≥ 10 and ×0.42 ≥ 10) conditions all held, so the one-proportion z-interval <code>0.58 ± 1.96×0.022</code> gave (0.537, 0.623). Following the Plan–Model–Mechanics–Conclusion structure kept the reasoning transparent.</p>
+
+  <h1>15.5 The Plus Four Confidence Interval for Small Samples</h1>
+  <h2>Key ideas</h2>
+  <ul>
+    <li>When the success/failure condition fails (too few successes or failures), the Normal approximation can break down, so we add two pseudo-successes and two pseudo-failures before computing the interval.</li>
+    <li>The extra four observations stabilise the centre and the variance, giving better coverage than the original Normal interval when n is small or p-hat is near 0 or 1.</li>
+  </ul>
+  <h2>Important formulas &amp; their meaning</h2>
+  <ul>
+    <li><strong>Plus Four adjusted proportion:</strong> <code>p-tilde = (y + 2) / (n + 4)</code>
+      <p>Here y is the number of observed successes and n is the original sample size. Adding four protects against rare-event distortion while keeping the ratio interpretable as a proportion.</p>
+    </li>
+    <li><strong>Plus Four interval:</strong> <code>p-tilde ± z* × sqrt(p-tilde(1 - p-tilde) / (n + 4))</code>
+      <p>This replaces p-hat and n with the adjusted values so that the confidence interval still centres near the data but uses a more reliable estimate of the variability.</p>
+    </li>
+  </ul>
+  <h2>Short example(s)</h2>
+  <p>Surgeons observed 3 failures in 45 procedures, so p-tilde = (3 + 2) / (45 + 4) ≈ 0.102. The 95% plus-four interval is <code>0.102 ± 1.96 × sqrt(0.102×0.898 / 49)</code>, about (0.017, 0.187), which captures the uncertainty even though the original success/failure condition failed.</p>
+
+  <h1>15.6 Large Sample Confidence Intervals</h1>
+  <h2>Key ideas</h2>
+  <ul>
+    <li>The general recipe is to estimate any parameter with a statistic whose sampling distribution is approximately Normal, estimate the standard deviation of that distribution, and build an interval as <code>estimate ± z* × SE</code>.</li>
+    <li>For a sample mean, the Central Limit Theorem justifies Normality when the sample is large (suggested n ≥ 60) and there are no extreme outliers, with the sample standard deviation s estimating the population spread.</li>
+    <li>Always beware misinterpretations: the interval reflects our uncertainty, not a moving parameter, and you must specify the Who/Where/When while avoiding claims that other samples will agree.</li>
+  </ul>
+  <h2>Important formulas &amp; their meaning</h2>
+  <ul>
+    <li><strong>Large-sample CI template:</strong> <code>estimate ± z* × SE(estimate)</code>
+      <p>Replace “estimate” with the sample statistic (mean, proportion, etc.). The standard error is the estimated standard deviation of the sampling distribution, so the product gives the margin of error that has the same unit as the estimate.</p>
+    </li>
+    <li><strong>Mean CI:</strong> <code>y-bar ± z* × (s / sqrt(n))</code>
+      <p>Here y-bar is the sample mean, s is the sample standard deviation, and n is the number of values. The interval reports plausible values of the population mean in the original measurement units (e.g., ppm for contaminant levels).</p>
+    </li>
+    <li><strong>Sample size for a target ME on a mean:</strong> <code>n = (z* × s / ME)²</code>
+      <p>Solves for n when you want a certain margin of error; you can use a pilot s or a range-based guess (range ÷ 4) for the spread.</p>
+    </li>
+  </ul>
+  <h2>Short example(s)</h2>
+  <p>A salmon study measured mirex levels in 150 fish, with mean 0.0913 ppm and s = 0.0495. A 95% CI using (s / sqrt(n)) ≈ 0.00404 yielded <code>0.0913 ± 2×0.00404</code>, or (0.0832, 0.0994) ppm, so we are 95% confident the true mean lies in that window.</p>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chapter 18 Study Guide</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 2rem; }
+    h2 { color: #2c3e50; }
+    h3 { color: #34495e; margin-bottom: 0.25rem; }
+    ul { margin-top: 0; }
+    pre { background: #f4f4f4; padding: 0.5rem; }
+    .formula { font-family: "Courier New", Courier, monospace; background: #ecf0f1; padding: 0.2rem 0.4rem; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <h1>Chapter 18 Study Guide</h1>
+
+  <h2>18.1 The Sampling Model for the Sample Mean</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Sample means keep the population center but shrink variability by √n, so larger samples tighten the sampling distribution.</li>
+    <li>The Central Limit Theorem lets us model the distribution of ȳ with a Normal curve whenever the sample is large and the data are reasonably shaped.</li>
+    <li>The unknown population spread is replaced by the sample standard deviation, producing a standard error that drives margins and P-values.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ol>
+    <li><span class="formula">SD(ȳ) = σ / √n</span> — When σ is known, this formula gives the true spread of sample means in the same units as the data; dividing by √n reflects the averaging effect.</li>
+    <li><span class="formula">SE(ȳ) = s / √n</span> — In practice we replace σ with the sample s; the result is the estimated typical distance between ȳ and the unknown μ, so it drives both intervals and tests.</li>
+  </ol>
+  <h3>Short example(s)</h3>
+  <ul>
+    <li><strong>Angus cows:</strong> With σ = 157 lb and n = 100, the standard error is 15.7 lb, so about 68% of samples will return a mean within ±15.7 lb of 1309 lb, and 95% will live roughly between 1277.6 and 1340.4 lb.</li>
+  </ul>
+
+  <h2>18.2 Gosset’s t</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Student’s t is a family of bell curves whose tails get heavier as n shrinks; small samples need more extra room in the tails.</li>
+    <li>The degrees of freedom, df = n − 1, count how many independent pieces remain after estimating the mean and determine which t-distribution applies.</li>
+    <li>Gosset discovered that using s instead of σ requires a new model, since the extra uncertainty would otherwise lead to overly optimistic P-values and margins.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ol>
+    <li><span class="formula">df = n − 1</span> — Every time we use the sample mean, we lose one degree of freedom, so df tells us how dispersed the appropriate t-model is; larger df means a shape closer to the Normal model.</li>
+  </ol>
+  <h3>Short example(s)</h3>
+  <ul>
+    <li><strong>Gosset’s simulation:</strong> Drawing 750 samples of size 4 from a population of convict heights, he plotted the distribution of <span class="formula">(ȳ − μ)/(s/√n)</span> and found heavier tails than the Normal curve, paving the way for Student’s t.</li>
+  </ul>
+
+  <h2>18.3 A t-Interval for the Mean</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>When Independence, Randomization, and Nearly Normality hold, the standardized sample mean follows Student’s t with df = n − 1.</li>
+    <li>Confidence intervals take the form ȳ ± t* SE(ȳ); the larger the t* (from fewer df), the wider the interval.</li>
+    <li>A true t-model corrects for the extra spread introduced by estimating σ, so margins of error and P-values become “just right.”</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ol>
+    <li><span class="formula">ME = t* SE(ȳ)</span> — Multiply the estimated spread of ȳ by the critical value for the desired confidence level; ME is the actual amount we add and subtract, and both pieces share the units of the original data.</li>
+    <li><span class="formula">CI: ȳ ± t* SE(ȳ)</span> — Start at the sample mean and extend by ME in both directions; the resulting interval is the set of plausible values for the population mean at the chosen confidence level.</li>
+  </ol>
+  <h3>Short example(s)</h3>
+  <ul>
+    <li><strong>Farmed salmon (95% CI):</strong> With n = 150, ȳ = 0.0913 ppm, s = 0.0495 ppm, and SE = 0.0040 ppm, the interval is 0.0913 ± 1.977×0.0040 = (0.0834, 0.0992) ppm, so we’re 95% confident the true mirex mean lies there.</li>
+    <li><strong>Ontario travel times (90% CI):</strong> From 40 students, ȳ = 17.0 min, s = 9.66 min, SE = 1.53 min, and t* ≈ 1.685, giving (14.4, 19.6) minutes for the population mean at 90% confidence.</li>
+  </ul>
+
+  <h2>18.4 Hypothesis Test for the Mean</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>The one-sample t-test compares the data mean to a hypothesized value using SE(ȳ) and looks up the probability of observing that t under Student’s t with df = n − 1.</li>
+    <li>Set α before seeing the data, compute the P-value, and reject H₀ only when the P-value is smaller than α; larger values mean the data are consistent with the null.</li>
+    <li>Always consider context and practical importance, interpret P-values carefully, and complement tests with confidence intervals.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ol>
+    <li><span class="formula">t = (ȳ − μ₀) / SE(ȳ)</span> — The numerator has the same units as the data (minutes, ppm, etc.), the denominator shrinks as n grows, and the resulting standardized value is compared to the t-distribution to produce a P-value.</li>
+  </ol>
+  <h3>Short example(s)</h3>
+  <ul>
+    <li><strong>Mirex hypothesis test:</strong> Testing H₀: μ = 0.08 ppm gave t ≈ 2.825 with df = 149 and P ≈ 0.0027, so the data provide strong evidence that the true mean exceeds the EPA limit.</li>
+    <li><strong>Student travel time:</strong> Testing H₀: μ = 15 minutes produced t ≈ 1.31, P ≈ 0.099; we fail to reject the claim, and the previously computed confidence interval (14.4, 19.6) aligns with that conclusion.</li>
+  </ul>
+
+  <h2>18.5 Determining the Sample Size</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Plan n so that the margin of error ME is no larger than desired, using a reasonable guess for s and a critical value from the Normal or t-model.</li>
+    <li>If the initial n is small, plug the resulting df into the t* table and recompute n; pilot studies help estimate s when it’s truly unknown.</li>
+    <li>For hypothesis testing, choose a meaningful alternative, set α and a desired power (e.g., 0.8 or 0.95), and solve for n so the test is sensitive to the effect you care about.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ol>
+    <li><span class="formula">n ≈ (t* s / ME)²</span> — Rearranging ME = t* (s/√n), this formula uses the estimated spread s, the maximum acceptable error ME, and the chosen critical value to compute how many observations you need; round up so the true ME stays below the target.</li>
+  </ol>
+  <h3>Short example(s)</h3>
+  <ul>
+    <li><strong>Download software:</strong> To achieve ME = 4 minutes at 95% confidence with guessed s = 5 minutes, initial Normal z* gives n ≈ 6, but updating with t*₅ = 2.571 yields n ≈ 10.3, so the team should run 11 trials.</li>
+  </ul>
+
+  <h2>What Can Go Wrong?</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Don’t confuse means with proportions—use the appropriate inference tools depending on the data type.</li>
+    <li>Watch for outliers, severe skewness, or multiple modes; if the Nearly Normal condition fails, consider splitting groups, transforming the variable, or focusing on different summaries (e.g., the median).</li>
+    <li>Independence, unbiased measurement, and random sampling matter more than n; no sample size can fix biased data or dependent cases.</li>
+    <li>Interpret confidence intervals correctly (they’re about the parameter, not individuals), and choose one- or two-sided alternatives before looking at the data to avoid cutting the P-value in half.</li>
+  </ul>
+</body>
+</html>

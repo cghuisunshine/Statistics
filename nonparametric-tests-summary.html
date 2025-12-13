@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nonparametric Tests Summary</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.5; margin: 2rem; }
+    h1, h2 { color: #1d3c6a; }
+    h3 { color: #24476e; }
+    section { margin-bottom: 2rem; }
+    .formula { font-family: "Courier New", monospace; background: #f4f5fb; padding: 0.4rem 0.6rem; display: inline-block; border-radius: 4px; }
+    ul { margin: 0.5rem 0 0.5rem 1.2rem; }
+    .example { background: #eef1ff; border-left: 4px solid #6c88db; padding: 0.6rem 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Chapter 28 Nonparametric Tests</h1>
+  <p>This summary captures the main concepts, formulas, and examples for each section of Chapter 28.</p>
+
+  <section>
+    <h2>28.1 Wilcoxon Rank Sum Test</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Replace observations with pooled ranks and compare rank sums instead of raw values.</li>
+      <li>The null hypothesis assumes identical distributions; the alternative seeks a systematic shift.</li>
+      <li>Use the rank sum for the smaller sample and evaluate its extremity via exact tables or a Normal approximation.</li>
+    </ul>
+    <h3>Important formulas & their meaning</h3>
+    <ul>
+      <li><span class="formula">Total ranks: 1+2+…+n = n(n+1)/2</span> – This is the fixed pool of rank points; once one sample’s rank sum is known, the other follows.</li>
+      <li><span class="formula">E(T<sub>i</sub>) = n<sub>i</sub>(n<sub>1</sub>+n<sub>2</sub>+1)/2</span> – The average rank sum expected for each group under the null, reflecting the group size.</li>
+      <li><span class="formula">Var(T<sub>i</sub>) = n<sub>1</sub>n<sub>2</sub>(n<sub>1</sub>+n<sub>2</sub>+1)/12</span> – Spread of the rank-sum sampling distribution; key for the Normal approximation.</li>
+      <li><span class="formula">z = (T<sub>i</sub> − E(T<sub>i</sub>))/√Var(T<sub>i</sub>)</span> – Standardizes the observed sum for approximate P-values when table entries are unavailable.</li>
+    </ul>
+    <h3>Example</h3>
+    <div class="example">
+      Biology majors had <span class="formula">T<sub>1</sub>=42</span> and Psychology majors <span class="formula">T<sub>2</sub>=24</span>; expected <span class="formula">E(T<sub>2</sub>)=30</span>. The rank sum of 24 is not extreme enough (exact tail probability >0.05), so we do not reject the null.
+    </div>
+  </section>
+
+  <section>
+    <h2>28.2 Kruskal-Wallis Test</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Generalizes Wilcoxon to more than two independent groups by ranking all observations together.</li>
+      <li>Rank sums are adjusted for group sizes, and we assess how spread out they are.</li>
+      <li>The sampling distribution approximates a chi-square with degrees of freedom equal to the number of groups minus one.</li>
+    </ul>
+    <h3>Important formula</h3>
+    <ul>
+      <li><span class="formula">H = (12/(N(N+1)))·∑(T<sub>i</sub><sup>2</sup>/n<sub>i</sub>) − 3(N+1)</span> – Measures variation among group rank sums. Larger values signal systematic differences among treatments.</li>
+    </ul>
+    <h3>Example</h3>
+    <div class="example">
+      Hand-washing methods produced rank sums 46.5, 142.5, 154.5, and 184.5 with total <span class="formula">N=32</span>. Plugging into the formula gives <span class="formula">H=15.17</span>, and the upper tail of χ²<sub>3</sub> gives <span class="formula">P=0.002</span>, so washing method matters.</div>
+  </section>
+
+  <section>
+    <h2>28.3 Wilcoxon Signed Rank Test</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Used for paired or blocked designs where differences within pairs are ranked.</li>
+      <li>Tie-handled by omitting zeros; the test statistic is the smaller of the positive and negative rank sums.</li>
+      <li>The null is no systematic shift; the alternative is a consistent higher or lower tendency for one condition.</li>
+    </ul>
+    <h3>Important formulas</h3>
+    <ul>
+      <li><span class="formula">T<sup>+</sup> + T<sup>−</sup> = n(n+1)/2</span> – Total rank points from the nonzero differences.</li>
+      <li><span class="formula">E(T<sup>+</sup>) = E(T<sup>−</sup>) = n(n+1)/4</span> – Expected signed rank sum under the null.</li>
+      <li><span class="formula">Var(T<sup>±</sup>) = n(n+1)(2n+1)/24</span> – Variability used in the Normal approximation.</li>
+      <li><span class="formula">z = (T^* − E)/√Var</span> – Standardizes the observed smaller sum for large n.</li>
+    </ul>
+    <h3>Example</h3>
+    <div class="example">
+      Wine tasters produced a smaller sum <span class="formula">T=1.5</span> out of <span class="formula">n=8</span> nonzero differences. Tables give critical value 3 at α=0.05, so <span class="formula">P<0.05</span> and we reject equivalence in favor of a wine effect.
+    </div>
+  </section>
+
+  <section>
+    <h2>28.4 Friedman Test</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Treatments are ranked within blocks to eliminate block effects before comparing treatments.</li>
+      <li>The test statistic gauges how far treatment rank sums deviate from equality.</li>
+      <li>Large-sample reference is the chi-square distribution with t−1 degrees of freedom.</li>
+    </ul>
+    <h3>Important formula</h3>
+    <ul>
+      <li><span class="formula">S = (12/(bt(t+1)))·∑T<sub>i</sub><sup>2</sup> − 3b(t+1)</span> – Treatment rank sums determine the spread; b is number of blocks, t number of treatments.</li>
+    </ul>
+    <h3>Example</h3>
+    <div class="example">
+      With three litters (blocks) and three diets (treatments), rank sums were 6, 9, and 3, giving <span class="formula">S=6.0</span>. The χ²<sub>2</sub> upper tail yields <span class="formula">P=0.05</span>, so diet likely affects weight gain.</div>
+  </section>
+
+  <section>
+    <h2>28.5 Rank Correlation</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Spearman’s correlation measures monotonic (not necessarily linear) association by correlating ranks instead of raw values.</li>
+      <li>Less sensitive to nonlinearity and outliers, and it accepts ordinal data.</li>
+      <li>Inference only requires independence of the paired ranks plus random sampling.</li>
+    </ul>
+    <h3>Important formula</h3>
+    <ul>
+      <li><span class="formula">r<sub>s</sub> = 1 − (6∑d<sub>i</sub><sup>2</sup>)/(n(n² − 1))</span> – Differences between ranks \(d_i\) fold directly into the correlation; values range from −1 to +1.</li>
+      <li><span class="formula">t = r_s√(n−2)/√(1−r_s²)</span> – Use when \(n ≥ 10\) to test \(H_0: r_s = 0\) with a \(t_{n-2}\) distribution.</li>
+    </ul>
+    <h3>Example</h3>
+    <div class="example">
+      Blue Jays had Pearson \(r=0.18\) but Spearman \(r_s=0.52\). The larger \(r_s\) reflects the strong monotonic increase in salary with home runs even though the relation is not strictly linear, and the t-test gives \(P≈0.08\).
+    </div>
+  </section>
+</body>
+</html>

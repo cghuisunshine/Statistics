@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chapter 22 Comparing Counts Tutorial</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 1.5rem; }
+    h1 { margin-top: 0; }
+    h2 { margin-bottom: 0.25rem; }
+    h3 { margin: 0.75rem 0 0.25rem; }
+    section { margin-bottom: 1.75rem; }
+    ul { margin: 0.2rem 0 0.2rem 1rem; }
+    li { margin-bottom: 0.25rem; }
+    code { background:#f1f1f1; padding:0.1rem 0.2rem; border-radius:3px; }
+  </style>
+</head>
+<body>
+  <h1>Chapter 22 Comparing Counts</h1>
+
+  <section>
+    <h2>22.1 Goodness-of-Fit</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Compare the observed counts of a single categorical variable with a hypothesized distribution (e.g., uniform zodiac signs for CEOs).</li>
+      <li>Expected counts come from the model; deviations are aggregated into a χ² statistic.</li>
+      <li>Conditions: counts only, independent responses, and expected counts ≥ 5. The χ² curve is skewed, and the notion of “large” depends on the degrees of freedom.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><code>Expected count = N × hypothesized proportion</code> — N is the total number of observations and the proportion comes from the null model; the product is the count you would expect under that model.</li>
+      <li><code>χ² = Σ (Obs − Exp)² / Exp</code> — sum of squared deviations between observed and expected counts, each scaled by the expected count, so large values signal poor fit.</li>
+      <li><code>Degrees of freedom = k − 1</code> — with k categories, only k − 1 residuals are free because totals constrain the last cell; df determine which χ² curve gives the P-value.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Canadian NHL birthdays: expected January births = 1184 × 0.08 = 94.72, yet 127 were observed. Summing all 12 cells gives χ² = 54.09 with df = 11, P &lt; 0.005, so uniform birth distribution is rejected.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>22.2 Chi-Square Test of Homogeneity</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Determine whether one categorical variable has the same distribution across several populations (e.g., post-graduation plans for four colleges).</li>
+      <li>Expected counts use pooled proportions; calculate the same χ² statistic as in goodness-of-fit.</li>
+      <li>Conditions remain counts, independence within and between groups, and expected counts ≥ 5.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><code>Expected count = (row total × column total) / grand total</code> — compute the marginal totals, multiply row and column totals, and divide by the overall total to get the number expected.</li>
+      <li><code>χ² = Σ (Obs − Exp)² / Exp</code> — sums the same scaled residuals as before, but now over every cell of the contingency table.</li>
+      <li><code>Degrees of freedom = (R − 1)(C − 1)</code> — R is # of response categories (rows), C is # of groups (columns); df counts how many cells’ differences vary independently.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Graduating classes: χ² = 93.66 with df = 6 yields P &lt; 0.0001, so post-graduation plans are not homogeneous across the four colleges.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>22.3 Examining the Residuals</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>After rejecting a χ² null, inspect individual cells to see what drives the rejection.</li>
+      <li>Standardized residuals rescale each cell’s (Obs − Exp) to account for its expected count.</li>
+      <li>Large positive residuals show more observations than expected; large negatives show fewer.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><code>Standardized residual = (Obs − Exp) / √Exp</code> — scaling the raw difference produces a z-score; sign indicates whether a cell has surplus or deficit counts.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Engineering graduates are much more likely to go to grad school (+3.50) and much less likely to take “Other” choices (−4.45) than expected.</li>
+      <li>Hockey players: January (+3.32) and February (+2.74) show surpluses while August (−2.66) and December (−2.54) show deficits.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>22.4 Chi-Square Test of Independence</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Test whether two categorical variables measured on the same individuals are independent (e.g., tattoo status vs. hepatitis C).</li>
+      <li>Mechanics match the homogeneity test, but the question is now about association between variables.</li>
+      <li>Mind the same conditions plus caution about small expected counts; combine categories when needed.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><code>Expected count = (row total × column total) / grand total</code> — under independence, the cell count equals the product of marginal totals scaled to the grand total.</li>
+      <li><code>χ² = Σ (Obs − Exp)² / Exp</code> and <code>df = (R − 1)(C − 1)</code> — identical to homogeneity because the contingency table structure is the same.</li>
+      <li><code>Standardized residual = (Obs − Exp) / √Exp</code> — reused to highlight individual cell contributions and flag tiny expected counts.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Hepatitis C study: χ² = 57.91 with df = 2 gives P &lt; 0.0001, so tattoo and hepatitis status are not independent. The parlour-tattoo cell has a huge positive residual; combining tattoo rows still rejects independence (χ² = 42.42).</li>
+    </ul>
+  </section>
+</body>
+</html>

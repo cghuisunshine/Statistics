@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chapter 20 Tutorial</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.5; margin: 2rem; }
+    h2 { margin-top: 2rem; }
+    h3 { margin: 1.5rem 0 0.5rem; }
+    ul { margin: 0 0 1rem 1.25rem; }
+    code { background: #f6f8fa; padding: 0.15rem 0.3rem; border-radius: 3px; }
+    .example { margin: 0.5rem 0 1rem 0; padding: 0.5rem 1rem; background: #f0f4ff; border-left: 4px solid #7a93ff; }
+  </style>
+</head>
+<body>
+  <h1>Chapter 20: Paired Samples and Blocks</h1>
+
+  <h2>20.1 Paired t-Test</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Paired data occur when there is a natural one-to-one relationship between the two groups (e.g., racers who share a heat or before/after measures), so the focus is on within-pair differences rather than on two independent samples.</li>
+    <li>Blocking (or matching) filters out between-subject variability; once the differences are computed, the problem reduces to a one-sample analysis.</li>
+    <li>Always determine whether pairing is justified by design; you cannot simply force pairing when samples happen to have the same size.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><code>d = mean of pairwise differences</code>: each <code>d<sub>i</sub> = measurement₁ − measurement₂</code> (seconds, miles, etc.), so <code>d</code> estimates the average effect of one condition versus the other.</li>
+    <li><code>SE(d) = sd / √n</code>: the standard error of the difference uses the standard deviation of the differences (<code>sd</code>) and the number of pairs (<code>n</code>); it represents the typical sampling variability of <code>d</code>.</li>
+    <li><code>t = (d − ∆₀) / SE(d)</code>: compares the observed average difference to the hypothesized value <code>∆₀</code> (usually 0) in units of the standard error; under the null it follows Student’s t with <code>n − 1</code> degrees of freedom.</li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <div class="example">
+    <strong>Speed skating:</strong> 17 race pairs give <code>d = 0.499 sec</code>, <code>sd = 2.333 sec</code>, so <code>t ≈ 0.88</code> and the large p-value (~0.39) implies no convincing lane advantage.
+  </div>
+
+  <h2>20.2 Assumptions and Conditions</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Paired Data Condition: both variables must be quantitative and inherently paired; matching independent groups by hand violates the condition.</li>
+    <li>Independence Assumption applies to the differences—randomization (e.g., randomized lane assignment or a representative before/after sample) ensures that each difference behaves like an independent observation.</li>
+    <li>Nearly Normal Condition refers to the distribution of differences, not the raw measurements; use histograms or normal plots of differences to check symmetry or unimodality.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><code>SE(d) = sd / √n</code>: even in the assumption section, this formula shows why independence and an accurate <code>sd</code> matter—violations inflate the standard error and weaken the test.</li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <div class="example">
+    <strong>4-day work week mileage:</strong> Each field worker supplies a before/after pair, the histogram of differences is fairly symmetric, and the workers act independently, so all paired-t assumptions are satisfied.
+  </div>
+
+  <h2>20.3 Paired t Confidence Interval</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Construct paired intervals just like one-sample t-intervals, but use the mean and standard error of the pairwise differences.</li>
+    <li>The margin of error reflects the chosen confidence level (via <code>t*</code>) and the precision of the difference mean.</li>
+    <li>Interpret the interval in context: it gives a plausible range for how much one condition typically exceeds another.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><code>CI = d ± t* × SE(d)</code>: here <code>d</code> is in the original units (years, miles, seconds), <code>SE(d) = sd / √n</code> quantifies sampling variability, and <code>t*</code> comes from the Student’s t-model with <code>n − 1</code> degrees of freedom for your chosen confidence level.</li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <div class="example">
+    <strong>Husband–wife age difference:</strong> With <code>n = 170</code>, <code>d = 2.2 years</code>, and <code>sd = 4.1 years</code>, the 95% CI is approximately (1.6, 2.8) years, so British husbands are, on average, 1.6 to 2.8 years older than their wives.
+  </div>
+
+  <h2>20.4 Effect Size and Sample Size</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>A non-significant hypothesis test can still allow large effects; the confidence interval reveals whether effect sizes of practical interest are plausible.</li>
+    <li>To tighten margins of error or guarantee detection of an important effect size (power), plan the sample size before collecting data.</li>
+    <li>Paired designs inherit the same sample-size logic as one-sample t methods, since the analysis acts on the differences.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><code>ME = t* × (sd / √n)</code>: margin of error depends on the critical value and the standard error; reducing ME requires increasing <code>n</code> or lowering <code>sd</code>.</li>
+    <li><code>n ≈ (t* × sd / ME)²</code>: solving for <code>n</code> tells you how many pairs you need to achieve a desired precision (plug in the planned <code>t*</code>, estimated <code>sd</code>, and target <code>ME</code>).</li>
+    <li>Power calculations (e.g., decide on α = 0.05, assume a true difference, and find <code>n</code> so the test has, say, 90% power) are handled with software using the paired procedure’s standard deviation.</li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <div class="example">
+    Speed skating: to get a margin of error of ±0.5 seconds with 95% confidence, solve <code>1.96 × 2.333 / √n = 0.5</code> ⇒ <code>n ≈ 84</code>; ensuring 90% power to detect a 1.0-second gap requires about 60 races, while detecting a 0.5-second gap ramps up to ≈231 races.
+  </div>
+
+  <h2>20.5 Blocking</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Pairing is an instance of blocking: matching subjects on known factors (like the same person before/after or matched spouses) removes nuisance variation so treatment effects stand out.</li>
+    <li>Blocking doesn’t “cost” degrees of freedom when the design is inherently paired; it typically beats an unblocked two-sample analysis because the reduced variance outweighs the smaller df.</li>
+    <li>Independence refers to the pairs, not the individuals; once the differences are computed, those differences must behave like an independent sample.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><code>dᵢ = measurement₁ − measurement₂</code>: this difference isolates what each pair tells you about the effect, whether it’s husband minus wife age or before minus after mileage.</li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <div class="example">
+    Husband/wife ages: although the boxplots for each group show huge variation, the paired differences shrink that noise and reveal the consistent ~2-year advantage.
+  </div>
+
+  <h2>20.6 A Non-Parametric Alternative: The Sign Test</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Drop the actual difference values and simply record whether each difference is positive or negative; testing whether the median equals a value (typically zero) becomes a test on that proportion.</li>
+    <li>The sign test is distribution-free—no Normality condition—because it relies on Bernoulli trials (positive vs. negative signs). It still needs independence/randomization.</li>
+    <li>If both the t-test and sign test agree, the inference is clear; if they differ, investigate whether skewness or outliers undermined the t-test’s assumptions.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><code>H₀: p = 0.5</code> where <code>p</code> is the probability a difference is positive; a median of the hypothesized value implies equal chances of positive and negative signs.</li>
+    <li>Let <code>X ~ Binomial(n, 0.5)</code> count the number of positive differences; the P-value is the probability of observing a count as extreme as the observed value (double-tail for ≠). When <code>np</code> and <code>nq</code> exceed 10, a Normal approximation is also available.</li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <div class="example">
+    Speed skating: 10 of 17 differences are positive ⇒ P-value = 2×P(X ≥ 10) ≈ 0.63, matching the t-test’s conclusion that there’s insufficient evidence of a lane effect despite being less powerful.
+  </div>
+</body>
+</html>

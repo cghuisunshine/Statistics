@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multifactor ANOVA Study Notes</title>
+</head>
+<body>
+  <h1>25.1 A Two-Factor ANOVA Model</h1>
+  <h2>Key ideas</h2>
+  <ul>
+    <li>Two factors explain more variation by pairing every level of one factor with every level of the other, so the error term consists only of unexplained noise.</li>
+    <li>Each factor still has its own hypothesis test for main effects after averaging over the other factor.</li>
+    <li>The ANOVA table splits total sum of squares into Distance, Hand, and residual sources, so the smaller error term sharpens inference.</li>
+  </ul>
+  <h2>Important formulas &amp; their meaning</h2>
+  <ul>
+    <li><strong>Additive model</strong>: <code>y<sub>ijk</sub> = μ + τ<sub>j</sub> + γ<sub>k</sub> + ε<sub>ijk</sub></code> expresses each response as the grand mean μ plus the effect τ<sub>j</sub> of factor A (e.g., Hand), the effect γ<sub>k</sub> of factor B (e.g., Distance), and the random error ε<sub>ijk</sub>. All terms share the response’s units (inches from the bull’s-eye).</li>
+    <li><strong>F-ratio</strong>: <code>F = MS<sub>factor</sub> / MS<sub>error</sub></code> compares the average variation between factor levels (MS<sub>factor</sub>) to the average residual variation (MS<sub>error</sub>). A large F means the factor causes more shift than random noise.</li>
+    <li><strong>Error standard deviation</strong>: <code>σ̂ = √(MS<sub>error</sub>)</code> gives the typical spread we expect for any single treatment after removing factor effects.</li>
+  </ul>
+  <h2>Short example(s)</h2>
+  <ul>
+    <li>Dart accuracy: six throws per Hand–Distance treatment yield significant Fs for both factors, so both Hand and Distance affect the mean distance from the bull’s-eye.</li>
+    <li>Paper airplane study: Design (dart/glider × copier/construction paper) and Flaps form two factors with eight treatment groups; the additive model shows which choices shift average flight distance the most.</li>
+  </ul>
+
+  <h1>25.2 Assumptions and Conditions</h1>
+  <h2>Key ideas</h2>
+  <ul>
+    <li>Partial boxplots (residuals plus μ) isolate each factor’s behavior by removing the other factor’s effect.</li>
+    <li>The Additive Enough Condition requires that a factor’s impact stays roughly constant across the levels of the other factor, which we assess via interaction plots.</li>
+    <li>Independence still matters: randomized order or random samples justify the sampling distribution, and residual plots help detect dependence or changing variance.</li>
+  </ul>
+  <h2>Important formulas &amp; their meaning</h2>
+  <ul>
+    <li><strong>Partial boxplot construction</strong>: subtract the effect of factor B via residuals (y<sub>ijk</sub> − (μ + γ<sub>k</sub>)) and add μ back in, then plot against factor A so you see the variability after holding factor B constant.</li>
+    <li><strong>Additivity check</strong>: Parallel lines in an interaction plot of <code>ȳ<sub>jk</sub></code> mean that ΔA ≈ constant across B and vice versa; significant deviation suggests interaction is needed.</li>
+  </ul>
+  <h2>Short example(s)</h2>
+  <ul>
+    <li>Adjusted Accuracy: Removing Distance reveals the Hand effect more clearly, boosting diagnostic power.</li>
+    <li>Partial boxplots for Distance after removing Hand show tighter spreads and clearer differences among Near, Middle, and Far.</li>
+  </ul>
+
+  <h1>25.3 Adding Interaction to the Model</h1>
+  <h2>Key ideas</h2>
+  <ul>
+    <li>Interaction occurs when changing one factor shifts another factor’s effect, so add an interaction term to the model and test whether it is needed.</li>
+    <li>Fitting interaction consumes (levels A − 1)(levels B − 1) degrees of freedom, so replicating every treatment combo is crucial.</li>
+    <li>When there is a significant interaction, main effects become context-dependent, so focus on interaction plots instead.</li>
+  </ul>
+  <h2>Important formulas &amp; their meaning</h2>
+  <ul>
+    <li><strong>Model with interaction</strong>: <code>y<sub>ijk</sub> = μ + τ<sub>j</sub> + γ<sub>k</sub> + (τγ)<sub>jk</sub> + ε<sub>ijk</sub></code>. The extra term (τγ)<sub>jk</sub> captures how the combination of level j and level k shifts the response beyond the additive effects.</li>
+    <li><strong>Interaction degrees of freedom</strong>: <code>(levels<sub>A</sub> − 1)(levels<sub>B</sub> − 1)</code> is the number of independent interaction parameters, which come out of the residual df.</li>
+    <li><strong>Residual definition</strong>: <code>ε<sub>ijk</sub> = y<sub>ijk</sub> − (μ̂ + τ̂<sub>j</sub> + γ̂<sub>k</sub> + (τγ̂)<sub>jk</sub>)</code> now measures error after main effects and interaction are removed.</li>
+  </ul>
+  <h2>Short example(s)</h2>
+  <ul>
+    <li>Dart accuracy with interaction: The interaction term is significant (F ≈ 8.52, p ≈ 0.0012), and the residual plot becomes well behaved once the interaction is in the model.</li>
+    <li>Leaded fuel plot: Crossing lines in the interaction plot (Additive × Car Type) show that the additive’s effect depends entirely on the engine design, so only the interaction plot tells the full story.</li>
+  </ul>
+</body>
+</html>

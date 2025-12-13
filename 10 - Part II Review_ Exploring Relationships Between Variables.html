@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Part II Review – Exploring Relationships Between Variables</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 32px; background: #f9fafb; color: #111; line-height: 1.6; }
+    h1, h2 { margin: 0 0 10px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; margin-top: 20px; }
+    ul { margin: 6px 0 12px 18px; }
+    li { margin-bottom: 6px; }
+    section { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 20px; margin-bottom: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+    .subhead { font-weight: 700; }
+  </style>
+</head>
+<body>
+  <h1>Part II Review – Exploring Relationships Between Variables</h1>
+
+  <section>
+    <h2>Quick Review (Ch. 6–8)</h2>
+    <ul>
+      <li><span class="subhead">Scatterplots:</span> Plot quantitative y vs. x; describe direction, form, strength, and unusual features; add group symbols for categorical subgroups.</li>
+      <li><span class="subhead">Correlation (r):</span> Measures strength/direction of linear association (–1 to +1); unitless; sensitive to outliers; only for quantitative variables and linear form.</li>
+      <li><span class="subhead">Regression line:</span> Least squares line minimizes sum of squared residuals; ŷ = b0 + b1x; slope in y-units per x-unit; residual = y – ŷ.</li>
+      <li><span class="subhead">Goodness of fit:</span> R² = fraction of variability in y explained by x; residual SD (s) = typical prediction error.</li>
+      <li><span class="subhead">Diagnostics:</span> Residual plots should show no pattern; look for curvature, unequal spread, outliers, leverage/influential points.</li>
+      <li><span class="subhead">Cautions:</span> Don’t extrapolate far beyond data; association ≠ causation; hidden subgroups and range restrictions affect r and slopes.</li>
+      <li><span class="subhead">Re-expression:</span> Logs/roots/reciprocals can straighten curves and stabilize spread; refit and recheck residuals afterward.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Strategy Reminders</h2>
+    <ul>
+      <li>Check conditions: Quantitative variables, Straight-Enough, Outlier/Influence check, and for inference later, Normal-ish residuals and equal variance.</li>
+      <li>Always pair slope interpretation with units; intercept may lack practical meaning if x = 0 is outside data range.</li>
+      <li>Use R² to convey explained variation; use residual plots to validate the form and spot subgroups.</li>
+      <li>When groups differ, consider separate models or include the categorical variable (with different symbols/lines).</li>
+    </ul>
+  </section>
+</body>
+</html>

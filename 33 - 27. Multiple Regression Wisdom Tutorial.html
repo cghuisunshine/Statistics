@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chapter 27 Tutorial</title>
+</head>
+<body>
+  <h2 id="27.1">27.1 Indicator Variables</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Indicator variables turn categories into 0/1 values so they can participate in a linear fit without inventing an arbitrary numeric scale.</li>
+    <li>The indicator coefficient shifts the baseline line up or down while keeping the slopes from other predictors parallel when that assumption holds.</li>
+    <li>When groups need different slopes, multiply the indicator by the quantitative predictor to add an interaction term that adjusts the slope for that group.</li>
+    <li>Multi-level categories require one indicator per level minus one baseline so the regression matrix stays full rank, and each coefficient then compares to the baseline.</li>
+    <li>Indicators can also isolate single cases: an indicator that is 1 only for the case in question has a t-stat equal to that case’s Studentized residual.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <p><code>Duration = 35.9969 + 1.76038 * Speed - 20.2726 * Inversions</code><br>
+     Duration is in seconds, Speed is miles per hour, and Inversions equals 1 for rides with inversions. The intercept of ~36 seconds is the baseline when Speed = 0 and no inversion, the slope 1.76038 shows how many extra seconds each additional mph adds, and the −20.2726 term shifts the entire line for inversion coasters so they sit ~20 seconds away from the non-inversion line at any given speed.</p>
+  <p><code>Calories = 137.40 + 3.93 * Carbs - 26.16 * Meat + 7.88 * Carbs * Meat</code><br>
+     Calories are kilocalories and Carbs are grams. Meat = 1 for meat-containing food. The base line (Meat = 0) is 137.40 + 3.93 * Carbs. The Meat term subtracts 26.16 calories from the intercept, and the interaction adds 7.88 calories per gram of carbohydrates so that meat items have a steeper slope (3.93 + 7.88 = 11.81 cal/g) than meat-free items.</p>
+  <p>For a categorical variable with k levels (e.g., months), create k−1 indicators and leave one level as the baseline; each coefficient then reflects how that level’s line differs from the baseline after accounting for other predictors.</p>
+  <h3>Short example(s)</h3>
+  <ul>
+    <li>The Hangman coaster (with inversion) and Hayabusa (without) show the inversion indicator’s vertical shift: plugging their speeds and indicator values into the duration formula gives predictions of ~121.9 seconds and ~132.8 seconds, respectively.</li>
+    <li>The real-estate model’s rural indicator subtracts about $172,359 from the predicted price for otherwise similar homes, illustrating how we can adjust for a categorical location factor without altering the slope on living area.</li>
+    <li>The Burger King interaction model keeps meat and non-meat items on separate slopes: the Whopper and Veggie Burger predictions lie on the two fitted lines from Figure 27.5.</li>
+  </ul>
+  <h2 id="27.2">27.2 Diagnosing Regression Models: Looking at the Cases</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Leverage measures how far a case’s predictors are from the data’s center; high leverage means that changing that case’s y-value pulls the regression line more.</li>
+    <li>Studentized residuals divide each residual by its own estimated standard deviation (which shrinks as leverage grows), so every case is compared on the same scale.</li>
+    <li>A case with both large leverage and a large Studentized residual is influential; removing or isolating it often changes the model substantially.</li>
+    <li>Residual plots, leverage histograms, and partial regression plots are essential diagnostics, just as they were in earlier chapters but now applied to multiple predictors.</li>
+    <li>Indicator variables for single cases give a t-stat equal to the Studentized residual; if the indicator has a tiny P-value, you can say the case is an outlier in the regression.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <p>Average leverage = <code>(k + 1) / n</code>, where k is the number of predictors and n is the sample size. Points with leverage greater than twice this average often deserve attention because they sit far from the center of the predictor cloud.</p>
+  <p>Externally Studentized residual:<br>
+     <code>r_i = (y_i - ŷ_i) / [s √(1 - h_i)]</code><br>
+     Here y_i is the observed response, ŷ_i is the predicted value from a model excluding case i, s is the regression standard deviation, and h_i is the leverage of case i. The √(1 − h_i) term shrinks as h_i grows, so the residuals become comparable even when leverage varies; large |r_i| (e.g., &gt; 2) flags a regression outlier.</p>
+  <p>Indicator for a case: add a variable that equals 1 only for the suspect case. The coefficient’s t-statistic equals that case’s Studentized residual, so a small P-value confirms the case does not behave like the others. Cook’s Distance and DFFITs summarize both leverage and Studentized residual to highlight influence.</p>
+  <h3>Short example(s)</h3>
+  <ul>
+    <li>The airport security regression showed that 1988 had huge leverage because false-information reports jumped past 200; including that point changed the slope dramatically, whereas 2000’s large y-value but ordinary x kept leverage low.</li>
+    <li>A real-estate home with 8 bedrooms and 2.5 bathrooms stood out in the leverage boxplot even though no single predictor was extreme, because the combination placed it far from the predictor center.</li>
+    <li>The roller-coaster speed model identified Oblivion as high leverage and the launch coasters as large Studentized residuals; removing those cases or adding indicators for them made the model focus on drop height alone, which is a much simpler and more stable explanation for speed.</li>
+  </ul>
+  <h2 id="27.3">27.3 Building Multiple Regression Models</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Good models keep size manageable (few predictors), have high R², small s, significant t-tests, clean diagnostics, and predictors that are measured reliably and cheaply when possible.</li>
+    <li>Automatic stepwise routines may prioritize predictors with high marginal correlation even if theory says otherwise; it is wiser to guide forward or backward selection manually while checking residuals and leverages at every step.</li>
+    <li>Forward selection adds the predictor most correlated with the current residuals, while backward elimination removes predictors with weak t-statistics; after each change, replot diagnostics because outliers or collinearity may reveal themselves.</li>
+    <li>The goal matters: models intended for understanding focus on interpretability and low collinearity, while predictive models may accept some redundancy if it improves overall fit.</li>
+    <li>Collinearity can sneak in when predictors explain each other; regress each predictor on the others, track its R², compute <code>VIF = 1 / (1 - R²)</code>, and drop or re-express predictors with large VIF values.</li>
+    <li>Always guard against missing data, violations of linearity, and the assumption that indicator categories share slopes—if they don’t, add interaction terms so each group can have its own slope.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <p>Trimmed infant-mortality model:<br>
+     <code>Infant Mortality = 0.760 + 0.027 * Child Deaths + 0.750 * LowBW% + 2.741 * South Dakota indicator</code><br>
+     Infant Mortality is per 1000 live births, Child Deaths is per 100,000 children, and LowBW% is the percent of babies born underweight. The coefficient 0.027 means each extra child death per 100,000 raises infant mortality by 0.027 per 1000, and the South Dakota indicator lifts the prediction by 2.741 because that state’s rate is higher than the pattern set by the other predictors.</p>
+  <p>Teen behavior model:<br>
+     <code>Infant Mortality = 4.16 + 0.138 * Teen Births + 0.027 * Teen Deaths - 0.228 * HS Drop% - 3.014 * New Mexico - 2.744 * Texas</code><br>
+     Teen Births and Teen Deaths are measured per 100,000 teens, and HS Drop% is the high-school dropout percentage. The negative state indicators show that New Mexico and Texas have lower infant mortality than the teen predictors alone would imply, so we isolate their influence with indicators instead of throwing away the observations.</p>
+  <p>Collinearity metric: regress a predictor on the other predictors and record the resulting R². The leftover variance <code>1 - R²</code> is what that variable uniquely contributes, and the <code>VIF = 1 / (1 - R²)</code> quantifies how much its standard error inflates when it is collinear. Large VIFs (commonly above 5 or 10) signal instability and can lead to paradoxical coefficient signs, as happened when adding Child Deaths made the Teen Deaths coefficient negative.</p>
+  <h3>Short example(s)</h3>
+  <ul>
+    <li>Backward elimination on the infant-mortality data gradually removed Teen Births, Teen Deaths, and poverty before stopping at the model with Child Deaths and Low BW%; the adjusted R² improved and the Studentized residuals looked nearly normal once South Dakota was handled.</li>
+    <li>Forward selection started with Teen Births, added Teen Deaths, and then HS Drop%; the teen-focused model only became acceptable after adding indicators for New Mexico and Texas because those states deviated from the overall pattern.</li>
+    <li>The Horsepower example warns that a purely algorithmic selection might keep Weight instead of Displacement just because Weight has a slightly higher marginal correlation, even though theory tells us engine size is the meaningful predictor.</li>
+  </ul>
+  <h3>Next steps</h3>
+  <ul>
+    <li>After each change to your regression, redraw the Studentized-residual plot and the leverage histogram so new influence points don’t vanish unnoticed.</li>
+    <li>Use indicators to document when you are treating a case or category specially; the indicator’s significance is proof that the case truly behaves differently.</li>
+    <li>Monitor <code>VIF</code> or the leftover variance <code>1 - R²</code> when predictors look correlated, and favor those variables that are most interpretable, reliable, and cheap to measure.</li>
+    <li>Before trusting an indicator-based shift, verify that the slopes are parallel; otherwise, add interaction terms so each group can have its own slope.</li>
+  </ul>
+</body>
+</html>

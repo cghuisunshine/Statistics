@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Randomness and Probability Review</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 40px; max-width: 900px; }
+    h1, h2, h3 { color: #1a2b44; }
+    section { margin-bottom: 32px; }
+    ul { margin-left: 20px; }
+    code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; }
+    .formula { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Part IV Review: Randomness and Probability</h1>
+
+  <section>
+    <h2>Quick Review</h2>
+
+    <h3>Key ideas</h3>
+    <ul>
+      <li>The Law of Large Numbers ensures that a long-run frequency approaches the theoretical probability; early results may be noisy.</li>
+      <li>Probability rules let you add or multiply chances, adjusting for overlaps or conditional settings.</li>
+      <li>Disjoint events cannot happen together, while independent events do not affect each other’s likelihood.</li>
+      <li>Probability models list outcomes and chances, which drive expected value (average) and variance/standard deviation (spread).</li>
+      <li>Normal, Binomial, and Poisson models describe common random scenarios when their assumptions hold.</li>
+    </ul>
+
+    <h3>Important formulas & their meaning</h3>
+    <ul>
+      <li>
+        <span class="formula">Law of Large Numbers:</span>
+        As trials accumulate, the empirical frequency converges on the theoretical probability. Think “the more you do something, the closer you get to the true chance.” Example: flipping a coin hundreds of times pushes the head proportion toward 0.5.
+      </li>
+      <li>
+        <span class="formula">Addition rule for “or”: </span>
+        <code>P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</code>. Add the probabilities, but subtract the overlap so outcomes counted twice are only counted once. Example: “any defect” = 0.29 + 0.07 − 0.02 = 0.34.
+      </li>
+      <li>
+        <span class="formula">Multiplication rule for “and”: </span>
+        <code>P(A ∩ B) = P(A) × P(B | A)</code>. The second probability is conditional on the first event having occurred. Example: probability of both cosmetic and functional defects is cosmetic × conditional functional after cosmetic.
+      </li>
+      <li>
+        <span class="formula">Conditional probability:</span>
+        <code>P(B | A)</code> is the chance of B given that A already happened; it adjusts the sample space to those outcomes where A occurs.
+      </li>
+      <li>
+        <span class="formula">Mutually exclusive events:</span>
+        If two events cannot happen together, then <code>P(A ∩ B) = 0</code>. They have no overlap.
+      </li>
+      <li>
+        <span class="formula">Independence:</span>
+        A and B are independent if <code>P(B | A) = P(B)</code> (equivalently <code>P(A ∩ B) = P(A) × P(B)</code>). Knowing one tells you nothing about the other.
+      </li>
+      <li>
+        <span class="formula">Expected value:</span>
+        <code>E[X] = Σ x × P(x)</code>. It gives the long-run average of the random variable; units are whatever the variable measures (dollars, points, inches). Example: expected net winnings from a paid game equals sum of each net outcome × its chance.
+      </li>
+      <li>
+        <span class="formula">Variance of independent sums/differences:</span>
+        <code>Var(X ± Y) = Var(X) + Var(Y)</code>. Spread in squared units adds because independence means deviations don’t reinforce each other. Example: total airfare for separate trips has variance equal to the sum of their individual variances.
+      </li>
+      <li>
+        <span class="formula">Normal model conditions:</span>
+        Use <code>Normal(μ, σ)</code> when a quantitative variable is unimodal and symmetric. The 68–95–99.7 Rule says about 68% of values fall within 1σ of μ, 95% within 2σ, and 99.7% within 3σ.
+      </li>
+      <li>
+        <span class="formula">Binomial model:</span>
+        <code>P(X = k) = C(n, k) pᵏ (1 − p)ⁿ⁻ᵏ</code>, mean <code>np</code>, SD <code>√(np(1 − p))</code>. Applies when you repeat independent Bernoulli trials (success/failure) a fixed number of times. Example: the probability that exactly three out of five teens use Facebook with p = 0.75.
+      </li>
+      <li>
+        <span class="formula">Poisson model:</span>
+        <code>P(X = k) = (e⁻ˡᵃᵐᵇᵈᵃ λᵏ)/k!</code> with λ = expected count in the interval. Use it for rare events spread over time/space. Example: the chance of zero O-ring failures if λ = 0.1.
+      </li>
+    </ul>
+
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Quality-control defects: Addition and conditional rules combine cosmetic (0.29) and functional (0.07) defect probabilities, adjusting for their overlap (0.02) and using conditional probability to describe “given one defect, what’s the chance of the other?”.</li>
+      <li>Game with spinner/die: Build probability models separately for spinner values {5, 10, 20} and die faces {0–4}, compute means/SDs, and add them under independence to get total move expectations.</li>
+      <li>Insurance policy decisions: Model net cost variants, compute expected values to decide whether to pay for a deductible, and use variance/SD to understand risk.</li>
+      <li>Facebook survey: Use binomial probabilities to answer “at least one non-user” among adults versus teens, and apply Normal approximations when sample sizes (e.g., 158 teens) make the distribution smooth.</li>
+      <li>O-ring failures and volcanic episodes: Poisson tools turn λ (expected count) into exact probabilities for zero, one, or more events in a fixed time period.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Review Exercises (Probability Applications)</h2>
+
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Conditional and independence reasoning recurs in scenarios about gender-job independence, left/right-hand success, or technology use.</li>
+      <li>Random sums/differences of independent variables (airfares, height differences, melon weights) exploit mean/variance rules to find total costs or likely differences.</li>
+      <li>Binomial and Normal approximations play a central role when counting successes (smokers, Facebook users, smoking teens, insurance claims, stock rises), while Poisson suits rare-event counts (O-rings, volcanoes).</li>
+    </ul>
+
+    <h3>Important formulas & their meaning</h3>
+    <ul>
+      <li>
+        <span class="formula">Expected difference of independent heights/prices:</span>
+        Express the difference as <code>D = X − Y</code>, so <code>E[D] = E[X] − E[Y]</code> and <code>Var(D) = Var(X) + Var(Y)</code>. This keeps the right units (inches, dollars) and tells how much taller or costlier one item is expected to be.
+      </li>
+      <li>
+        <span class="formula">Normal approximation to Binomial:</span>
+        When <code>n</code> is large and <code>np</code> and <code>n(1 − p)</code> are at least about 10, use <code>Normal(np, √(np(1 − p)))</code> to estimate binomial probabilities. Apply the 68–95–99.7 Rule for quick ranges.
+      </li>
+      <li>
+        <span class="formula">Compound expectations for repeated plays:</span>
+        For repeated independent trials, <code>E(total) = number × E(one trial)</code> and <code>Var(total) = number × Var(one trial)</code>; use <code>σ = √Var</code> to interpret typical deviation.
+      </li>
+    </ul>
+
+    <h3>Short example(s)</h3>
+    <ul>
+      <li>Buying tickets to China and France: Define random variables for each cost, add for total, subtract for difference, and apply mean/variance rules to summarize expected spending and its variability.</li>
+      <li>Stocks rising: Independence of yearly performance lets you raise probabilities by multiplying; “rise three consecutive years” uses <code>0.73³ ≈ 0.39</code>.</li>
+      <li>Multiple choice guessing: With 70% confidence per question now, binomial probabilities (n = 50, p = 0.7) show the increased chance of reaching the 30 correct threshold.</li>
+      <li>Teen smoking survey of 120 students: Use mean <code>np = 27.6</code>, SD <code>√(27.6 × 0.77) ≈ 4.5</code>, then rely on the Normal curve (68–95–99.7) for anticipating typical smoker counts.</li>
+      <li>Odds-of-winning door prize: Without replacement, each position has equal chance once balls are not returned; with replacement, the chance depends on the turn (first person sees 1/100, third person multiplies surviving draws).</li>
+    </ul>
+  </section>
+</body>
+</html>

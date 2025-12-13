@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Standard Deviation as a Ruler and the Normal Model – Chapter 5 Tutorial</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 32px; background: #f9fafb; color: #111; line-height: 1.6; }
+    h1, h2, h3 { margin: 0 0 8px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; margin-top: 24px; }
+    h3 { font-size: 18px; margin-top: 16px; }
+    section { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 20px; margin-bottom: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+    ul { margin: 6px 0 12px 18px; }
+    li { margin-bottom: 6px; }
+    .subhead { font-weight: 700; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>The Standard Deviation as a Ruler and the Normal Model – Chapter 5 Tutorial</h1>
+
+  <section id="5-1">
+    <h2>5.1 Standardizing with z-Scores</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>z-scores measure distance from the mean in standard deviation units, enabling fair comparisons across variables and units.</li>
+      <li>Positive z means above the mean; negative means below; larger |z| = more unusual.</li>
+      <li>Standardizing does not change distribution shape; it just recenters and rescales.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">z-score:</span> \(z = (y - \bar{y}) / s\) or \(z = (y - \mu) / \sigma\). Meaning: how many SDs a value is from its mean; unitless ruler.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Heptathlon:</strong> Chernova’s long jump z ≈ +1.1; Ennis’s 200 m z ≈ -2.1 (faster is better), so Ennis’s run is more exceptional.</li>
+      <li><strong>Bode Miller (Vancouver 2010):</strong> Slalom z ≈ -1.03, downhill z ≈ -1.23; downhill was his stronger relative performance.</li>
+    </ul>
+  </section>
+
+  <section id="5-2">
+    <h2>5.2 Shifting and Scaling</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Adding/subtracting a constant shifts all position measures by that constant; shape and spread stay the same.</li>
+      <li>Multiplying/dividing by a constant rescales all position and spread measures by that constant (variance by constant²); shape unchanged.</li>
+      <li>Unit changes (kg → lb, °C → °F) are rescaling + shifting; interpret summaries accordingly.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Shift:</span> \(y' = y + c\). Means/medians/percentiles shift by c; IQR/sd unchanged.</li>
+      <li><span class="subhead">Rescale:</span> \(y' = ky\). Means/medians/percentiles multiply by k; IQR/sd multiply by k; variance multiplies by \(k^2\).</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>NHANES male weights:</strong> Subtracting 74 kg centers on “kg above recommended” but spread same; multiplying by 2.2 to pounds multiplies mean, quartiles, IQR, and sd by 2.2.</li>
+      <li><strong>Celsius to Fahrenheit:</strong> Linear transform shifts and rescales; shape identical, sd scales by 9/5.</li>
+    </ul>
+  </section>
+
+  <section id="5-3">
+    <h2>5.3 Density Curves and the Normal Model</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Density curves model distributions with total area 1; areas under the curve approximate proportions of data.</li>
+      <li>The Normal model \(N(\mu,\sigma)\) is bell-shaped, symmetric; parameters μ and σ set centre and spread.</li>
+      <li>Standard Normal \(N(0,1)\) underlies z-scores; use only when Nearly Normal Condition holds (unimodal, symmetric).</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Normal density:</span> \(f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-(x-\mu)^2/(2\sigma^2)}\). Meaning: smooth model with area = 1; shape controlled by μ, σ.</li>
+      <li><span class="subhead">Standardize for model:</span> \(z=(y-\mu)/\sigma\). Meaning: places any Normal value on the standard Normal scale.</li>
+      <li><span class="subhead">68–95–99.7 Rule:</span> For Normal models, ~68% within 1σ, ~95% within 2σ, ~99.7% within 3σ of μ. Meaning: quick probability/percentile estimates.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Newborn weights:</strong> Density curve fitted to histogram; area between 2450–2750 g gives proportion of babies in that range.</li>
+      <li><strong>Clara Hughes (5000 m speed skating):</strong> Time just over 1σ faster than mean → expect ~2–3 racers faster (top ~16%), consistent with bronze finish.</li>
+      <li><strong>TOEFL 600:</strong> z = 1.0 → about 84th percentile by 68–95–99.7 Rule.</li>
+    </ul>
+  </section>
+
+  <section id="5-4">
+    <h2>5.4 Finding Normal Percentiles</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>For any Normal model, convert to z then use technology or tables to find the percentile (area below z).</li>
+      <li>Areas between two values are differences of cumulative areas; sketches help avoid sign mistakes.</li>
+      <li>Chebyshev’s Rule is a distribution-free bound (≥ 1 − 1/k² within k sd) but looser than Normal percentages.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Percentile lookup:</span> Given z, find \(P(Z \le z)\) from table/technology. Meaning: proportion of a Normal population at or below that value.</li>
+      <li><span class="subhead">Chebyshev:</span> At least \(1 - 1/k^2\) within k sd (any distribution). Meaning: conservative bound when Normality is doubtful.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>TOEFL 648:</strong> z = 1.80 → percentile ≈ 0.964; only ~3.6% score higher.</li>
+      <li><strong>EPA mpg:</strong> Use Normal with μ=24.8, σ=6.2 to find percent above 31 mpg (z ≈ 1.0 → ~16%) or between 31–37.2 (between z=1.0 and z=2.0 → ~13.5%).</li>
+    </ul>
+  </section>
+
+  <section id="5-5">
+    <h2>5.5 Normal Probability Plots</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Normal probability plots (NPPs) check Normality: plot ordered data vs. expected Normal scores; straight ≈ Normal.</li>
+      <li>Systematic curvature indicates departures: S-shape for heavy tails, concave/convex for skew.</li>
+      <li>NPPs often reveal non-Normality more clearly than histograms; always pair with a distribution plot for context.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><span class="subhead">Normal scores:</span> Expected z-values for ordered data under N(0,1). Meaning: benchmark to compare sample quantiles to Normal quantiles.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Nissan mpg:</strong> NPP nearly straight with minor low-end deviation; Normal model reasonable.</li>
+      <li><strong>NHANES weights:</strong> Histogram right-skewed; NPP curved upward in upper tail → Normal model poor.</li>
+    </ul>
+  </section>
+</body>
+</html>

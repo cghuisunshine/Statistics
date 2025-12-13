@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Variables – Chapter 13 Tutorial</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 32px; background: #f9fafb; color: #111; line-height: 1.6; }
+    h1, h2, h3 { margin: 0 0 8px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; margin-top: 24px; }
+    h3 { font-size: 18px; margin-top: 16px; }
+    section { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 20px; margin-bottom: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+    ul { margin: 6px 0 12px 18px; }
+    li { margin-bottom: 6px; }
+    .formula { padding: 10px 12px; background: #f3f4f6; border-left: 4px solid #0ea5e9; font-family: "SFMono-Regular", Consolas, monospace; font-size: 14px; border-radius: 4px; margin: 6px 0 10px; }
+    .example { padding: 10px 12px; background: #ecfeff; border: 1px solid #bae6fd; border-radius: 6px; font-size: 14px; margin: 6px 0 10px; }
+  </style>
+</head>
+<body>
+  <h1>Random Variables – Chapter 13 Tutorial</h1>
+
+  <section id="13-1">
+    <h2>13.1 Centre: The Expected Value or Mean</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Random variables assign numbers to random outcomes; discrete ones are listable, continuous ones span intervals.</li>
+      <li>A probability model lists all outcomes with probabilities that sum to 1.</li>
+      <li>Expected value is the long-run average outcome over many repetitions.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <div class="formula">E(X) = Σ x · P(X = x)</div>
+    <ul>
+      <li>Compute the long-run average by weighting each value by its probability; units match X.</li>
+      <li>By the Law of Large Numbers, the sample mean of many trials settles near E(X).</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Insurance:</strong> Payouts of $10 000 (p = 0.001), $5000 (p = 0.002), $0 otherwise → E(X) = $20. Meaning: across many policies, average payout is $20 per policy.</li>
+    </ul>
+  </section>
+
+  <section id="13-2">
+    <h2>13.2 Spread: The Variance and Standard Deviation</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Spread shows how far outcomes wander from the mean.</li>
+      <li>Variance averages squared deviations; SD is the square root (same units as X).</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <div class="formula">Var(X) = Σ (x − μ)² · P(X = x)</div>
+    <div class="formula">SD(X) = √Var(X)</div>
+    <ul>
+      <li>Variance measures average squared distance from the mean; SD measures typical deviation in original units.</li>
+      <li>Shortcut: Var(X) = Σ x²·P(X = x) − μ².</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Restaurant discount:</strong> μ = $5.83, Var ≈ 74.306 → SD ≈ $8.62, so discounts typically differ by about $8.62 from the mean.</li>
+    </ul>
+  </section>
+
+  <section id="13-3">
+    <h2>13.3 Combining Random Variables</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Adding a constant shifts the mean only; scaling stretches both mean and spread.</li>
+      <li>Means always add/subtract; variances add only for independent variables.</li>
+      <li>Use distinct symbols (X₁, X₂, …) for separate instances of the same random process.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <div class="formula">E(X ± c) = E(X) ± c; Var(X ± c) = Var(X)</div>
+    <div class="formula">E(aX) = a·E(X); Var(aX) = a²·Var(X); SD(aX) = |a|·SD(X)</div>
+    <div class="formula">E(X ± Y) = E(X) ± E(Y)</div>
+    <div class="formula">If independent, Var(X ± Y) = Var(X) + Var(Y)</div>
+    <ul>
+      <li>Shifts change centre only; scaling changes centre and spread (variance scales by the square).</li>
+      <li>Variance accumulation reflects combined unpredictability; applies to sums and differences when independent.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Two policies vs. one:</strong> Two independent $10 000 policies (each SD ≈ $387) → SD of total ≈ $547, smaller than one $20 000 policy (SD ≈ $774). Spreading risk lowers variability.</li>
+    </ul>
+  </section>
+
+  <section id="13-4">
+    <h2>13.4 The Binomial Model</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Bernoulli trials: two outcomes, constant success chance p, independent trials.</li>
+      <li>Binomial counts successes in n trials; parameters are n and p.</li>
+      <li>If sampling without replacement, treat trials as independent when sample &lt; 10% of the population.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <div class="formula">P(X = k) = (n choose k) · p^k · q^(n−k), q = 1 − p</div>
+    <div class="formula">μ = np; σ = √(npq)</div>
+    <ul>
+      <li>Counts ways to place k successes and multiplies by the chance of any one sequence.</li>
+      <li>Expect np successes on average; σ shows typical fluctuation around that count.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Five cereal boxes, p = 0.2:</strong> P(X = 2) = 10·(0.2)²·(0.8)³ ≈ 0.205; μ = 1, σ ≈ 0.89. Expect about one De Grasse card, usually within ±1.</li>
+      <li><strong>20 donors, p(O−) = 0.06:</strong> μ = 1.2, σ ≈ 1.06; P(2 or 3) ≈ 0.311.</li>
+    </ul>
+  </section>
+
+  <section id="13-5">
+    <h2>13.5 The Poisson Model (rare events)</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Approximates Binomial when n is large and p is tiny; also used directly for counts over time/space at a constant average rate.</li>
+      <li>Single parameter λ equals the mean count and scales with the size of the observation window.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <div class="formula">P(X = k) = e^{−λ} · λ^k / k!</div>
+    <div class="formula">E(X) = λ; SD(X) = √λ</div>
+    <ul>
+      <li>Gives probability of exactly k occurrences; centre and spread both derive from λ.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Leukemia cluster:</strong> λ = 3.85 expected cases; P(X ≥ 8) ≈ 0.043. Eight cases are uncommon but possible by chance.</li>
+    </ul>
+  </section>
+
+  <section id="13-6">
+    <h2>13.6 Continuous Models</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>For continuous variables, P(X = exact value) = 0; probabilities come from areas under a density curve.</li>
+      <li>Uniform model: flat density over (a, b); Normal model often fits natural variation.</li>
+      <li>Sums/differences of independent Normals are Normal; means add, variances add.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <div class="formula">Uniform (a, b): density = 1/(b − a); P(c ≤ X ≤ d) = (d − c)/(b − a)</div>
+    <div class="formula">Uniform mean μ = (a + b)/2; Var = (b − a)²/12</div>
+    <div class="formula">If X ~ N(μ₁, σ₁), Y ~ N(μ₂, σ₂) independent, then X ± Y ~ N(μ₁ ± μ₂, √(σ₁² + σ₂²))</div>
+    <ul>
+      <li>Uniform: every same-length sub-interval is equally likely; mean sits at the midpoint.</li>
+      <li>Normal sums retain Normal shape, letting you combine times or measurements easily.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>Uniform wait 0–8 min:</strong> density 0.125; P(2–4) = 0.25; μ = 4 min.</li>
+      <li><strong>Stereo packing:</strong> Two Normal(9, 1.5) times → total Normal(18, 2.12); P(total &gt; 20) ≈ 0.17. Packing − boxing: Normal(3, 1.8); ~95% take longer to pack than box.</li>
+    </ul>
+  </section>
+
+  <section id="13-7">
+    <h2>13.7 Approximating the Binomial with a Normal Model</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Use Normal approximation when expected successes and failures are each ≥ 10 (Success/Failure Condition).</li>
+      <li>Match the Binomial’s mean and SD: μ = np, σ = √(npq).</li>
+      <li>Useful when n is large and exact Binomial calculations are unwieldy.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <div class="formula">If np ≥ 10 and nq ≥ 10, approximate Binom(n, p) with N(np, √(npq))</div>
+    <ul>
+      <li>Replaces a discrete histogram with a smooth curve to get tail areas quickly.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>32 000 donors, p(O−) = 0.06:</strong> μ = 1920, σ ≈ 42.5; P(X &lt; 1850) ≈ P(z &lt; −1.65) ≈ 0.05 → about a 5% shortage risk.</li>
+    </ul>
+  </section>
+
+  <section id="13-8">
+    <h2>13.8 Continuity Correction</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>When using a Normal to approximate discrete counts, adjust endpoints by 0.5 for better accuracy.</li>
+      <li>Correction matters most for single values or narrow ranges; effect shrinks for wide ranges or very large n.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <div class="formula">Approximate P(X = k) with P(k − 0.5 ≤ Y ≤ k + 0.5) on the Normal model</div>
+    <div class="formula">Approximate P(a ≤ X ≤ b) with P(a − 0.5 ≤ Y ≤ b + 0.5)</div>
+    <ul>
+      <li>Extends each count to the width of its bar so the continuous curve matches the discrete probability mass.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <ul>
+      <li><strong>LCD panels, n = 500, p = 0.07:</strong> μ = 35, σ ≈ 5.7; P(X ≥ 40) ≈ P(Y ≥ 39.5) on N(35, 5.7) ≈ 0.215. The ±0.5 adjustment nudges the estimate toward the exact Binomial.</li>
+    </ul>
+  </section>
+</body>
+</html>

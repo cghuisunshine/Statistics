@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chapter 24 Notes: Analysis of Variance</title>
+  <style>
+    body { font-family: Georgia, "Times New Roman", serif; margin: 2rem; line-height: 1.6; color: #1e1e1e; }
+    h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+    h2 { font-size: 1.6rem; margin-top: 1.5rem; }
+    h3 { font-size: 1.25rem; margin-top: 1rem; }
+    section { margin-bottom: 2rem; }
+    ul { margin: 0.4rem 0 0 1.3rem; }
+    code { background: #f5f5f5; padding: 0.1rem 0.3rem; border-radius: 3px; }
+    .example { background: #eef6ff; padding: 0.7rem 1rem; border-left: 4px solid #4a90e2; margin-top: 0.7rem; }
+  </style>
+</head>
+<body>
+  <h1>Chapter 24: Analysis of Variance</h1>
+
+  <section>
+    <h2>24.1 Testing Whether the Means of Several Groups Are Equal</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>ANOVA compares the spread of group means to the spread found inside the groups, replacing pairwise mean differences.</li>
+      <li>The F-test rejects the null that all means are equal when the between-group spread dwarfs the within-group noise.</li>
+      <li>The F-statistic generalizes the pooled t-test; it tells us how many times the signal is wider than the noise.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><code>F = MST / MSE</code> — The ratio of the between-group mean square to the pooled within-group mean square. Since both are in squared units of the response (e.g., colonies²), the result is unitless and highlights how much stronger the treatment effects are than the sampling noise.</li>
+      <li><code>MST = SST / (k - 1)</code> with <code>SST = Σ nj (ȳj - ȳ)²</code> — This sums the squared deviations of each treatment mean from the grand mean, weighted by its sample size, and then averages them over <code>k - 1</code> degrees of freedom.</li>
+      <li><code>MSE = SSE / (N - k)</code> with <code>SSE = ΣΣ (yij - ȳj)²</code> — This pools the deviations inside each group and divides by the residual degrees of freedom, yielding a variance estimate in the response units squared.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      The hand-washing experiment produced <code>MST = 9960.64</code> and <code>MSE = 1410.14</code>, so <code>F = 7.06</code>. With 3 and 28 degrees of freedom, the p-value is 0.0011, giving strong evidence that not every washing method leads to the same average germ count.
+    </div>
+  </section>
+
+  <section>
+    <h2>24.2 The Analysis of Variance (ANOVA)</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>The ANOVA table records sums of squares, degrees of freedom, mean squares, and the F-test in one place.</li>
+      <li>Every observation is deconstructed into the grand mean, treatment effect, and residual so we can assign variation to sources.</li>
+      <li>The identity <code>SSTotal = SST + SSE</code> ensures the total variability equals the sum of treatment and error variability.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><code>yij = ȳ + (ȳj - ȳ) + (yij - ȳj)</code> — Split each observation into the overall grand mean, the adjustment for its treatment, and the residual. All terms share the same units as the response variable (e.g., colonies or degrees).</li>
+      <li><code>SSTotal = ΣΣ (yij - ȳ)²</code>, <code>SST = Σ nj (ȳj - ȳ)²</code>, <code>SSE = ΣΣ (yij - ȳj)²</code> — Total, treatment, and residual sums of squares capture how much variation comes from each source, and since they add, the ANOVA table balances.</li>
+      <li><code>sp = √MSE</code> — The pooled standard deviation brings the pooled variance back to the response units; it is what Grade 11–12 students can compare to the spreads seen in the boxplots.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      The hand-washing data show the decomposition: <code>SST = 29,882</code>, <code>SSE = 39,484</code>, and <code>SSTotal = 69,366</code>. The pooled standard deviation is <code>sp ≈ √1410.14 ≈ 37.6</code> colonies, matching the variability observed within each method.
+    </div>
+  </section>
+
+  <section>
+    <h2>24.3 Assumptions and Conditions</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>Always inspect side-by-side boxplots to spot outliers, skew, or unequal spreads before running ANOVA.</li>
+      <li>Check independence via randomization, the Similar Spread Condition for equal variances, and the Nearly Normal Condition through residual plots.</li>
+      <li>If there is systematic thickening in residual plots or skew, consider a re-expression (e.g., log or square root) before trusting the inference.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><code>Residual = yij - ȳj</code> — A residual measures how much an observation differs from its treatment mean; plotting these residuals helps assess equal variance and normality.</li>
+      <li><code>sp = √MSE</code> — Because the residuals across all groups were used to compute MSE, the pooled standard deviation reflects the typical spread and is the quantity against which individual group spreads should be compared.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      In the hand-washing study, the residual boxplots by method and residuals-versus-predicted plot show no widening, supporting the Similar Spread Condition. The Normal probability plot is also nearly straight, so the Nearly Normal Condition is acceptable despite a barely outlying Soap measurement.
+    </div>
+  </section>
+
+  <section>
+    <h2>24.4 Comparing Means</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>After rejecting the global null, use pooled t-tests or confidence intervals to compare specific pairs of means.</li>
+      <li>The pooled standard deviation <code>sp</code> is reused for every pair so that comparisons borrow strength from all data.</li>
+      <li>Multiple comparisons (Bonferroni, Tukey HSD, etc.) adjust the critical value or margin of error so that the overall Type I error stays at the chosen level.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><code>SE(ȳ1 - ȳ2) = sp √(1/n1 + 1/n2)</code> — The standard error of the difference uses the pooled spread and the sizes of both groups, keeping the units of the response.</li>
+      <li><code>LSD = t* · sp √(1/n1 + 1/n2)</code> — The least significant difference multiplies the standard error by the two-sided t-critical value (with <code>N - k</code> degrees of freedom). Differences exceeding the LSD are statistically significant at the per-comparison alpha.</li>
+      <li><code>MSD = t** · sp √(1/n1 + 1/n2)</code> where <code>t**</code> comes from confidence level <code>1 - α/J</code> — For Bonferroni adjustments across <code>J</code> comparisons, the critical value is larger so that the simultaneous confidence level stays at <code>1 - α</code>. The MSD is the widened version of the LSD.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      Comparing water and antibacterial soap yields a difference of 24.5 colonies with a standard error of 18.78, so <code>t = 1.31</code> and the 95% interval includes zero. The LSD for α = 0.05 is 38.45 colonies, so the pair is not significant. When adjusting for three comparisons against alcohol spray via Bonferroni, the critical value rises to <code>t** = 2.546</code>, giving MSD = 47.69 colonies to guard the overall 5% Type I error.
+    </div>
+  </section>
+
+  <section>
+    <h2>24.5 ANOVA on Observational Data</h2>
+    <h3>Key ideas</h3>
+    <ul>
+      <li>ANOVA formulas stay the same for observational data, but we can no longer draw causal conclusions because treatments were not randomized.</li>
+      <li>Observational studies are usually unbalanced and messy; re-expressing the response (e.g., square root) often equalizes spreads and removes skew.</li>
+      <li>Always reflect on the sampling process and be cautious when generalizing beyond the observed population.</li>
+    </ul>
+    <h3>Important formulas &amp; their meaning</h3>
+    <ul>
+      <li><code>yij = μ + τj + εij</code> — The model still expresses each observation as an overall mean plus a group-specific effect and random error, but now the group labels originate from natural categories (e.g., sex and athlete status) rather than randomized treatments.</li>
+      <li>Re-expression (e.g., <code>r = √(TV hours)</code>) — Transformations change the units but can bring distributions closer to Normal and equalize spreads so that the ANOVA assumptions become more believable.</li>
+    </ul>
+    <h3>Short example(s)</h3>
+    <div class="example">
+      University TV-viewing data showed skewed boxes with rising spreads, so the square root of hours gave similar spreads and no outliers. ANOVA on the transformed data produced a significant F-statistic, and Bonferroni comparisons revealed that male athletes watch significantly more TV than the other groups, although the observational nature of the study means we cannot claim causality beyond the sampled week.
+    </div>
+  </section>
+</body>
+</html>

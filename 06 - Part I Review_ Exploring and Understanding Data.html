@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Part I Review – Exploring and Understanding Data</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 32px; background: #f9fafb; color: #111; line-height: 1.6; }
+    h1, h2, h3 { margin: 0 0 8px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; margin-top: 24px; }
+    ul { margin: 6px 0 12px 18px; }
+    li { margin-bottom: 6px; }
+    section { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 20px; margin-bottom: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+    .subhead { font-weight: 700; }
+  </style>
+</head>
+<body>
+  <h1>Part I Review – Exploring and Understanding Data</h1>
+
+  <section>
+    <h2>Quick Review of Core Ideas</h2>
+    <ul>
+      <li><span class="subhead">Categorical vs. quantitative:</span> Choose displays and summaries that match the variable type.</li>
+      <li><span class="subhead">Categorical tools:</span> Frequency/relative frequency tables; bar and pie/segmented bar charts; side-by-side comparisons; conditional distributions for associations.</li>
+      <li><span class="subhead">Quantitative tools:</span> Histograms, boxplots, stem-and-leaf, dotplots; describe shape (modes, symmetry/skew), centre, spread, and unusual features (gaps/outliers).</li>
+      <li><span class="subhead">Summaries:</span> 5-number summary (min, Q1, median, Q3, max) and IQR for resistant centre/spread; mean and sd for unimodal symmetric data; always pair centre with spread.</li>
+      <li><span class="subhead">Transforms:</span> Re-express skewed-right data with logs/square roots/reciprocals to improve symmetry or equalize spreads across groups.</li>
+      <li><span class="subhead">Standard deviation as ruler:</span> z-scores compare values across scales; shifting shifts position only; rescaling multiplies position and spread.</li>
+      <li><span class="subhead">Normal model:</span> Use when Nearly Normal (unimodal, symmetric); 68–95–99.7 Rule gives quick area estimates; NPP/histogram check fit.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Worked Reminders</h2>
+    <ul>
+      <li><span class="subhead">Comparing groups:</span> Use consistent scales; boxplots side-by-side for many groups (months, regions); conditional distributions for categorical vs. categorical.</li>
+      <li><span class="subhead">Outliers:</span> Investigate, correct if error; report analyses with/without if impactful; context can change outlier status.</li>
+      <li><span class="subhead">Timeplots:</span> Plot in order; smoothers (moving average/lowess) reveal trend/seasonality; beware of over-forecasting.</li>
+      <li><span class="subhead">Percentiles in Normal:</span> Standardize then use table/tech; sketch to avoid sign mistakes; Chebyshev gives conservative bounds if not Normal.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>High-Level Strategy for Exercises</h2>
+    <ul>
+      <li>Identify W’s (Who, What, When, Where, Why, How); classify variables; choose displays accordingly.</li>
+      <li>For skewed quantitative data: median + IQR; consider log/sqrt re-expression if heavily skewed.</li>
+      <li>For symmetric unimodal data: mean + sd; 68–95–99.7 Rule for quick probabilities.</li>
+      <li>Compare groups with aligned scales; boxplots for many groups, histograms/dotplots/stems for small samples.</li>
+      <li>When modelling Normal: verify Nearly Normal with histogram/NPP; standardize to z for percentile questions.</li>
+    </ul>
+  </section>
+</body>
+</html>

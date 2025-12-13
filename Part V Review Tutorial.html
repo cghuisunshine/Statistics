@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Part V Review Tutorial</title>
+  <style>
+    body { font-family: Georgia, "Times New Roman", serif; line-height: 1.5; padding: 1rem; }
+    h1, h2 { color: #2a3b4c; }
+    ul { margin-bottom: 1rem; }
+    ol { margin-left: 1.2rem; }
+    strong { color: #1d6d9c; }
+    .example { margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Quick Review</h1>
+  <h2>Key ideas</h2>
+  <ul>
+    <li>Sampling models describe how statistics from random samples wiggle around true population values; the Central Limit Theorem assures us that the wiggle often follows a Normal curve once the sample is large enough.</li>
+    <li>Confidence intervals pair an estimate with a margin of error to offer a plausible range for a parameter; more confidence or smaller samples expand that range.</li>
+    <li>Hypothesis tests begin with a null claim and measure how surprising the observed statistics are; surprising data produce small P-values and lead us to reject the null.</li>
+    <li>All inference requires checking assumptions (random sampling, independence, and adequate size for the Normal approximation) before trusting the results.</li>
+    <li>Type I errors happen when a true null is wrongly rejected, Type II when a false null survives, and test power is the chance of catching false nulls—power rises with larger samples or stronger effects but falls when proofs are too strict.</li>
+  </ul>
+
+  <h2>Important formulas &amp; their meaning</h2>
+  <ol>
+    <li>
+      <strong>Central Limit Theorem (CLT)</strong> – Large, random samples make statistics behave like a Normal distribution centered on the parameter with variability given by the standard error.<br />
+      <em>Meaning:</em> Even if the raw data are skewed, the average or proportion from big samples looks Normal, so we can safely use Normal-based intervals or tests.<br />
+      <span class="example"><em>Example:</em> For 325 males with 8% colour-blindness, the CLT lets us treat the distribution of sample proportions around 0.08 as Normal.</span>
+    </li>
+    <li>
+      <strong>Standard error of a proportion:</strong> <code>SE_{p̂} = √[p̂(1−p̂)/n]</code>.<br />
+      <em>Meaning:</em> This tells us the typical up-and-down swing of a sample proportion; units are proportion units (decimal or percentage).<br />
+      <span class="example"><em>Example:</em> With 7 leaks among 27 stations, <code>SE ≈ √[0.259×0.741/27] ≈ 0.094</code>, so future samples typically vary by about 9.4 percentage points.</span>
+    </li>
+    <li>
+      <strong>Standard error of a mean:</strong> <code>SE_{x̄} = s/√n</code> when the population standard deviation is unknown.<br />
+      <em>Meaning:</em> It measures the sample-mean wobble in the same units as the data; bigger samples shrink it.<br />
+      <span class="example"><em>Example:</em> Hamster litter data with <code>s = 2.5</code> and <code>n = 47</code> gives <code>SE ≈ 0.364</code> hamsters.</span>
+    </li>
+    <li>
+      <strong>CI for a proportion:</strong> <code>p̂ ± z* × SE_{p̂}</code>.<br />
+      <em>Meaning:</em> Add and subtract a multiplier times the standard error from the estimate to get a range where the true proportion likely lies; higher confidence increases <code>z*</code> and widens the interval.<br />
+      <span class="example"><em>Example:</em> A 95% CI for 82% Net-newsers is approximately <code>0.82 ± 1.96×0.018 ≈ (0.78, 0.86)</code>.</span>
+    </li>
+    <li>
+      <strong>CI for a mean:</strong> <code>x̄ ± t* × (s/√n)</code> with a t-multiplier.<br />
+      <em>Meaning:</em> Because we estimate σ with <code>s</code>, the t-distribution gives a slightly larger multiplier to reflect extra uncertainty.<br />
+      <span class="example"><em>Example:</em> The 90% CI for the hamster mean is about <code>7.72 ± 1.68×0.364 ≈ (7.11, 8.33)</code>.</span>
+    </li>
+    <li>
+      <strong>Test statistic:</strong> <code>z = (statistic − hypothesized value)/SE</code> (use <code>t</code> when appropriate).<br />
+      <em>Meaning:</em> This standardizes how far the sample statistic is from the null value in SE units; large magnitudes are surprising.<br />
+      <span class="example"><em>Example:</em> Testing whether the leak rate dropped below 40% gives <code>z ≈ (0.259 − 0.40)/0.094 ≈ −1.5</code>.</span>
+    </li>
+    <li>
+      <strong>P-value:</strong> Probability of observing data as extreme as the sample if the null is true.<br />
+      <em>Meaning:</em> It quantifies how well the data fit the null. Small P-values (below the chosen α) motivate rejection; large ones keep us with the null.<br />
+      <span class="example"><em>Example:</em> A P-value around 0.13 for the leak test means a 13% chance of such a low proportion under the 40% null, so we wouldn’t reject.</span>
+    </li>
+    <li>
+      <strong>Type I/II errors and power:</strong> Type I errors reject a true null; Type II errors fail to reject a false null; power = 1 − P(Type II).<br />
+      <em>Meaning:</em> There’s a trade-off: lowering α reduces Type I risk but raises Type II risk; more data or stronger signals increase power.<br />
+      <span class="example"><em>Example:</em> In the battery-life test, keeping α = 0.05 keeps Type I chance low but raises the risk of missing a true 98-hour mean unless we add more batteries.</span>
+    </li>
+  </ol>
+
+  <h2>Short example(s)</h2>
+  <ul>
+    <li><strong>Whole wheat bread exercise:</strong> With 48 of 86 children choosing white, we set up <code>H₀: p = 0.5</code> vs. <code>Hₐ: p ≠ 0.5</code> and compute a Z-test to assess whether the preference deviates from the “equal” claim.</li>
+    <li><strong>Colour-blindness in a class:</strong> The sampling model for the proportion among 325 males centers on 8% with SE ≈ 1.5%; the 68–95–99.7 rule shows that most semesters stay within 3 percentage points.</li>
+    <li><strong>Hamster litters:</strong> A 90% CI of roughly (7.11, 8.33) explains that we’re 90% confident the average litter size lies in that interval.</li>
+  </ul>
+
+  <h1>Review Exercises</h1>
+  <h2>Key ideas</h2>
+  <ul>
+    <li>The exercises reinforce checking CLT conditions (random sampling, independence, large enough counts or approximately Normal populations) before building intervals or tests.</li>
+    <li>They frame contexts from polls to biology to manufacturing, showing how to translate stories into hypotheses, estimate margins of error, and interpret P-values.</li>
+    <li>Several problems tackle study planning—solving for the sample size needed to hit a desired margin of error, or comparing margins from differently sized subgroups (e.g., CN vs. TPS vs. Ontario).</li>
+    <li>Practical issues like autocorrelation, bias, and bimodal populations show when a Normal model may mislead.</li>
+  </ul>
+
+  <h2>Important formulas &amp; their meaning</h2>
+  <ol>
+    <li>
+      <strong>Sample size for a requested margin of error (proportion):</strong> <code>n ≈ (z*/ME)² × p̂(1−p̂)</code> (use 0.25 for the worst-case variance when p̂ is unknown).<br />
+      <em>Meaning:</em> Solve for how many responses are needed to achieve the desired confidence width. It outputs a count of observations, and plugging 0.5 yields the safest (largest) requirement.<br />
+      <span class="example"><em>Example:</em> To get a 90% CI with a 4% margin of error for binge-drinking prevalence, we need roughly <code>(1.645/0.04)²×0.25 ≈ 423</code> students.</span>
+    </li>
+    <li>
+      <strong>Sample size for means:</strong> <code>n ≈ (t* s / ME)²</code> with <code>t*</code> reflecting the desired confidence.<br />
+      <em>Meaning:</em> This tells us how many measurements we must collect so that the interval around the sample mean stays within the target margin.<br />
+      <span class="example"><em>Example:</em> Tobermory Bakery wants a 95% CI with a ±2-loaf margin, so with <code>s ≈ 9</code>, we need about 80 days of sales data.</span>
+    </li>
+    <li>
+      <strong>Power considerations:</strong> Increasing <code>n</code> lowers SE and raises the test statistic when the alternative is true, which decreases the P-value and lifts power; raising α (like switching from 0.01 to 0.05) also raises power, whereas demanding a lower α reduces power.<br />
+      <em>Meaning:</em> Power is the test’s sensitivity to detect real effects; plan your sample size and α trade-offs to hit an acceptable power level.<br />
+      <span class="example"><em>Example:</em> In the “Fried PCs” detection problem, increasing allowable α by 2% increases power substantially because more of the sampling curve falls into the rejection zone.</span>
+    </li>
+    <li>
+      <strong>Margin of error comparisons:</strong> <code>ME = z* × SE</code>; smaller SE or smaller <code>z*</code> (lower confidence level) tightens the interval.<br />
+      <em>Meaning:</em> This explains why a 95% CI is wider than a 90% CI and why a larger sample shrinks the interval.<br />
+      <span class="example"><em>Example:</em> Seneca students’ Internet-use CI is wider at 95% confidence than at 90% because <code>z*</code> jumps from 1.645 to 1.96.</span>
+    </li>
+  </ol>
+
+  <h2>Short example(s)</h2>
+  <ul>
+    <li><strong>Leaky gas program (Exercise 5):</strong> Testing <code>H₀: p = 0.40</code> vs. <code>Hₐ: p &lt; 0.40</code> with 27 stations and 7 leaks produces a moderate P-value, showing the new program might be helping but more data are needed for solid proof.</li>
+    <li><strong>Vitamin D deficiency (Exercise 12):</strong> With 31% deficiency in a large AusDiab sample, a 95% CI quantifies the range of plausible population values, and “95% confidence” means 95% of such intervals would capture the true proportion if the study were repeated many times.</li>
+    <li><strong>Name recognition (Exercises 33–34):</strong> The agency uses upper-tail tests because it seeks evidence of recognition above 25%; an observed 27% that fails to reach significance is a Type II error, and a more famous athlete (true 30%) would give higher power.</li>
+  </ul>
+</body>
+</html>

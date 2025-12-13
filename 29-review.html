@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Part VI Review: Assessing Associations Between Variables</title>
+</head>
+<body>
+  <h2>Quick Review</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Inference about relationships lets us move from sample facts (crawling ages, birth weights, reading scores) to conclusions about how variables behave in the world.</li>
+    <li>Confidence intervals estimate plausible ranges for parameters, while hypothesis tests assess the plausibility of an assumed model.</li>
+    <li>Normal (z), Student’s t, chi-square, and regression models each serve different types of questions; all rely on checking the right assumptions.</li>
+    <li>Especially in regression, inspect scatterplots and residual plots before trusting the straight-line form.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li>
+      <strong>Confidence interval:</strong>
+      <code>estimate ± z*SE</code> (or <code>t*</code> when σ is unknown). The interval lists all parameter values consistent with the data; its units match the quantity being estimated (weeks, grams, percentage points). For example, the CI for the difference in birth weights between First Nations and Chinese-origin babies uses the two means, the pooled SE (<code>√(s₁²/n₁ + s₂²/n₂)</code>), and a t critical value to give a plausible range in grams.
+    </li>
+    <li>
+      <strong>Hypothesis test statistic:</strong>
+      <code>(estimate – null value)/SE</code>. The resulting z or t measures how many SEs the sample result lies from the null. In the perfect-pitch study (7% vs. 32%), the null of equal proportions gives a large z (≈), a minuscule P-value (~0.0001), and thus strong evidence against the null.
+    </li>
+    <li>
+      <strong>Central Limit Theorem (CLT):</strong>
+      For large samples, the sampling distribution of proportions or means is approximately Normal. This justifies using Normal-based methods for the preterm twin rates (20/43 vs. 26/48) once each success and failure count exceeds 10.
+    </li>
+    <li>
+      <strong>Student’s t distribution:</strong>
+      When σ is unknown, replace it with the sample SD and use t with df = n–1 (or technology-provided df). The paired maze experiment uses a t model on differences; the mean difference ± t*SE captures how the scent affects completion times while acknowledging the extra uncertainty from estimating SD.
+    </li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <ul>
+    <li>
+      <strong>Crawling age comparison:</strong> January vs. July baby means differ by −3.8 weeks. A two-sample t-test divides that difference by the unpooled SE to yield a t statistic; the accompanying CI highlights the range of weeks where the true difference likely falls.
+    </li>
+  </ul>
+
+  <h2>Assumptions for Inference</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Independence is required for every procedure; random sampling or allocation ensures it, while sampling more than 10% without replacement makes the result conservative.</li>
+    <li>Proportion procedures need at least 10 successes and 10 failures; t procedures need roughly Normal populations or residuals; chi-square tests require every expected count ≥ 5.</li>
+    <li>Paired data (e.g., before/after repairs) must be treated via a one-sample t on the differences, not as independent samples.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li>
+      <strong>Success-failure rule:</strong>
+      Ensure <code>np ≥ 10</code> and <code>n(1−p) ≥ 10</code> before using a Normal model for proportions. For the twin preterm example, both 20 and 23 exceed 10, so the Normal approximation holds.
+    </li>
+    <li>
+      <strong>Chi-square expected counts:</strong>
+      <code>expected = (row total × column total)/grand total</code>, and every expected count must be ≥ 5. The genetics class’s 1:3:3:9 ratio yields expected counts well above 5, so the chi-square goodness-of-fit test is valid.
+    </li>
+    <li>
+      <strong>Normality for t/regression:</strong>
+      Inspect histograms or Normal probability plots (or residual histograms). The pottery aluminum oxide study and the tableware regression both reported approximately Normal residuals, justifying the t or regression inference.
+    </li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <ul>
+    <li>
+      <strong>BC birth weights:</strong>
+      Before comparing the two ethnic groups, confirm independence (each newborn is distinct), sufficient sample size, and that the weight histograms are fairly symmetric so the two-sample t procedure is trustworthy.
+    </li>
+  </ul>
+
+  <h2>Quick Guide to Inference</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Ask “one sample or two?”, “quantitative or categorical?”, “paired or independent?” to choose the right model (z, t, χ², regression).</li>
+    <li>The guide organizes procedures for proportions (z intervals/tests), means (t intervals/tests), categorical distributions (χ² models), and linear regression (t intervals/tests for slopes and prediction intervals for values).</li>
+    <li>Technology typically supplies degrees of freedom for two-sample t’s, and plotting residuals helps validate linear regression assumptions.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li>
+      <strong>1-Proportion SE:</strong> <code>√[p(1−p)/n]</code>. When estimating the proportion of preterm twins in 1990 (20/43), this SE quantifies how much the sample proportion might bounce around.
+    </li>
+    <li>
+      <strong>2-Proportion SE:</strong> <code>√[p₁(1−p₁)/n₁ + p₂(1−p₂)/n₂]</code>. In the perfect-pitch study, it scales the observed 25-point difference before converting to a z statistic and P-value.
+    </li>
+    <li>
+      <strong>2-Sample Mean SE (unpooled):</strong> <code>√[s₁²/n₁ + s₂²/n₂]</code>. The Ashley Rails vs. New Forest aluminum oxide means use this SE to build a 95% CI for the difference in percentages.
+    </li>
+    <li>
+      <strong>Paired t SE:</strong> <code>s_d/√n</code> where <code>s_d</code> is the SD of differences. The maze experiment transforms each subject’s scented-minus-unscented time into one difference and uses this SE to test whether scent matters.
+    </li>
+    <li>
+      <strong>Chi-square statistic:</strong> <code>Σ (observed − expected)² / expected</code>. Comparing the observed tongue-rolling counts to the expected 1:3:3:9 distribution reveals whether the genetics model fits.
+    </li>
+    <li>
+      <strong>Regression slope t:</strong> <code>t = b₁ / SE(b₁)</code>, with <code>SE(b₁) = s / √Σ(xᵢ − x̄)²</code>. The tableware regression reports <code>b₁ ≈ 2.49</code> dollars per minute and <code>SE = 0.1416</code>, so t ≈ 17.6, producing a precise CI for the slope (dollars per minute of polishing).
+    </li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <ul>
+    <li>
+      <strong>Regression prediction:</strong> Given the fitted line between cottage cheese and ice cream sales, plug in 82 million pounds of cottage cheese to predict ice cream sales and build a 95% prediction interval that accounts for both slope uncertainty and residual variability.
+    </li>
+  </ul>
+
+  <h2>Review Exercises</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>These mixed problems require numbering the right inference procedure, checking its assumptions, and interpreting the CI or P-value in context.</li>
+    <li>Covers two-sample means, paired t, proportion comparisons, chi-square (goodness-of-fit, homogeneity, independence), and regression, so listen for cues like “paired,” “counts,” or “associated with.”</li>
+    <li>Translate conclusions back to the research narrative (e.g., “Does the scent improve maze performance?” or “Is ALS more common among athletes?”).</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li>
+      <strong>Margin of Error (ME):</strong> <code>critical value × SE</code>. For the burglary loss CI of ($1644, $2391), ME = ($2391 − $1644)/2 = $373.50, so we’re ±$373.50 around the point estimate.
+    </li>
+    <li>
+      <strong>P-value interpretation:</strong> Probability of getting a statistic as extreme as the one observed if the null is true. In the cracker–bloat chi-square, a small P-value suggests the type of cracker is linked to bloating severity.
+    </li>
+    <li>
+      <strong>Type I vs. Type II error:</strong> If the regression recommendation to feed bass natural food turns out to be wrong despite a low P-value, we’d have committed a Type I error; failing to detect a real effect would be Type II.
+    </li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <ul>
+    <li>
+      <strong>Genetics goodness-of-fit:</strong> With 122 students and a 1:3:3:9 expectation, compute expected counts (≈6.8, 20.3, 20.3, 54.6), plug the observed counts into the χ² formula, and interpret the resulting P-value to judge the genetic theory.
+    </li>
+    <li>
+      <strong>Tableware regression:</strong> The slope of 2.49 (dollars/minute) with SE 0.1416 yields a 95% CI of roughly 2.21 to 2.77. That tells us that each extra minute of polishing is associated with about a $2.49 increase in retail price, with high confidence that the true slope lies within that range.
+    </li>
+  </ul>
+</body>
+</html>

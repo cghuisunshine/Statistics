@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sampling Distribution Models (Chapter 14)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { font-family: Arial, sans-serif; line-height: 1.5; padding: 1rem; max-width: 900px; margin: auto; background:#fdfdfd; color:#111; }
+h2 { color:#003366; border-bottom:2px solid #ddd; padding-bottom:0.2rem; }
+h3 { color:#0055aa; }
+ul { margin-top:0.2rem; }
+code { background:#eef; padding:0.1rem 0.3rem; border-radius:3px; }
+.section-note { font-style:italic; color:#444; }
+</style>
+</head>
+<body>
+<p class="section-note">Content drawn from Chapter 14 of <code>18 - 14. Sampling Distribution Models.pdf</code>.</p>
+
+<section>
+  <h2>14.1 Sampling Distribution of a Proportion</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>The sampling distribution describes how a statistic like <code>p<sub>n</sub></code> would scatter over all possible random samples.</li>
+    <li>Simulations reveal that proportions cluster around the true <code>p</code> and often look Normal when the sample is large.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><code>Mean(p<sub>n</sub>) = p</code>: the sample proportion is unbiased—on average it equals the true proportion.</li>
+    <li><code>SD(p<sub>n</sub>) = sqrt(pq/n)</code> with <code>q=1-p</code>: this is the typical deviation in the same units (percentage points); e.g., if <code>p=0.18</code> and <code>n=1000</code>, the SD is ≈0.0121 so two-standard-deviation swings cover ±2.4 points.</li>
+  </ul>
+  <h3>Short example</h3>
+  <ul>
+    <li>A smoking poll with <code>p=0.18</code>, <code>n=1000</code> gives ≈95% of samples within ±2.4 percentage points of 18%, matching the simulation and validating the Normal model.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>14.2 When Does the Normal Model Work?</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Normality improves as <code>n</code> grows and <code>p</code> stays away from 0 or 1.</li>
+    <li>We must ensure independence (random sampling), success/failure counts, and avoid sampling more than 10% of the population unless we adjust.</li>
+    <li>Poorly behaved situations, such as <code>p=0.001</code> with <code>n=1000</code>, produce skewed sampling distributions unsuitable for a Normal model.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><code>Success/Failure:</code> require both <code>np ≥ 10</code> and <code>n(1-p) ≥ 10</code> so the distribution is not dominated by rare outcomes.</li>
+    <li><code>Finite population correction:</code> when <code>n</code> is more than 10% of <code>N</code>, multiply the SD by <code>sqrt((N-n)/(N-1))</code> because sampling without replacement reduces variability.</li>
+  </ul>
+  <h3>Short example</h3>
+  <ul>
+    <li>The hypothetical survey with <code>p=0.001</code> and <code>n=1000</code> shows a right-skewed histogram, so even though the sample is large, the Normal model fails because <code>np</code> and <code>nq</code> are not both ≥10.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>14.3 The Sampling Distribution of Other Statistics</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Median, variance, or minimum statistics can have skewed sampling distributions and are not always approximated by a Normal curve.</li>
+    <li>Means and proportions are special: simulations with dice averages show their distributions tightening and approaching Normality as <code>n</code> increases, independent of the dice’s uniform or skewed original distribution.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li>While no single formula is given here, take away that the shape of a sampling distribution depends on the statistic; only means and proportions have Normality guaranteed (via the CLT) with large enough samples.</li>
+  </ul>
+  <h3>Short example</h3>
+  <ul>
+    <li>Averaging 20 dice results in a clearly Normal histogram, whereas a single-die histogram is uniform—this demonstrates how sample size regularizes means.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>14.4 The Central Limit Theorem</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>The CLT says the sampling distribution of the sample mean is approximately Normal for sufficiently large <code>n</code>, regardless of the population shape (provided the variance is finite and observations are independent).</li>
+    <li>Sample means require far fewer conditions than proportions do, but you still need independence and a sensible sample size; skewed populations may demand much larger <code>n</code>.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li><code>SD(ȳ) = s / √n</code>: the SD of the sample mean is the population SD divided by the square root of the sample size, so the variability shrinks slowly but steadily as <code>n</code> increases.</li>
+    <li><code>Mean(ȳ) = μ</code>: the sample mean centers on the population mean, making ȳ an unbiased estimator.</li>
+  </ul>
+  <h3>Short example</h3>
+  <ul>
+    <li>With adult weights (μ=82 kg, s=16 kg) and 10 randomly chosen men, the average has SD ≈5.06; exceeding 100 kg is a ~0.02% chance, meaning overloading the elevator is extremely unlikely under random selection.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>14.5 Sampling Distributions: A Summary</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Sampling distributions arise because different samples produce different statistics; the Normal model gives us a practical handle for the mean and proportion.</li>
+    <li>Standard deviations of sampling distributions shrink with <code>1/√n</code>, so doubling accuracy requires quadrupling the sample size (Law of Diminishing Returns).</li>
+    <li>Careful distinction between the data distribution (real sample) and the sampling distribution (math model) is essential.</li>
+  </ul>
+  <h3>Important formulas &amp; their meaning</h3>
+  <ul>
+    <li>Sampling distribution for proportions: <code>Normal(p, sqrt(pq/n))</code>.</li>
+    <li>Sampling distribution for means: <code>Normal(μ, s/√n)</code>.</li>
+    <li>Finite population correction: multiply the SD by <code>sqrt((N-n)/(N-1))</code> when sampling without replacement from a not-much-larger population to avoid overestimating variability.</li>
+  </ul>
+  <h3>Short example</h3>
+  <ul>
+    <li>Analysing small schools’ average scores: low <code>n</code> leads to a large sampling-mean SD, so small schools naturally appear in both the top and bottom rankings purely by chance.</li>
+  </ul>
+  <h3>Next steps</h3>
+  <ul>
+    <li>When applying these models, always check the independence/randomization and success/failure (or sample size) conditions, and remember that the CLT describes sampling distributions, not the histogram of the data you actually collected.</li>
+  </ul>
+</section>
+</body>
+</html>

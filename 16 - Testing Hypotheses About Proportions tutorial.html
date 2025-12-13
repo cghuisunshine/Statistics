@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Testing Hypotheses About Proportions (Chapter 16)</title>
+</head>
+<body>
+  <h1>Testing Hypotheses About Proportions (Chapter 16)</h1>
+
+  <h2>16.1 Hypotheses</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>The <strong>null hypothesis (H₀)</strong> is the skeptical default—“nothing has changed”—and always sets a specific parameter value like <code>H₀: p = 0.20</code>.</li>
+    <li>The <strong>alternative hypothesis (Hₐ)</strong> lists the parameter values we consider believable if the null is disproven; it can look for increases, decreases, or any difference.</li>
+    <li>We compare observed proportions to the null model using a standard deviation “ruler” built from the hypothesized value.</li>
+  </ul>
+  <h3>Important formulas & their meaning</h3>
+  <ul>
+    <li><code>H₀: parameter = hypothesized value</code> specifies exactly what claim is being tested, so the sampling model is fully defined.</li>
+    <li><code>Hₐ</code> chooses the direction(s) of interest and decides which tail(s) of the distribution contain evidence.</li>
+    <li><code>SD(p̂) = sqrt(p₀·q₀ / n)</code> (with <code>q₀ = 1 - p₀</code>) gives the spread of sample proportions when the null is true; because <code>p</code> is a proportion, the units remain in the 0–1 range.</li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <p>The ingot plant assumes <code>H₀: p = 0.20</code> and hopes for a drop. With <code>n = 400</code>, the null gives <code>SD(p̂) = 0.02</code>, so any observed <code>p̂</code> can be compared to that variability.</p>
+
+  <h2>16.2 P-Values</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>A <strong>P-value</strong> is the probability of observing the sample result (or something even more extreme) if the null hypothesis is true; it quantifies “reasonable doubt.”</li>
+    <li>Small P-values (e.g., &lt; 0.05) signal surprising data that cast doubt on the null; large P-values mean we fail to reject.</li>
+    <li>Think of the P-value as a conditional probability that allows us to weigh evidence objectively.</li>
+  </ul>
+  <h3>Important formulas & their meaning</h3>
+  <ul>
+    <li><code>z = (p̂ - p₀) / SD(p̂)</code> counts how many standard deviations the sample proportion is away from the null; because the denominator is in proportion units, <code>z</code> itself has no units.</li>
+    <li>One-sided P-value: <code>P(Z ≤ z)</code> or <code>P(Z ≥ z)</code>, depending on the direction. Two-sided P-value: <code>2·P(Z ≥ |z|)</code>. Each formula turns the z-score into a probability via the standard Normal.</li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <p>With <code>p̂ = 0.17</code>, <code>p₀ = 0.20</code>, and <code>SD = 0.02</code>, the z-score is <code>-1.5</code>. The one-sided P-value is <code>P(Z ≤ -1.5) ≈ 0.067</code>, so only 6.7% of samples would produce such a low rate if the true cracking rate were still 20%.</p>
+
+  <h2>16.3 The Reasoning of Hypothesis Testing</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Follow the four steps: <strong>Hypotheses, Model, Mechanics, Conclusion</strong>.</li>
+    <li>Check the <em>conditions</em>: randomization/independence, success/failure counts with <code>n·p₀ ≥ 10</code> and <code>n·q₀ ≥ 10</code>, and the 10% rule.</li>
+    <li>The one-proportion z-test uses the Normal model determined by the null; it is the foundation of testing proportions.</li>
+  </ul>
+  <h3>Important formulas & their meaning</h3>
+  <ul>
+    <li><code>n·p₀ ≥ 10</code> and <code>n·q₀ ≥ 10</code> ensure there are enough expected successes and failures so that the Normal approximation is valid; they count observations, so the unit is “cases.”</li>
+    <li><code>z = (p̂ - p₀) / sqrt(p₀·q₀ / n)</code> is the test statistic that leads to the P-value; the denominator comes from the null model, so the statistic measures surprise under that assumption.</li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <p>In the Ministry of Transportation survey (<code>n = 90</code>, <code>x = 61</code>), the sample proportion is <code>0.678</code>, the null is <code>p₀ = 0.80</code>, the standard deviation is <code>0.042</code>, and <code>z ≈ -2.90</code>. The P-value is <code>0.002</code>, so the evidence is strong enough to reject the null.</p>
+
+  <h2>16.4 Alternative Alternatives</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>Choose the appropriate alternative before looking at the data: two-sided (<code>p ≠ p₀</code>) if any change matters, one-sided (<code>p < p₀</code> or <code>p > p₀</code>) if only one direction matters.</li>
+    <li>One-sided tests halve the two-sided P-value when the data move in the hypothesized direction, but you must justify the choice in advance.</li>
+    <li>Never decide the alternative after seeing the data—decide on the “Why” first.</li>
+  </ul>
+  <h3>Important formulas & their meaning</h3>
+  <ul>
+    <li><code>P-value (two-sided) = 2·P(Z ≥ |z|)</code> reflects the combined chance of witnessing equally extreme deviations in both tails.</li>
+    <li><code>P-value (one-sided) = P(Z ≤ z)</code> or <code>P(Z ≥ z)</code> matches the direction of the alternative; it only uses the relevant tail.</li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <p>The Punjab hospital study had <code>p̂ = 0.569</code> versus <code>p₀ = 0.517</code>, giving <code>z = 2.44</code>. For a two-sided question, the P-value is <code>2·P(Z ≥ 2.44) ≈ 0.0146</code>, which strongly contradicts the null that the proportion equals 51.7%.</p>
+
+  <h2>16.5 P-Values and Decisions</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>The threshold for rejecting the null varies by context: for high-stakes claims (e.g., airplane safety) we demand smaller P-values than for exploratory questions.</li>
+    <li>Always report the P-value alongside your conclusion so others can make their own decisions about the evidence.</li>
+    <li>After a significant test, follow up with a confidence interval to understand how big the effect might be; this links statistical significance to practical importance.</li>
+    <li>Stick to the plan: don’t define hypotheses or alternatives after seeing the data, and remember that “fail to reject” is not the same as “accept.”</li>
+  </ul>
+  <h3>Important formulas & their meaning</h3>
+  <ul>
+    <li><code>SE(p̂) = sqrt(p̂·q̂ / n)</code> estimates how much the sample proportion wiggles when the true proportion is unknown; its units are proportions.</li>
+    <li><code>ME = z* × SE(p̂)</code> gives the margin of error for a confidence interval; <code>z*</code> is the critical value (e.g., 1.96 for 95%), so the interval is <code>p̂ ± ME</code>.</li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <p>Following the Punjab test, <code>SE = 0.0211</code> and <code>ME = 1.96×0.0211 ≈ 0.041</code>, so the 95% confidence interval is <code>(0.528, 0.610)</code>. This interval shows how large the true proportion of male births might be, supplementing the P-value of 0.0146.</p>
+
+  <h2>16.6 Large Sample Tests of Hypotheses</h2>
+  <h3>Key ideas</h3>
+  <ul>
+    <li>For other parameters (e.g., means) with large samples (n ≥ 60), the sampling distribution of the estimator is approximately Normal, so we can form z-tests just like we do with proportions.</li>
+    <li>Check independence, avoid extreme skewness or outliers, and ensure the sample is representative before trusting the Normal approximation.</li>
+  </ul>
+  <h3>Important formulas & their meaning</h3>
+  <ul>
+    <li><code>z = (estimate - hypothesized value) / SD(estimate)</code> generalizes the test statistic: the numerator is the gap between observation and claim, and the denominator is the estimator’s standard deviation under the null.</li>
+    <li>For a mean, <code>SD(ȳ) = s / sqrt(n)</code> and we replace the unknown population SD with the sample SD <code>s</code>, giving <code>SE(ȳ) = s / sqrt(n)</code>. The units remain the same as the original measurement (e.g., ppm).</li>
+  </ul>
+  <h3>Short example(s)</h3>
+  <p>Testing salmon for mirex, the sample mean is <code>0.0913 ppm</code>, <code>s = 0.0495 ppm</code>, and <code>SE = 0.0495/√150 ≈ 0.00404 ppm</code>. The z-score is <code>(0.0913 - 0.08)/0.00404 ≈ 2.80</code>, so <code>P(Z ≥ 2.80) ≈ 0.0026</code>, giving strong evidence that the true mean exceeds the safety threshold.</p>
+</body>
+</html>
